@@ -1,0 +1,21 @@
+@import "../../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap";
+@import "detail";
+@import "index";
+@import "input";
+.loader {
+    border: 7px solid #888888;
+    //Instead of the line below you could use @include border-radius($radius, $vertical-radius)
+    border-radius: 50%;
+    border-bottom: 7px solid #888888;
+    width: 60px;
+    height: 60px;
+    animation: spin 0.75s linear infinite;
+    position: fixed;
+    right: 40%;
+    top: 50%;
+    z-index: 100;
+}
+
+.clearfix {
+    clear: both;
+}

@@ -1,0 +1,107 @@
+<div class="content-wrapper">
+    <!--Page Header-->
+    <div>
+        <h2>Company - city</h2>
+        <div>
+            <div>
+                <strong><i>
+                <span ng-if="product.status == 'notvalid'" style="color: red;">Product is block</span>
+                <span ng-if="product.status == 'valid'" style="color: green">Product is auctioning</span>
+                </i></strong>
+            </div>
+        </div>
+    </div>
+
+    <!--Page Main Content-->
+    <div class="main-info-section">
+        <div class="product-title col-md-9">
+            <div class="cube-color"></div>
+            <div style="padding-left: 32px;">
+                <h2 style="margin:5px;">{{product.name}}</h2>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="product-main-info">
+            <div class="col-md-9 box-content">
+                <div class="col-md-6">
+                    <div class="col-md-1">
+                        <div ng-repeat="media in product.urlMedia">
+                            <a role="button" ng-click="changeMedia(media.url)">
+                                <img ng-src="{{media.url}}" class="thumbnail" alt="{{product.name + $index}}">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-md-11">
+                        <img ng-src="{{currentMedia}}" class="img-responsive" alt="{{product.name}}">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    Info
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="col-md-3">
+                <div class="col-md-12 box-content">
+                    <h3>Thông tin chủ quản</h3>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+
+    <!--Description-->
+    <div class="description-section">
+        <div class="product-description-title">
+            <h3>Thông tin chi tiết</h3>
+        </div>
+        <div class="col-md-9 box-content">
+            <uib-tabset active="active">
+                <uib-tab index="0" heading="Thông tin cá nhân">
+                    <div class="p-a-2 tab-content transition">
+                        <div class="description-wrapper">
+                            {{product.description}}
+                        </div>
+                    </div>
+                </uib-tab>
+                <uib-tab index="1" heading="Thông">
+                    <div class="p-a-2 tab-content transition" ng-if="!preloader">
+                        hehe
+                    </div>
+                </uib-tab>
+            </uib-tabset>
+        </div>
+        <div class="col-md-3 advetise">
+
+        </div>
+    </div>
+
+</div>
+
+<!--<widget class="col-lg-12">
+    <widget-header title="Chương trình đào tạo" icon="fa-drivers-license-o">
+        <input class="form-control input-sm filter-bar" type="text" placeholder="Lọc" ng-model="vm.programFilter" autofocus>
+        <button type="button" class="btn btn-sm btn-danger" ng-click="vm.DeleteProgram()" ng-disabled="vm.selectedProgramIndex === null">Xóa</button>
+        <button type="button" class="btn btn-sm btn-warning" ng-click="vm.EditProgram()" ng-disabled="vm.selectedProgramIndex === null">Sửa</button>
+        <button type="button" class="btn btn-sm btn-primary" ng-click="vm.AddProgram()">Thêm</span></button>
+    </widget-header>
+    <widget-body classes="small no-padding">
+        <table class="table table-hover table-clickable">
+            <thead>
+                <tr>
+                    <th>Khoa</th>
+                    <th>Hệ</th>
+                    <th>Mô tả</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="program in vm.programs | filter:vm.programFilter" ng-class="{active: vm.selectedProgramIndex === $index}" ng-click="vm.SelectProgram($index)">
+                    <td>{{program.faculty}}</td>
+                    <td>{{program.type}}</td>
+                    <td>{{program.description}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </widget-body>
+</widget>-->
+
+<div class="loader" ng-style="!preloader && {'display': 'none'}"></div>

@@ -1,0 +1,66 @@
+.background-fix {
+    background-color: #183544;
+    margin: 0px;
+    border: none;
+    margin-bottom: 1px;
+    border-radius: 0px;
+}
+
+.border-flat {
+    border-radius: 0px;
+}
+
+.text-color {
+    color: #37cfdd !important;
+}
+
+#top {
+    height: 262px;
+    background-image: url('sagaco-imgs/Banner_img.gif');
+}
+
+#nav {
+    background-color: #183544;
+    height: 42px;
+}
+
+#nav ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+#nav li {
+    float: left;
+    /*background-color: #4D7080;*/
+}
+
+#nav a {
+    color: #eee;
+    text-decoration: none;
+    display: inline-block;
+    width: 190px;
+    height: 42px;
+    line-height: 42px;
+    text-align: center;
+    font-weight: bold;
+    background-image: url('/images/BannerSeparate.gif');
+    background-repeat: no-repeat;
+    background-position: top right;
+}
+
+#nav a:hover {
+    color: #fff;
+}
+
+#sep {
+    clear: both;
+}
+
+.side-bar {
+    padding: 5px;
+}
+
+.main-content {
+    padding: 5px;
+}
