@@ -12,7 +12,13 @@ var productAttribute = new Schema({
 
 var media = new Schema({
     url: { type: String, required: true }
-})
+});
+
+var attributes = new Schema({
+    type: { type: String, required: true },
+    title: { type: String, required: true },
+    data: { type: String, required: true }
+});
 
 var productSchema = new Schema({
     name: { type: String, required: true },
@@ -20,7 +26,11 @@ var productSchema = new Schema({
     price: { type: [Number], required: true },
     urlMedia: { type: [media], required: true },
     status: { type: String, default: "notvalid" },
-    attributes: { type: [productAttribute], default: null }
+    attributes: { type: [attributes], default: null },
+    seller: { type: Schema.Types.ObjectId, ref: "Member" },
+    location: { type: String, required: false, default: null },
+    startDate: { type: Number, required: false, default: Date.now() },
+    endDate: { type: Number, required: false, default: Date.now() }
 });
 
 

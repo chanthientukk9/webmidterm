@@ -1,12 +1,12 @@
 <div class="content-wrapper">
     <!--Page Header-->
     <div>
-        <h2>Company - city</h2>
+        <h2>{{seller.name}} - {{product.location}}</h2>
         <div>
             <div>
                 <strong><i>
-                <span ng-if="product.status == 'notvalid'" style="color: red;">Product is block</span>
-                <span ng-if="product.status == 'valid'" style="color: green">Product is auctioning</span>
+                <span ng-if="product.status == 'notvalid'" style="color: red;">Sản phẩm ngưng đấu giá</span>
+                <span ng-if="product.status == 'valid'" style="color: green">Sản phẩm đang đấu giá</span>
                 </i></strong>
             </div>
         </div>
@@ -15,7 +15,8 @@
     <!--Page Main Content-->
     <div class="main-info-section">
         <div class="product-title col-md-9">
-            <div class="cube-color"></div>
+            <div class="red-cube" ng-if="product.status == 'notvalid'"></div>
+            <div class="green-cube" ng-if="product.status == 'valid'"></div>
             <div style="padding-left: 32px;">
                 <h2 style="margin:5px;">{{product.name}}</h2>
             </div>
@@ -26,23 +27,71 @@
                 <div class="col-md-6">
                     <div class="col-md-1">
                         <div ng-repeat="media in product.urlMedia">
-                            <a role="button" ng-click="changeMedia(media.url)">
+                            <a role="button" ng-click="changeMedia($index)">
                                 <img ng-src="{{media.url}}" class="thumbnail" alt="{{product.name + $index}}">
                             </a>
                         </div>
                     </div>
                     <div class="col-md-11">
-                        <img ng-src="{{currentMedia}}" class="img-responsive" alt="{{product.name}}">
+                        <a role="button" ng-click="viewImage()">
+                            <img ng-src="{{currentMedia}}" class="img-responsive" alt="{{product.name}}">
+                        </a>
                     </div>
                 </div>
                 <div class="col-md-6">
-                    Info
+                    <div>
+                        <strong>Thông tin sản phẩm</strong>
+                    </div><br>
+                    <div>
+                        <i>{{product.description}}</i>
+                    </div><br>
+                    <div>
+                        Tình trạng đấu giá:
+                        <span ng-if="product.status == 'notvalid'" style="color: red;">Ngưng đấu giá</span>
+                        <span ng-if="product.status == 'valid'" style="color: green;">Đang đấu giá</span>
+                    </div><br>
+                    <div>
+                        Giá khởi điểm: {{product.price[0]}}
+                    </div>
+                    <div>
+                        Giá hiện tại: {{product.price[product.price.length - 1]}}
+                    </div><br>
+                    <div>
+                        Nơi giao dịch: {{product.location}}
+                    </div><br>
+                    <div>
+                        Ngày bắt đầu: {{convertTime(product.startDate)}}
+                    </div>
+                    <div>
+                        Ngày kết thúc: {{convertTime(product.endDate)}}
+                    </div><br>
+                    <div>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" ng-model="price">
+                        </div>
+                        <div class="col-md-6">
+                            <button type="button" class="btn btn-primary" ng-click="doBid()">Đấu giá</button>
+                        </div>
+                    </div>
                 </div>
                 <div class="clearfix"></div>
             </div>
             <div class="col-md-3">
                 <div class="col-md-12 box-content">
-                    <h3>Thông tin chủ quản</h3>
+                    <div style="text-align: center;">
+                        <strong>Thông tin người bán</strong>
+                    </div>
+
+                    <div class="avatar-seller-box">
+                        <img ng-src="{{seller.avatar}}" alt="avatar{{seller.name}}" class="img-responsive avatar-seller">
+                    </div>
+                    <div class="info-seller"><strong>Họ tên:</strong> {{seller.name}}</div>
+                    <div class="info-seller" tooltip-placement="top" uib-tooltip="{{seller.email}}">
+                        <strong>Email:</strong> <a href="mailto:{{seller.email}}">{{email}}</a>
+                    </div>
+                    <div class="info-seller"><strong>SĐT:</strong> {{seller.phone}}</div>
+                    <div class="info-seller"><strong>Ngày sinh:</strong> {{convertTime(seller.birthday)}}</div>
+                    <div class="info-seller"><strong>Điểm:</strong> {{seller.point}}</div>
                 </div>
             </div>
             <div class="clearfix"></div>
@@ -50,22 +99,17 @@
     </div>
 
     <!--Description-->
-    <div class="description-section">
+    <div class="description-section row">
         <div class="product-description-title">
             <h3>Thông tin chi tiết</h3>
         </div>
         <div class="col-md-9 box-content">
             <uib-tabset active="active">
-                <uib-tab index="0" heading="Thông tin cá nhân">
+                <uib-tab index="$index" heading="{{attribute.title}}" ng-repeat="attribute in product.attributes">
                     <div class="p-a-2 tab-content transition">
                         <div class="description-wrapper">
-                            {{product.description}}
+                            <div ng-bind-html="attribute.data | trusted"></div>
                         </div>
-                    </div>
-                </uib-tab>
-                <uib-tab index="1" heading="Thông">
-                    <div class="p-a-2 tab-content transition" ng-if="!preloader">
-                        hehe
                     </div>
                 </uib-tab>
             </uib-tabset>

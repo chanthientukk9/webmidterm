@@ -1,0 +1,14 @@
+<div class="loader" ng-style="!preloader && { 'display': 'none'} "></div>
+
+<div class="modal-body">
+    <div>
+        <button type="button" class="btn btn-white" ng-click="previous()"><i class="fa fa-arrow-left"></i></button>
+        <button type="button" class="btn btn-white" ng-click="next()"><i class="fa fa-arrow-right"></i></button>
+    </div>
+    <div>
+        <img ng-src="{{currentMedia}}" alt="img" class="img-responsive">
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-white" ng-click="dismiss()">Đóng</button>
+</div>

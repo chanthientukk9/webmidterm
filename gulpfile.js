@@ -22,9 +22,14 @@ var paths = {
         partial: 'public/src/styles/_*.scss',
         dest: 'public/build/styles/'
     },
+    stylesAuth: {
+        wiredep: 'public/src/styles/styleAuth.scss',
+        partial: 'public/src/styles/_*.scss',
+        dest: 'public/build/stylesAuth/'
+    },
     scripts: {
         module: 'public/src/app/**/*.module.js',
-        src: 'public/src/app/**/*.js',
+        src: 'public/src/**/**/*.js',
         dest: 'public/build/scripts/'
     },
     html: {
@@ -57,6 +62,18 @@ function styles() {
         .pipe(gulp.dest(paths.styles.dest));
 }
 
+function stylesAuth() {
+    return merge(
+            gulp.src((paths.stylesAuth.wiredep))
+            .pipe(wiredep()),
+            gulp.src(paths.stylesAuth.partial)
+        )
+        .pipe(sourcemaps.init())
+        .pipe(sass().on('error', sass.logError))
+        .pipe(sourcemaps.write())
+        .pipe(gulp.dest(paths.stylesAuth.dest));
+}
+
 function scripts() {
     return gulp.src([paths.scripts.module, paths.scripts.src])
         .pipe(sourcemaps.init())
@@ -78,6 +95,7 @@ function html() {
 function watch() {
     gulp.watch(paths.scripts.src, scripts);
     gulp.watch([paths.styles.partial, paths.styles.wiredep], styles);
+    gulp.watch([paths.stylesAuth.partial, paths.stylesAuth.wiredep], stylesAuth);
     gulp.watch(paths.html.src, html);
 }
 
@@ -111,7 +129,7 @@ function serveClient(done) {
 
 var serve = gulp.series(serveServer, serveClient);
 
-var build = gulp.series(clean, gulp.parallel(styles, scripts, html));
+var build = gulp.series(clean, gulp.parallel(styles, stylesAuth, scripts, html));
 
 var defaultTask = gulp.series(build, serve, watch);
 
@@ -120,6 +138,7 @@ var defaultTask = gulp.series(build, serve, watch);
 exports.clean = clean;
 // exports.fonts = fonts;
 exports.styles = styles;
+exports.stylesAuth = stylesAuth;
 exports.scripts = scripts;
 exports.watch = watch;
 exports.serve = serve;

@@ -1,0 +1,89 @@
+body {
+    div.header-wrapper {
+        display: none;
+    }
+    div.footer-wrapper {
+        display: none;
+    }
+}
+
+div.main-wrapper {
+    div.header-wrapper {
+        display: block;
+    }
+    div.footer-wrapper {
+        display: block;
+    }
+}
+
+
+/* Footer copyright
+---------------------------- */
+
+.footer-copyright {
+    background-color: #3d3f3e;
+    padding: 25px 0;
+    .footer-brand {
+        display: inline-block;
+        vertical-align: middle;
+    }
+    .links .btn-round {
+        margin-right: 6px;
+        &:hover {
+            background-color: #5BC1AF;
+            >i {
+                color: #fff;
+            }
+        }
+    }
+}
+
+@media (max-width: 767px) {
+    .footer-copyright .links {
+        text-align: center;
+    }
+}
+
+@media (max-width: 767px) {
+    .footer-copyright {
+        text-align: center;
+    }
+}
+
+
+/* Footer subscribe
+---------------------------- */
+
+.footer-subscribe {
+    background-color: #5BC1AF;
+    padding: 40px 0;
+    .subscribe-icon {
+        color: rgba(255, 255, 255, 0.6);
+        font-size: 58px;
+        margin-right: 20px;
+    }
+    .subscribe-title {
+        color: #fff;
+        text-transform: uppercase;
+        padding-left: 10px;
+    }
+    .subscribe-input {
+        border: 2px solid transparent;
+        box-shadow: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .footer-subscribe .subscribe-form {
+        .form-group {
+            width: 100%;
+        }
+        .subscribe-input {
+            margin-bottom: 20px;
+        }
+    }
+}
+
+.text-dark {
+    color: #737373;
+}

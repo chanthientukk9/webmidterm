@@ -7,13 +7,17 @@
 
 .content-wrapper {
     margin: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 2px 20px;
     width: 90%;
+    background-color: #fff;
 }
 
 .main-info-section,
 .description-section {
     margin-top: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 }
 
 .description-wrapper {
@@ -21,11 +25,20 @@
     margin-top: 10px;
 }
 
-.cube-color {
-    width: 30px;
-    background-color: #eafa31;
+.green-cube {
+    width: 20px;
+    background-color: green;
     height: 3em;
     position: absolute;
+    border-radius: 5px;
+}
+
+.red-cube {
+    width: 20px;
+    background-color: #888999;
+    height: 3em;
+    position: absolute;
+    border-radius: 5px;
 }
 
 .product-title {
@@ -38,4 +51,15 @@
     width: 65px;
     height: 65px;
     margin-left: -35px;
+}
+
+.info-seller {
+    padding: 5px;
+}
+
+.avatar-seller-box {}
+
+.avatar-seller {
+    margin: auto;
+    max-height: 150px;
 }

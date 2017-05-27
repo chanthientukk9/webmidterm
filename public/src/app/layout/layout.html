@@ -14,6 +14,16 @@
 
     <link rel="stylesheet" href="../../styles/style.css">
 
+
+</head>
+
+<body ng-app="app">
+    <div ng-include="'./app/layout/header.html'" scope="" onload="" class="header-wrapper"></div>
+    <div class="main-wrapper">
+        <div ui-view></div>
+    </div>
+    <div ng-include="'./app/layout/footer.html'" scope="" onload="" class="footer-wrapper"></div>
+
     <!-- bower:js -->
     <script src="../../../../bower_components/jquery/dist/jquery.min.js"></script>
     <script src="../../../../bower_components/angular/angular.js"></script>
@@ -22,11 +32,6 @@
     <script src="../../../../bower_components/angular-resource/angular-resource.min.js"></script>
     <script src="../../../../bower_components/sweetalert/dist/sweetalert.min.js"></script>
     <!-- endbower -->
-</head>
-
-<body ng-app="app">
-    <div ng-include="'app/layout/header.html'" scope="" onload=""></div>
-    <div ui-view></div>
 
     <script src="../../scripts/app.js"></script>
 </body>

@@ -1,7 +1,14 @@
 @import "../../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap";
+// @import "auth";
+// @import "form";
+@import "layout";
 @import "detail";
 @import "index";
 @import "input";
+body {
+    background-color: #eaeaea;
+}
+
 .loader {
     border: 7px solid #888888;
     //Instead of the line below you could use @include border-radius($radius, $vertical-radius)
@@ -18,4 +25,13 @@
 
 .clearfix {
     clear: both;
+}
+
+.header-navbar-right {
+    margin: auto;
+    padding: 10px;
+}
+
+.btn-header {
+    margin-right: 10px;
 }

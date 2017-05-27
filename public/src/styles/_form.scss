@@ -1,0 +1,199 @@
+input {
+    &[type="text"],
+    &[type="password"] {
+        height: 50px;
+        margin: 0;
+        padding: 0 20px;
+        vertical-align: middle;
+        background: rgba(255, 255, 255, 0.7);
+        border: 3px solid rgba(255, 255, 255, 0.7);
+        font-family: 'Roboto', sans-serif;
+        font-size: 16px;
+        font-weight: 300;
+        line-height: 50px;
+        color: #888;
+        -moz-border-radius: 4px;
+        -webkit-border-radius: 4px;
+        border-radius: 4px;
+        -moz-box-shadow: none;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+        -o-transition: all .3s;
+        -moz-transition: all .3s;
+        -webkit-transition: all .3s;
+        -ms-transition: all .3s;
+        transition: all .3s;
+    }
+}
+
+textarea {
+    height: 50px;
+    margin: 0;
+    padding: 0 20px;
+    vertical-align: middle;
+    background: rgba(255, 255, 255, 0.7);
+    border: 3px solid rgba(255, 255, 255, 0.7);
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 50px;
+    color: #888;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    -o-transition: all .3s;
+    -moz-transition: all .3s;
+    -webkit-transition: all .3s;
+    -ms-transition: all .3s;
+    transition: all .3s;
+    &.form-control {
+        height: 50px;
+        margin: 0;
+        padding: 0 20px;
+        vertical-align: middle;
+        background: rgba(255, 255, 255, 0.7);
+        border: 3px solid rgba(255, 255, 255, 0.7);
+        font-family: 'Roboto', sans-serif;
+        font-size: 16px;
+        font-weight: 300;
+        line-height: 50px;
+        color: #888;
+        -moz-border-radius: 4px;
+        -webkit-border-radius: 4px;
+        border-radius: 4px;
+        -moz-box-shadow: none;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+        -o-transition: all .3s;
+        -moz-transition: all .3s;
+        -webkit-transition: all .3s;
+        -ms-transition: all .3s;
+        transition: all .3s;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        line-height: 30px;
+    }
+    padding-top: 10px;
+    padding-bottom: 10px;
+    line-height: 30px;
+}
+
+input {
+    &[type="text"]:focus,
+    &[type="password"]:focus {
+        outline: 0;
+        background: #fff;
+        border: 3px solid #fff;
+        -moz-box-shadow: none;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+    }
+}
+
+textarea {
+    &:focus,
+    &.form-control:focus {
+        outline: 0;
+        background: #fff;
+        border: 3px solid #fff;
+        -moz-box-shadow: none;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+    }
+}
+
+input {
+    &[type="text"]:-moz-placeholder,
+    &[type="password"]:-moz-placeholder {
+        color: #888;
+    }
+}
+
+textarea {
+    &:-moz-placeholder,
+    &.form-control:-moz-placeholder {
+        color: #888;
+    }
+}
+
+input {
+    &[type="text"]:-ms-input-placeholder,
+    &[type="password"]:-ms-input-placeholder {
+        color: #888;
+    }
+}
+
+textarea {
+    &:-ms-input-placeholder,
+    &.form-control:-ms-input-placeholder {
+        color: #888;
+    }
+}
+
+input {
+    &[type="text"]::-webkit-input-placeholder,
+    &[type="password"]::-webkit-input-placeholder {
+        color: #888;
+    }
+}
+
+textarea {
+    &::-webkit-input-placeholder,
+    &.form-control::-webkit-input-placeholder {
+        color: #888;
+    }
+}
+
+button.btn {
+    height: 50px;
+    margin: 0;
+    padding: 0 20px;
+    vertical-align: middle;
+    background: #00B0FF;
+    border: 0;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 50px;
+    color: #fff;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    text-shadow: none;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    -o-transition: all .3s;
+    -moz-transition: all .3s;
+    -webkit-transition: all .3s;
+    -ms-transition: all .3s;
+    transition: all .3s;
+    &:hover {
+        opacity: 0.6;
+        color: #fff;
+    }
+    &:active {
+        outline: 0;
+        opacity: 0.6;
+        color: #fff;
+        -moz-box-shadow: none;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+    }
+    &:focus,
+    &:active:focus,
+    &.active:focus {
+        outline: 0;
+        opacity: 0.6;
+        background: #00B0FF;
+        color: #fff;
+    }
+}
+
+.form-username,
+.form-email {
+    text-transform: lowercase;
+}

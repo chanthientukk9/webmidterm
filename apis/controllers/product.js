@@ -46,7 +46,11 @@ module.exports.createProduct = function(req, res, next) {
             price: req.body.price,
             urlMedia: req.body.urlMedia,
             status: req.body.status,
-            attributes: req.body.attributes
+            attributes: req.body.attributes,
+            seller: req.body.seller,
+            location: req.body.location,
+            startDate: req.body.startDate,
+            endDate: req.body.endDate
         })
         .then((product) => {
             return res.status(200).json(product);
@@ -67,7 +71,11 @@ module.exports.updateProduct = function(req, res, next) {
             price: req.body.price,
             urlMedia: req.body.urlMedia,
             status: req.body.status,
-            attributes: req.body.attributes
+            attributes: req.body.attributes,
+            seller: req.body.seller,
+            location: req.body.location,
+            startDate: req.body.startDate,
+            endDate: req.body.endDate
         })
         .exec().then((product) => {
             if (!product) {

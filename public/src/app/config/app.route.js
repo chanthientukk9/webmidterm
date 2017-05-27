@@ -8,18 +8,28 @@
         $urlRouterProvider.otherwise('/');
         $stateProvider
             .state('app', {
-                url: '/home/',
-                templateUrl: './app/layout/test.html'
+                url: '/product/',
+                templateUrl: './app/layout/layout.html'
             })
 
-        .state('app.products', {
-            url: 'products',
+        .state('auth', {
+            url: '/auth/',
+            templateUrl: './app/authentication/auth.html'
+        })
+
+        .state('auth.sign-in', {
+            url: 'sign-in',
+            templateUrl: './app/authentication/signIn.html'
+        })
+
+        .state('app.list', {
+            url: 'list',
             templateUrl: './app/products/productList.html',
             controller: 'ProductListController'
         })
 
         .state('app.detail', {
-            url: 'detail/:id',
+            url: 'detail?:id',
             templateUrl: './app/products/productDetail.html',
             controller: 'ProductDetailController',
             params: {

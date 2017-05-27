@@ -46,7 +46,8 @@ module.exports.createMember = function(req, res, next) {
             phone: req.body.phone,
             birthday: req.body.birthday,
             avatar: req.body.avatar,
-            point: rea.body.point
+            point: req.body.point,
+            address: req.body.address
         })
         .then((member) => {
             return res.status(200).json(member);
@@ -67,7 +68,8 @@ module.exports.updateMember = function(req, res, next) {
             phone: req.body.phone,
             birthday: req.body.birthday,
             avatar: req.body.avatar,
-            point: rea.body.point
+            point: rea.body.point,
+            address: req.body.address
         })
         .exec()
         .then((member) => {

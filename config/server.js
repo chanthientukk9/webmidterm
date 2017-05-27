@@ -35,8 +35,12 @@ app.get('/', (req, res) => {
     res.redirect('index.html');
 })
 
-app.get('/home/*', (req, res) => {
-    res.sendFile(path.join(__BASE, '/public/build/app/layout/test.html'));
+app.get('/product/*', (req, res) => {
+    res.sendFile(path.join(__BASE, '/public/build/app/layout/layout.html'));
+})
+
+app.get('/auth/*', (req, res) => {
+    res.sendFile(path.join(__BASE, '/public/build/app/authentication/auth.html'));
 })
 
 // Exports
