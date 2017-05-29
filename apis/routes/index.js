@@ -16,6 +16,8 @@ router.route('/product/:productId')
     .get(routeProduct.getProductDetail)
     .put(routeProduct.updateProduct)
     .delete(routeProduct.deleteProduct);
+router.route('/product/find-category/:category')
+    .get(routeProduct.findProductByCategory);
 
 router.route('/category')
     .post(routeCategory.createCategory)
