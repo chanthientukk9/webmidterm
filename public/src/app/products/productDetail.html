@@ -26,10 +26,16 @@
             <div class="col-md-9 box-content">
                 <div class="col-md-6">
                     <div class="col-md-1">
-                        <div ng-repeat="media in product.urlMedia">
+                        <div ng-if="product.urlMedia.length > limitSet && indexSet > limitSet" ng-click="previousSet()" role="button">
+                            <i class="fa fa-arrow-up"></i>
+                        </div>
+                        <div ng-repeat="media in currentMediaSet">
                             <a role="button" ng-click="changeMedia($index)">
-                                <img ng-src="{{media.url}}" class="thumbnail" alt="{{product.name + $index}}">
+                                <img ng-src="{{media.url}}" class="thumbnail-product" alt="{{product.name + $index}}">
                             </a>
+                        </div>
+                        <div ng-if="product.urlMedia.length > limitSet && indexSet < product.urlMedia.length" ng-click="nextSet()" role="button">
+                            <i class="fa fa-arrow-down"></i>
                         </div>
                     </div>
                     <div class="col-md-11">
@@ -46,24 +52,24 @@
                         <i>{{product.description}}</i>
                     </div><br>
                     <div>
-                        Tình trạng đấu giá:
+                        <strong>Tình trạng đấu giá:</strong>
                         <span ng-if="product.status == 'notvalid'" style="color: red;">Ngưng đấu giá</span>
                         <span ng-if="product.status == 'valid'" style="color: green;">Đang đấu giá</span>
                     </div><br>
                     <div>
-                        Giá khởi điểm: {{product.price[0]}}
+                        <strong>Giá khởi điểm:</strong> {{product.price[0]}}
                     </div>
                     <div>
-                        Giá hiện tại: {{product.price[product.price.length - 1]}}
+                        <strong>Giá hiện tại:</strong> {{product.price[product.price.length - 1]}}
                     </div><br>
                     <div>
-                        Nơi giao dịch: {{product.location}}
+                        <strong>Nơi giao dịch:</strong> {{product.location}}
                     </div><br>
                     <div>
-                        Ngày bắt đầu: {{convertTime(product.startDate)}}
+                        <strong>Ngày bắt đầu:</strong> {{convertTime(product.startDate)}}
                     </div>
                     <div>
-                        Ngày kết thúc: {{convertTime(product.endDate)}}
+                        <strong>Ngày kết thúc:</strong> {{convertTime(product.endDate)}}
                     </div><br>
                     <div>
                         <div class="col-md-6">
