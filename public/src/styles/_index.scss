@@ -14,9 +14,12 @@
     color: #37cfdd !important;
 }
 
-#top {
-    height: 262px;
-    background-image: url('sagaco-imgs/Banner_img.gif');
+.btn-login {
+    margin: 10px;
+}
+
+.btn-signup {
+    margin-right: 10px;
 }
 
 #nav {
@@ -44,7 +47,6 @@
     line-height: 42px;
     text-align: center;
     font-weight: bold;
-    background-image: url('/images/BannerSeparate.gif');
     background-repeat: no-repeat;
     background-position: top right;
 }
@@ -63,4 +65,48 @@
 
 .main-content {
     padding: 5px;
+}
+
+.fix-margin {
+    margin-top: 5px;
+}
+
+.container {
+    padding: 80px 120px;
+}
+
+.person {
+    border: 10px solid transparent;
+    margin-bottom: 25px;
+    width: 80%;
+    height: 80%;
+    opacity: 0.7;
+}
+
+.badge-color {
+    background-color: #286090;
+}
+
+.person:hover {
+    border-color: #f1f1f1;
+}
+
+.carousel-inner img {
+    -webkit-filter: grayscale(90%);
+    filter: grayscale(90%);
+    /* make all photos black and white */
+    width: 100%;
+    /* Set width to 100% */
+    margin: auto;
+}
+
+.carousel-caption h3 {
+    color: #fff !important;
+}
+
+@media (max-width: 600px) {
+    .carousel-caption {
+        display: none;
+        /* Hide the carousel text when the screen is less than 600 pixels wide */
+    }
 }

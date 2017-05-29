@@ -17,6 +17,10 @@ var browserSync = require('browser-sync').create();
 var paths = {
     server: 'index.js',
     build: 'public/build',
+    fonts: {
+        fontawesome: 'bower_components/font-awesome/fonts/*',
+        dest: 'public/build/fonts'
+    },
     styles: {
         wiredep: 'public/src/styles/style.scss',
         partial: 'public/src/styles/_*.scss',
@@ -45,10 +49,10 @@ function clean() {
     return del(['public/build']);
 }
 
-// function fonts() {
-//     return gulp.src(paths.fonts.fontawesome)
-//         .pipe(gulp.dest(paths.fonts.dest));
-// }
+function fonts() {
+    return gulp.src(paths.fonts.fontawesome)
+        .pipe(gulp.dest(paths.fonts.dest));
+}
 
 function styles() {
     return merge(
@@ -129,14 +133,14 @@ function serveClient(done) {
 
 var serve = gulp.series(serveServer, serveClient);
 
-var build = gulp.series(clean, gulp.parallel(styles, stylesAuth, scripts, html));
+var build = gulp.series(clean, gulp.parallel(fonts, styles, stylesAuth, scripts, html));
 
 var defaultTask = gulp.series(build, serve, watch);
 
 // Export task
 //-----------------------------------------------
 exports.clean = clean;
-// exports.fonts = fonts;
+exports.fonts = fonts;
 exports.styles = styles;
 exports.stylesAuth = stylesAuth;
 exports.scripts = scripts;

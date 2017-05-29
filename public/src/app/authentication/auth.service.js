@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('app.auth')
+        .module('app')
         .factory('Auth', Auth);
 
     Auth.inject = ['$resource'];

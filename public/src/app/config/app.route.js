@@ -12,15 +12,15 @@
                 templateUrl: './app/layout/layout.html'
             })
 
-        .state('auth', {
-            url: '/auth/',
-            templateUrl: './app/authentication/auth.html'
-        })
+        // .state('auth', {
+        //     url: '/auth/',
+        //     templateUrl: './app/authentication/auth.html'
+        // })
 
-        .state('auth.sign-in', {
-            url: 'sign-in',
-            templateUrl: './app/authentication/signIn.html'
-        })
+        // .state('auth.sign-in', {
+        //     url: 'sign-in',
+        //     templateUrl: './app/authentication/signIn.html'
+        // })
 
         .state('app.list', {
             url: 'list',

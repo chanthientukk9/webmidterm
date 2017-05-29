@@ -8,25 +8,254 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Main</title>
 
-
     <link rel="stylesheet" href="../../bower_components/sweetalert/dist/sweetalert.css">
     <link rel="stylesheet" href="../../bower_components/font-awesome/css/font-awesome.min.css">
 
     <link rel="stylesheet" href="./styles/style.css">
 </head>
 
-<body>
-    <div>Haha</div>
+<body class="body-contain" ng-controller="IndexController">
+    <!--Navigation-->
+    <div>
+        <nav class="navbar navbar-default background-fix">
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand text-color" href="#">Trang Chủ</a>
+                </div>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <form class="navbar-form navbar-left">
+                    <div class="form-group">
+                        <input type="text" class="form-control border-flat" placeholder="Search">
+                    </div>
+                    <button type="submit" class="btn btn-default">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </form>
+                <ul class="nav navbar-nav navbar-right btn-login">
+                    <li>
+                        <button type="submit" class="btn btn-default btn-signup" data-toggle="modal" data-target="#signUpModal">
+                        <i class="fa fa-pencil" aria-hidden="true"></i> Đăng Kí</a>
+                    </li>
+                    <li>
+                        <button type="submit" class="btn btn-default" ng-click="signIn()">
+                        <i class="fa fa-key" aria-hidden="true"></i> Đăng Nhập</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->c
+            <!-- /.container-fluid -->
+        </nav>
+        <div id="nav">
+            <ul>
+                <li><a href="#">Điện tử</a></li>
+                <li><a href="#">Thời trang</a></li>
+                <li><a href="#">Gia dụng</a></li>
+                <li><a href="#">Sức khỏe và sắc đẹp</a></li>
+                <li><a href="#">Trẻ em và đồ chơi</a></li>
+                <li><a href="#">Thể thao & Du lịch</a></li>
+                <li><a href="#">Nhà cửa & Đời sống</a></li>
+            </ul>
+        </div>
+    </div>
+    <!--End of navigation-->
 
-    <!-- bower:js -->
-    <script src="../../bower_components/jquery/dist/jquery.min.js"></script>
-    <script src="../../bower_components/angular/angular.js"></script>
-    <script src="../../bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
-    <script src="../../bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
-    <script src="../../bower_components/angular-resource/angular-resource.min.js"></script>
-    <script src="../../bower_components/sweetalert/dist/sweetalert.min.js"></script>
-    <!-- endbower -->
-    <script src="./scripts/app.js"></script>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3 side-bar">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Danh sách sản phẩm</div>
+                    <div class="list-group">
+                        <a href="#" class="list-group-item">Danh sách sản phẩm đang đấu giá 
+                            <span class="badge badge-color">2</span>c
+                        </a>
+                        <a href="#" class="list-group-item">Danh sách sản phẩm tham gia đấu giá 
+                            <span class="badge badge-color">3</span>
+                        </a>
+                        <a href="#" class="list-group-item">Danh sách sản phẩm đang quan tâm
+                            <span class="badge badge-color">4</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-9 main-content">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Sản phẩm đang hot</div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-6 col-md-4">
+                                <div class="thumbnail">
+                                    <img src="/images/1_thumbs.png" alt="...">
+                                    <div class="caption">
+                                        <h3>Thumbnail label</h3>
+                                        <p>...</p>
+                                        <p>
+                                            <a href="#" class="btn btn-primary" role="button">Xem chi tiết</a>
+                                            <a href="#" class="btn btn-success" role="button">
+                                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Đấu Giá
+                                            </a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-md-4">
+                                <div class="thumbnail">
+                                    <img src="/images/1_thumbs.png" alt="...">
+                                    <div class="caption">
+                                        <h3>Thumbnail label</h3>
+                                        <p>...</p>
+                                        <p>
+                                            <a href="#" class="btn btn-primary" role="button">Xem chi tiết</a>
+                                            <a href="#" class="btn btn-success" role="button">
+                                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Đấu Giá
+                                            </a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-md-4">
+                                <div class="thumbnail">
+                                    <img src="/images/1_thumbs.png" alt="...">
+                                    <div class="caption">
+                                        <h3>Thumbnail label</h3>
+                                        <p>...</p>
+                                        <p>
+                                            <a href="#" class="btn btn-primary" role="button">Xem chi tiết</a>
+                                            <a href="#" class="btn btn-success" role="button">
+                                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Đấu Giá
+                                            </a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-md-4">
+                                <div class="thumbnail">
+                                    <img src="/images/1_thumbs.png" alt="...">
+                                    <div class="caption">
+                                        <h3>Thumbnail label</h3>
+                                        <p>...</p>
+                                        <p>
+                                            <a href="#" class="btn btn-primary" role="button">Xem chi tiết</a>
+                                            <a href="#" class="btn btn-success" role="button">
+                                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Đấu Giá
+                                            </a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-md-4">
+                                <div class="thumbnail">
+                                    <img src="/images/1_thumbs.png" alt="...">
+                                    <div class="caption">
+                                        <h3>Thumbnail label</h3>
+                                        <p>...</p>
+                                        <p>
+                                            <a href="#" class="btn btn-primary" role="button">Xem chi tiết</a>
+                                            <a href="#" class="btn btn-success" role="button">
+                                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Đấu Giá
+                                            </a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-md-4">
+                                <div class="thumbnail">
+                                    <img src="/images/1_thumbs.png" alt="...">
+                                    <div class="caption">
+                                        <h3>Thumbnail label</h3>
+                                        <p>...</p>
+                                        <p>
+                                            <a href="#" class="btn btn-primary" role="button">Xem chi tiết</a>
+                                            <a href="#" class="btn btn-success" role="button">
+                                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Đấu Giá
+                                            </a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--<div class="modal fade" id="signUpModal" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"></button>
+                        <h4 class="modal-title">Đăng kí tài khoản</h4>
+            </div>
+            <div class="modal-body">
+                <label for="_Acc">Tên đăng nhập:</label>
+                <input type="text" name="_Acc">
+                <br/>
+
+                <label for="_Password">Mật khẩu:</label>
+                <input type="password" name="_Password">
+                <br/>
+
+                <label for="_Name">Họ và Tên:</label>
+                <input type="text" name="_Name">
+                <br/>
+
+                <label for="_Email">Email:</label>
+                <input type="text" name="_Email">
+                <br/>
+
+                <label for="_Phone">Số điện thoại:</label>
+                <input type="text" name="_Phone">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal" onclick="saveinfo()">Đăng Kí</button>
+            </div>
+    </div>
+    </div>-->
+    <dciv class="container-fluid bg-grey">
+        <h2 class="text-center">CONTACT</h2>
+        <div class="row">
+            <div class="col-sm-5">
+                <p>Contact us and we'll get back to you within 24 hours.</p>
+                <p><i class="fa fa-map-marker" aria-hidden="true"></i> Ho Chi Minh, Viet Nam</p>
+                <p><i class="fa fa-phone-square" aria-hidden="true"></i> 0966852556</p>
+                <p><i class="fa fa-envelope-o" aria-hidden="true"></i> myemail@something.com</p>
+            </div>
+            <div class="col-sm-7">
+                <div class="row">
+                    <div class="col-sm-6 form-group">
+                        <input class="form-control" id="name" name="name" placeholder="Name" type="text" required>
+                    </div>
+                    <div class="col-sm-6 form-group">
+                        <input class="form-control" id="email" name="email" placeholder="Email" type="email" required>
+                    </div>
+                </div>
+                <textarea class="form-control" id="comments" name="comments" placeholder="Comment" rows="5"></textarea><br>
+                <div class="row">
+                    <div class="col-sm-12 form-group">
+                        <button class="btn btn-default pull-right" type="submit">
+                                <i class="fa fa-paper-plane"></i> SEND MESSAGE
+                            </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        <!-- bower:js -->
+        <script src="../../bower_components/jquery/dist/jquery.min.js"></script>
+        <script src="../../bower_components/angular/angular.js"></script>
+        <script src="../../bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+        <script src="../../bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+        <script src="../../bower_components/angular-resource/angular-resource.min.js"></script>
+        <script src="../../bower_components/sweetalert/dist/sweetalert.min.js"></script>
+        <!-- endbower -->
+        <script src="./scripts/app.js"></script>
 </body>
 
 </html>

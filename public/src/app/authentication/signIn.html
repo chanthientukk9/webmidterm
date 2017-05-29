@@ -1,48 +1,18 @@
-<div class="loader" ng-style="!preloader && {'display': 'none'}">
+<div class="modal-header">
+    <button type="button" class="close" ng-click="$dismiss()">
+        <span aria-hidden="true">x</span>
+    </button>
+    <h4 class="modal-title">Đăng nhập</h4>
 </div>
-<!-- Top content -->
-<div class="top-content">
-    <div class="inner-bg">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-8 col-sm-offset-2 text">
-                    <h1><strong><a role="button" ng-click="goToHome()">BLABLA</a></strong> Đăng nhập</h1>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-6 col-sm-offset-3 form-box">
-                    <div class="form-top">
-                        <div class="description">
-                            <p>Đăng nhập để tham gia đấu giá!</p>
-                        </div>
-                    </div>
-                    <div class="form-bottom">
-                        <form role="form" name="signInForm" class="login-form" novalidate autocomplete="off">
-                            <div class="form-group" ng-class="{ 'has-error' : signInForm.username.$invalid && !signInForm.username.$pristine }">
-                                <label class="sr-only" for="username">Tên đăng nhập</label>
-                                <input type="text" name="username" placeholder="Tên đăng nhập..." ng-model="user.Email" class="form-username form-control" id="form-username" required>
-                                <p ng-show="signInForm.username.$invalid && !signInForm.username.$pristine" class="help-block">Username must not empty</p>
-                            </div>
-                            <div class="form-group" ng-class="{ 'has-error' : signInForm.password.$invalid && !signInForm.password.$pristine }">
-                                <label class="sr-only" for="password">Mật khẩu</label>
-                                <input type="password" name="password" placeholder="Mật khẩu..." ng-model="user.Password" class="form-password form-control" id="form-password" required ng-enter="login(signInForm.$valid)">
-                                <p ng-show="signInForm.password.$invalid && !signInForm.password.$pristine" class="help-block">Password must not empty</p>
-                            </div>
-                            <button type="submit" class="btn" ng-click="login(signInForm.$valid)">Đăng Nhập</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-6 col-sm-offset-3 social-login">
-                    <a class="btn btn-link-2" href="" ng-click="signUp()">
-                        <i class="fa fa-pencil"></i> Đăng ký
-                    </a>
-                    <a class="btn btn-link-2" href="" ng-click="forgot()">
-                        <i class="fa fa-question"></i> Quên mật khẩu?
-                    </a><br>
-                </div>
-            </div>
-        </div>
-    </div>
+<div class="modal-body">
+    <label for="_Acc">Tên đăng nhập:</label>
+    <input type="text" name="_Acc">
+    <br/>
+
+    <label for="_Password">Mật khẩu:</label>
+    <input type="password" name="_Password">
+    <br/>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-primary" onclick="saveinfo()">Đăng Nhập</button>
 </div>

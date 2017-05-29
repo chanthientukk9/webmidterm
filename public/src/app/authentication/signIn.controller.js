@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('app.auth')
+        .module('app')
         .controller('SignInController', SignInController);
 
     SignInController.inject = ['$scope'];
