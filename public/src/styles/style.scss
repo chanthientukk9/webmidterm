@@ -5,8 +5,11 @@
 @import "detail";
 @import "index";
 @import "input";
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
 body {
     background-color: #eaeaea;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 16px;
 }
 
 .loader {
@@ -34,4 +37,14 @@ body {
 
 .btn-header {
     margin-right: 10px;
+}
+
+#nav {
+    ul {
+        li {
+            a:hover {
+                background-color: #485e69;
+            }
+        }
+    }
 }

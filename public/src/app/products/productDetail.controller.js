@@ -13,7 +13,10 @@
         window.cc = $scope;
         $scope.price = 0;
         $scope.indexCurrentMedia = 0;
-
+        $scope.currentMediaSet = [];
+        $scope.indexSet = 0;
+        var limitSet = 4;
+        $scope.limitSet = limitSet;
         activate();
 
         ////////////////
@@ -22,6 +25,14 @@
             ProductService.GetProduct($state.params.id).then(function(res) {
                 $scope.product = res;
                 $scope.currentMedia = res.urlMedia[0].url;
+                if (res.urlMedia.length <= limitSet) {
+                    $scope.currentMediaSet = res.urlMedia;
+                } else {
+                    for (var i = 0; i < limitSet; i++) {
+                        $scope.currentMediaSet.push(res.urlMedia[i]);
+                    }
+                    $scope.indexSet = limitSet;
+                }
 
                 ProductService.GetSellerInfo(res.seller).then(function(res2) {
                     $scope.seller = res2;
@@ -40,6 +51,38 @@
         $scope.changeMedia = function changeMedia(index) {
             $scope.indexCurrentMedia = index;
             $scope.currentMedia = $scope.product.urlMedia[index].url;
+        }
+
+        $scope.nextSet = function nextSet() {
+            if ($scope.indexSet < 0) {
+                $scope.indexSet += 2 * limitSet;
+            }
+            if ($scope.indexSet < $scope.product.urlMedia.length) {
+                for (var i = $scope.indexSet; i < $scope.indexSet + limitSet; i++) {
+                    if (i >= $scope.product.urlMedia.length) {
+                        console.log(i + " and " + (limitSet - (i - $scope.indexSet)));
+                        $scope.currentMediaSet.splice(i - $scope.indexSet, limitSet - (i - $scope.indexSet));
+                        console.log($scope.currentMediaSet);
+                        break;
+                    }
+                    $scope.currentMediaSet[i - $scope.indexSet] = $scope.product.urlMedia[i];
+                }
+                $scope.indexSet += limitSet;
+            }
+        }
+
+        $scope.previousSet = function previousSet() {
+            if ($scope.indexSet >= $scope.product.urlMedia.length) {
+                $scope.indexSet -= 2 * limitSet;
+            }
+            if ($scope.indexSet >= 0) {
+                for (var i = $scope.indexSet; i < $scope.indexSet + limitSet; i++) {
+
+                    $scope.currentMediaSet[i - $scope.indexSet] = $scope.product.urlMedia[i];
+
+                }
+                $scope.indexSet -= limitSet;
+            }
         }
 
         $scope.doBid = function doBid() {
