@@ -28,6 +28,16 @@
             });
         }
 
+        $scope.signUp = function signUp() {
+            $uibModal.open({
+                templateUrl: 'app/authentication/signUp.html',
+                controller: 'SignUpController',
+                size: 'lg',
+            }).result.then(function(data) {
+                console.log(data);
+            });
+        }
+
 
     }
 })();

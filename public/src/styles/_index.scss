@@ -1,9 +1,18 @@
 .background-fix {
-    background-color: #183544;
+    background-color: #2A2730;
     margin: 0px;
     border: none;
     margin-bottom: 1px;
     border-radius: 0px;
+}
+
+.footer-bg {
+    background-color: #2A2730;
+    color: white;
+}
+
+.footer-content {
+    margin: 10px;
 }
 
 .border-flat {
@@ -23,7 +32,7 @@
 }
 
 #nav {
-    background-color: #183544;
+    background-color: #2A2730;
     height: 42px;
 }
 
@@ -73,4 +82,8 @@
 
 .badge-color {
     background-color: #286090;
+}
+
+.nav-page {
+    margin: -20px 0px 0px 600px;
 }

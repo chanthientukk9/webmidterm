@@ -15,6 +15,8 @@
 
         ////////////////
 
-        function activate() {}
+        function activate() {
+
+        }
     }
 })();
