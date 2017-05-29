@@ -41,6 +41,12 @@ module.exports.findProductByCategory = function(req, res, next) {
         });
 }
 
+// module.exports.findValidProduct = function(req, res, next) {
+//     Product.find({
+//         status: req.
+//     })
+// }
+
 module.exports.getProductDetail = function(req, res, next) {
     Product.findById(req.params.productId)
         .exec()

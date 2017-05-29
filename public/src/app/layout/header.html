@@ -34,14 +34,13 @@
     </div>
 </nav>
 
-<div id="nav">
+<div id="nav" ng-controller="HeaderController">
     <ul>
-        <li><a href="#">Điện tử</a></li>
-        <li><a href="#">Thời trang</a></li>
-        <li><a href="#">Gia dụng</a></li>
-        <li><a href="#">Sức khỏe và sắc đẹp</a></li>
-        <li><a href="#">Trẻ em và đồ chơi</a></li>
-        <li><a href="#">Thể thao & Du lịch</a></li>
-        <li><a href="#">Nhà cửa & Đời sống</a></li>
+        <li ng-click="goPage()">
+            <a href="#">Tất cả</a>
+        </li>
+        <li ng-repeat="category in categoryList" ng-click="goPage(category._id)">
+            <a href="#">{{category.name}}</a>
+        </li>
     </ul>
 </div>

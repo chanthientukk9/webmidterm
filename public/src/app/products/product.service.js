@@ -18,6 +18,20 @@
                 params: {
                     memberId: '@memberId'
                 }
+            },
+            GetProductByCategory: {
+                method: "GET",
+                url: "/api/product/find-category/:category",
+                params: {
+                    category: '@category'
+                },
+                isArray: true
+            }
+        });
+
+        var CategoryResource = $resource("/api/category/:categoryId", { categoryId: '@categoryId' }, {
+            update: {
+                method: "PUT"
             }
         });
 
@@ -27,7 +41,9 @@
             GetProduct: getProduct,
             UpdateProduct: updateProduct,
             DeleteProduct: deleteProduct,
-            GetSellerInfo: getSellerInfo
+            GetSellerInfo: getSellerInfo,
+            GetProductByCategory: getProductByCategory,
+            GetAllCategory: getAllCategory
         };
 
         return service;
@@ -55,6 +71,14 @@
 
         function getSellerInfo(id) {
             return ProductResource.GetSellerInfo({ memberId: id }).$promise;
+        }
+
+        function getProductByCategory(categoryId) {
+            return ProductResource.GetProductByCategory({ category: categoryId }).$promise;
+        }
+
+        function getAllCategory() {
+            return CategoryResource.query().$promise;
         }
     }
 })();

@@ -5,17 +5,32 @@
         .module('app')
         .controller('HeaderController', HeaderController);
 
-    HeaderController.inject = ['$scope', '$state'];
+    HeaderController.inject = ['$scope', '$state', 'ProductService', 'Dialog'];
 
-    function HeaderController($scope, $state) {
+    function HeaderController($scope, $state, ProductService, Dialog) {
         var vm = this;
+        window.ck = $scope;
 
 
         activate();
 
         ////////////////
 
-        function activate() {}
+        function activate() {
+            getAllCategory();
+        }
+
+        function getAllCategory() {
+            ProductService.GetAllCategory().then(function(res) {
+                $scope.categoryList = res;
+            }, function(err) {
+                Dialog.Error("Lỗi", err.data.message);
+            })
+        }
+
+        $scope.goPage = function goPage(id) {
+            $state.go("app.list", { categoryId: id });
+        }
 
         $scope.signIn = function signIn() {
             $state.go('auth.sign-in');
