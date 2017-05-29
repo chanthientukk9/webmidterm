@@ -20,6 +20,27 @@ module.exports.getAllProduct = function(req, res, next) {
         });
 }
 
+module.exports.findProductByCategory = function(req, res, next) {
+    Product.find({
+            category: req.params.category
+        })
+        .exec()
+        .then((product) => {
+            if (!product) {
+                return res.status(404).json({
+                    message: "Product not found"
+                });
+            } else {
+                return res.status(200).json(product);
+            }
+        })
+        .catch((err) => {
+            return res.status(500).json({
+                message: "Can not find product"
+            });
+        });
+}
+
 module.exports.getProductDetail = function(req, res, next) {
     Product.findById(req.params.productId)
         .exec()

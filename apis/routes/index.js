@@ -2,6 +2,7 @@ var express = require('express');
 
 // Controllers
 var routeProduct = require(__BASE + '/apis/controllers/product');
+var routeCategory = require(__BASE + '/apis/controllers/category');
 var routeMember = require(__BASE + '/apis/controllers/member');
 
 // Config routes
@@ -15,6 +16,14 @@ router.route('/product/:productId')
     .get(routeProduct.getProductDetail)
     .put(routeProduct.updateProduct)
     .delete(routeProduct.deleteProduct);
+
+router.route('/category')
+    .post(routeCategory.createCategory)
+    .get(routeCategory.getAllCategory);
+router.route('/category/:categoryId')
+    .get(routeCategory.getCategoryDetail)
+    .put(routeCategory.updateCategory)
+    .delete(routeCategory.deleteCategory);
 
 router.route('/member')
     .post(routeMember.createMember)

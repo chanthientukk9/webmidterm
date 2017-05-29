@@ -23,6 +23,7 @@ var attributes = new Schema({
 var productSchema = new Schema({
     name: { type: String, required: true },
     description: { type: String, required: false, default: null },
+    category: { type: Schema.Types.ObjectId, ref: "Category" },
     price: { type: [Number], required: true },
     urlMedia: { type: [media], required: true },
     status: { type: String, default: "notvalid" },

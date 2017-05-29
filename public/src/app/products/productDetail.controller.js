@@ -17,6 +17,7 @@
         $scope.indexSet = 0;
         var limitSet = 4;
         $scope.limitSet = limitSet;
+        $scope.countSet = 0;
         activate();
 
         ////////////////
@@ -49,8 +50,9 @@
         }
 
         $scope.changeMedia = function changeMedia(index) {
-            $scope.indexCurrentMedia = index;
-            $scope.currentMedia = $scope.product.urlMedia[index].url;
+            $scope.indexCurrentMedia = index + $scope.countSet * limitSet;
+            console.log($scope.indexCurrentMedia + " " + $scope.countSet);
+            $scope.currentMedia = $scope.product.urlMedia[$scope.indexCurrentMedia].url;
         }
 
         $scope.nextSet = function nextSet() {
@@ -58,11 +60,10 @@
                 $scope.indexSet += 2 * limitSet;
             }
             if ($scope.indexSet < $scope.product.urlMedia.length) {
+                $scope.countSet++;
                 for (var i = $scope.indexSet; i < $scope.indexSet + limitSet; i++) {
                     if (i >= $scope.product.urlMedia.length) {
-                        console.log(i + " and " + (limitSet - (i - $scope.indexSet)));
                         $scope.currentMediaSet.splice(i - $scope.indexSet, limitSet - (i - $scope.indexSet));
-                        console.log($scope.currentMediaSet);
                         break;
                     }
                     $scope.currentMediaSet[i - $scope.indexSet] = $scope.product.urlMedia[i];
@@ -76,6 +77,7 @@
                 $scope.indexSet -= 2 * limitSet;
             }
             if ($scope.indexSet >= 0) {
+                $scope.countSet--;
                 for (var i = $scope.indexSet; i < $scope.indexSet + limitSet; i++) {
 
                     $scope.currentMediaSet[i - $scope.indexSet] = $scope.product.urlMedia[i];

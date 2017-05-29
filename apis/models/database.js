@@ -53,4 +53,5 @@ process.once('SIGTERM', () => {
 // Database models
 //-----------------------------------------------
 require('./product');
+require('./category');
 require('./member');
