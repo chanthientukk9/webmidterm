@@ -5,9 +5,9 @@
         .module('app')
         .controller('IndexController', IndexController);
 
-    IndexController.inject = ['$scope', '$uibModal'];
+    IndexController.inject = ['$scope', '$uibModal', 'ProductService', 'Dialog'];
 
-    function IndexController($scope, $uibModal) {
+    function IndexController($scope, $uibModal, ProductService, Dialog) {
         var vm = this;
 
         activate();

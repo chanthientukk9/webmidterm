@@ -19,11 +19,11 @@
                     memberId: '@memberId'
                 }
             },
-            GetProductByCategory: {
+            GetProductByParams: {
                 method: "GET",
-                url: "/api/product/find-category/:category",
+                url: "/api/products/find-params?:variables",
                 params: {
-                    category: '@category'
+                    variables: '@variables'
                 },
                 isArray: true
             }
@@ -42,8 +42,8 @@
             UpdateProduct: updateProduct,
             DeleteProduct: deleteProduct,
             GetSellerInfo: getSellerInfo,
-            GetProductByCategory: getProductByCategory,
-            GetAllCategory: getAllCategory
+            GetAllCategory: getAllCategory,
+            GetProductByParams: getProductByParams
         };
 
         return service;
@@ -79,6 +79,16 @@
 
         function getAllCategory() {
             return CategoryResource.query().$promise;
+        }
+
+        function getValidProduct(status) {
+            if (status == "valid" || status == "notvalid") {
+                return ProductResource.GetValidProduct({ status: status }).$promise;
+            }
+        }
+
+        function getProductByParams(params) {
+            return ProductResource.GetProductByParams({ variables: params }).$promise;
         }
     }
 })();

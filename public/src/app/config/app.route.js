@@ -23,11 +23,12 @@
         // })
 
         .state('app.list', {
-            url: 'list?category=:categoryId',
+            url: 'list?category=:categoryId&statusProduct=:status',
             templateUrl: './app/products/productList.html',
             controller: 'ProductListController',
             params: {
-                categoryId: null
+                categoryId: null,
+                status: null
             }
         })
 

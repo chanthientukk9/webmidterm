@@ -17,10 +17,18 @@
         ////////////////
 
         function activate() {
-            if (!$state.params.categoryId) {
+            var params = ''
+            if ($state.params.categoryId) {
+                params += 'category=' + $state.params.categoryId + '&';
+            }
+            if ($state.params.status) {
+                params += 'status=' + $state.params.status;
+            }
+            console.log(params);
+            if (params == '') {
                 getAllProduct();
             } else {
-                getProductByCategory($state.params.categoryId);
+                getProductByParams(params);
             }
             getAllCategory();
         }
@@ -44,10 +52,10 @@
             })
         }
 
-        function getProductByCategory(id) {
+        function getProductByParams(params) {
             $scope.preloader = true;
-            ProductService.GetProductByCategory(id).then(function(res) {
-                $scope.productList = res;
+            ProductService.GetProductByParams(params).then(function(res) {
+                $scope.productList = res
                 $scope.preloader = false;
             }, function(err) {
                 $scope.preloader = false;
@@ -74,6 +82,11 @@
                     }
                 }
             });
+        }
+
+        $scope.goStatusPage = function goStatusPage(status) {
+            console.log(status);
+            $state.go('app.list', { status: status })
         }
 
     }

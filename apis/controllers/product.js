@@ -20,10 +20,15 @@ module.exports.getAllProduct = function(req, res, next) {
         });
 }
 
-module.exports.findProductByCategory = function(req, res, next) {
-    Product.find({
-            category: req.params.category
-        })
+module.exports.findByParams = function(req, res, next) {
+    var objParams = {};
+    if (req.query.category) {
+        objParams.category = req.query.category;
+    }
+    if (req.query.status) {
+        objParams.status = req.query.status;
+    }
+    Product.find(objParams)
         .exec()
         .then((product) => {
             if (!product) {
@@ -36,16 +41,10 @@ module.exports.findProductByCategory = function(req, res, next) {
         })
         .catch((err) => {
             return res.status(500).json({
-                message: "Can not find product"
+                message: "Can not found product"
             });
         });
 }
-
-// module.exports.findValidProduct = function(req, res, next) {
-//     Product.find({
-//         status: req.
-//     })
-// }
 
 module.exports.getProductDetail = function(req, res, next) {
     Product.findById(req.params.productId)
