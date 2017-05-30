@@ -36,6 +36,10 @@ div.main-wrapper {
             }
         }
     }
+    clear: both;
+    position: relative;
+    z-index: 10;
+    margin-top: -3em;
 }
 
 @media (max-width: 767px) {

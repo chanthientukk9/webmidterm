@@ -5,9 +5,9 @@
         .module('app')
         .controller('HeaderController', HeaderController);
 
-    HeaderController.inject = ['$scope', '$state', 'ProductService', 'Dialog'];
+    HeaderController.inject = ['$scope', '$state', 'ProductService', 'Dialog', '$uibModal'];
 
-    function HeaderController($scope, $state, ProductService, Dialog) {
+    function HeaderController($scope, $state, ProductService, Dialog, $uibModal) {
         var vm = this;
         window.ck = $scope;
 
@@ -37,7 +37,23 @@
         }
 
         $scope.signIn = function signIn() {
-            $state.go('auth.sign-in');
+            $uibModal.open({
+                templateUrl: 'app/authentication/signIn.html',
+                controller: 'SignInController',
+                size: 'lg',
+            }).result.then(function(data) {
+                console.log(data);
+            });
+        }
+
+        $scope.signUp = function signUp() {
+            $uibModal.open({
+                templateUrl: 'app/authentication/signUp.html',
+                controller: 'SignUpController',
+                size: 'lg',
+            }).result.then(function(data) {
+                console.log(data);
+            });
         }
 
         $scope.goToHome = function goToHome() {
