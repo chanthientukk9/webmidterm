@@ -12,6 +12,14 @@
             update: {
                 method: "PUT"
             },
+            GetAllProduct: {
+                method: "GET",
+                url: "/api/product?:limit",
+                params: {
+                    limit: '@limit'
+                },
+                isArray: true
+            },
             GetSellerInfo: {
                 method: "GET",
                 url: "/api/member/:memberId",
@@ -53,8 +61,8 @@
             return (new Date(time)).toLocaleString('vi');
         }
 
-        function getAllProduct() {
-            return ProductResource.query().$promise;
+        function getAllProduct(limit) {
+            return ProductResource.GetAllProduct({ limit: limit }).$promise;
         }
 
         function getProduct(id) {

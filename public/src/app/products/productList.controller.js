@@ -89,5 +89,21 @@
             $state.go('app.list', { status: status })
         }
 
+        $scope.doBid = function doBid(id) {
+            console.log(id);
+            $uibModal.open({
+                templateUrl: 'app/products/modals/bidModal.html',
+                controller: 'BidModalController',
+                size: 'md',
+                resolve: {
+                    id: function() {
+                        return angular.copy(id);
+                    }
+                }
+            }).result.then(function() {
+
+            })
+        }
+
     }
 })();

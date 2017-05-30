@@ -1,0 +1,58 @@
+<div class="loader" ng-style="!preloader && { 'display': 'none'} "></div>
+
+<div class="modal-body">
+    <div class="box-content">
+        <div>
+            <h3>{{product.name}}</h3>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="col-md-11">
+                    <a role="button">
+                        <img ng-src="{{product.urlMedia[0].url}}" class="img-responsive" alt="{{product.name}}">
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div>
+                    <strong>Thông tin sản phẩm</strong>
+                </div><br>
+                <div>
+                    <i>{{product.description}}</i>
+                </div><br>
+                <div>
+                    <strong>Tình trạng đấu giá:</strong>
+                    <span ng-if="product.status == 'notvalid'" style="color: red;">Ngưng đấu giá</span>
+                    <span ng-if="product.status == 'valid'" style="color: green;">Đang đấu giá</span>
+                </div><br>
+                <div>
+                    <strong>Giá khởi điểm:</strong> {{product.price[0]}}
+                </div>
+                <div>
+                    <strong>Giá hiện tại:</strong> {{product.price[product.price.length - 1]}}
+                </div><br>
+                <div>
+                    <strong>Nơi giao dịch:</strong> {{product.location}}
+                </div><br>
+                <div>
+                    <strong>Ngày bắt đầu:</strong> {{convertTime(product.startDate)}}
+                </div>
+                <div>
+                    <strong>Ngày kết thúc:</strong> {{convertTime(product.endDate)}}
+                </div><br>
+                <div>
+                    <div class="col-md-6">
+                        <input type="text" class="form-control" ng-model="price">
+                    </div>
+                    <div class="col-md-6">
+                        <button type="button" class="btn btn-primary" ng-click="doBid()">Đấu giá</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-white" ng-click="dismiss()">Đóng</button>
+</div>

@@ -39,5 +39,9 @@
         $scope.signIn = function signIn() {
             $state.go('auth.sign-in');
         }
+
+        $scope.goToHome = function goToHome() {
+            window.location.replace("/");
+        }
     }
 })();

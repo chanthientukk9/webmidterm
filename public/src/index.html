@@ -54,13 +54,12 @@
         </nav>
         <div id="nav">
             <ul>
-                <li><a href="#">Điện tử</a></li>
-                <li><a href="#">Thời trang</a></li>
-                <li><a href="#">Gia dụng</a></li>
-                <li><a href="#">Sức khỏe và sắc đẹp</a></li>
-                <li><a href="#">Trẻ em và đồ chơi</a></li>
-                <li><a href="#">Thể thao & Du lịch</a></li>
-                <li><a href="#">Nhà cửa & Đời sống</a></li>
+                <li ng-click="goPage()">
+					<a href="#">Tất cả</a>
+				</li>
+				<li ng-repeat="category in categoryList" ng-click="goPage(category._id)">
+					<a href="#">{{category.name}}</a>
+				</li>
             </ul>
         </div>
     </div>
@@ -69,7 +68,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-3 side-bar">
-                <div class="panel panel-warning">
+                <div class="panel panel-default">
                     <div class="panel-heading">Thông tin cá nhân</div>
                     <div class="list-group">
                         <table class="table table-bordered">
@@ -88,7 +87,7 @@
                         </table>
                     </div>
                 </div>
-                <div class="panel panel-warning">
+                <div class="panel panel-default">
                     <div class="panel-heading">Danh sách sản phẩm</div>
                     <div class="list-group">
                         <table class="table table-bordered">
@@ -111,98 +110,38 @@
                 </div>
             </div>
             <div class="col-md-9 main-content">
-                <div class="panel panel-warning">
-                    <div class="panel-heading">Sản phẩm đang hot</div>
+                <div class="panel panel-success">
+                    <div class="panel-heading"><strong>Sản phẩm mới</strong></div>
                     <div class="panel-body">
-                        <div class="row">
-                            <div class="col-sm-6 col-md-4">
-                                <div class="thumbnail">
-                                    <img src="/images/1_thumbs.png" alt="...">
-                                    <div class="caption">
-                                        <h3>Thumbnail label</h3>
-                                        <p>...</p>
-                                        <p>
-                                            <a href="#" class="btn btn-primary" role="button">Xem chi tiết</a>
-                                            <a href="#" class="btn btn-success" role="button">
-                                                <span class="fa fa-plus" aria-hidden="true"></span> Đấu Giá
-                                            </a>
-                                        </p>
-                                    </div>
+                        <div class="col-sm-6 col-md-4" ng-repeat="product in productList">
+                            <div class="thumbnail">
+                                <img ng-src="{{product.urlMedia[0].url}}" alt="{{product.name}}">
+                                <div class="caption">
+                                    <h3>{{product.name}}</h3>
+                                    <p>{{product.description}}</p>
+                                    <p>
+                                        <a href="#" class="btn btn-primary" role="button" ng-click="goProduct(product._id)">Xem chi tiết</a>
+                                        <a href="#" class="btn btn-success" role="button" ng-click="doBid(product._id)">
+                                            <span class="fa fa-plus" aria-hidden="true"></span> Đấu Giá
+                                        </a>
+                                    </p>
                                 </div>
                             </div>
-                            <div class="col-sm-6 col-md-4">
-                                <div class="thumbnail">
-                                    <img src="/images/1_thumbs.png" alt="...">
-                                    <div class="caption">
-                                        <h3>Thumbnail label</h3>
-                                        <p>...</p>
-                                        <p>
-                                            <a href="#" class="btn btn-primary" role="button">Xem chi tiết</a>
-                                            <a href="#" class="btn btn-success" role="button">
-                                                <span class="fa fa-plus" aria-hidden="true"></span> Đấu Giá
-                                            </a>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6 col-md-4">
-                                <div class="thumbnail">
-                                    <img src="/images/1_thumbs.png" alt="...">
-                                    <div class="caption">
-                                        <h3>Thumbnail label</h3>
-                                        <p>...</p>
-                                        <p>
-                                            <a href="#" class="btn btn-primary" role="button">Xem chi tiết</a>
-                                            <a href="#" class="btn btn-success" role="button">
-                                                <span class="fa fa-plus" aria-hidden="true"></span> Đấu Giá
-                                            </a>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6 col-md-4">
-                                <div class="thumbnail">
-                                    <img src="/images/1_thumbs.png" alt="...">
-                                    <div class="caption">
-                                        <h3>Thumbnail label</h3>
-                                        <p>...</p>
-                                        <p>
-                                            <a href="#" class="btn btn-primary" role="button">Xem chi tiết</a>
-                                            <a href="#" class="btn btn-success" role="button">
-                                                <span class="fa fa-plus" aria-hidden="true"></span> Đấu Giá
-                                            </a>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6 col-md-4">
-                                <div class="thumbnail">
-                                    <img src="/images/1_thumbs.png" alt="...">
-                                    <div class="caption">
-                                        <h3>Thumbnail label</h3>
-                                        <p>...</p>
-                                        <p>
-                                            <a href="#" class="btn btn-primary" role="button">Xem chi tiết</a>
-                                            <a href="#" class="btn btn-success" role="button">
-                                                <span class="fa fa-plus" aria-hidden="true"></span> Đấu Giá
-                                            </a>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6 col-md-4">
-                                <div class="thumbnail">
-                                    <img src="/images/1_thumbs.png" alt="...">
-                                    <div class="caption">
-                                        <h3>Thumbnail label</h3>
-                                        <p>...</p>
-                                        <p>
-                                            <a href="#" class="btn btn-primary" role="button">Xem chi tiết</a>
-                                            <a href="#" class="btn btn-success" role="button">
-                                                <span class="fa fa-plus" aria-hidden="true"></span> Đấu Giá
-                                            </a>
-                                        </p>
-                                    </div>
+                        </div>
+                    </div>
+                </div>
+				<div class="panel panel-success">
+                    <div class="panel-heading"><strong>Danh mục sản phẩm</strong></div>
+                    <div class="panel-body">
+                        <div class="col-sm-6 col-md-4" ng-repeat="category in categoryList">
+                            <div class="thumbnail">
+                                <img ng-src="{{category.urlMedia}}" alt="{{category.name}}" style="height: 291px;">
+                                <div class="caption">
+                                    <h3>{{category.name}}</h3>
+                                    <!--<p>{{category.description}}</p>-->
+                                    <p>
+                                        <a href="#" class="btn btn-primary" role="button" ng-click="goPage(category._id)">Xem chi tiết</a>
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -211,7 +150,7 @@
             </div>
         </div>
     </div>
-    <nav aria-label="Page navigation">
+    <!--<nav aria-label="Page navigation">
     <ul class="nav-page pagination">
         <li>
             <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
@@ -226,7 +165,7 @@
         </a>
         </li>
     </ul>
-    </nav>
+    </nav>-->
     <div class="container-fluid footer-bg ">
         <h2 class="text-center">CONTACT</h2>
         <div class="row footer-content">
@@ -256,6 +195,30 @@
     </div>
     </div>
     </div>
+    <footer>
+        <div class="footer-copyright">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-8">
+                        <p class="text-dark no-mg pd-t-xs">2017 © 1412600-1412438-1412609 - All rights reserved.
+                        </p>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="links text-right">
+                            <a class="btn-empty btn-xl no-pd mg-r-sm" href="#"><i
+                                class="fa fa-lg fa-twitter-square"></i></a>
+                            <a class="btn-empty btn-xl no-pd mg-r-sm" href="#"><i
+                                class="fa fa-lg fa-facebook-square"></i></a>
+                            <a class="btn-empty btn-xl no-pd mg-r-sm" href="#"><i
+                                class="fa fa-lg fa-linkedin-square"></i></a>
+                            <a class="btn-empty btn-xl no-pd mg-r-sm" href="#"><i class="fa fa-lg fa-vimeo-square"></i></a>
+                            <a class="btn-empty btn-xl no-pd mg-r-sm" href="#"><i class="fa fa-lg fa-flickr"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
     <!-- bower:js -->
     <script src="../../bower_components/jquery/dist/jquery.min.js"></script>
     <script src="../../bower_components/angular/angular.js"></script>

@@ -2,7 +2,13 @@ var mongoose = require('mongoose');
 var Product = mongoose.model('Product');
 
 module.exports.getAllProduct = function(req, res, next) {
+    console.log("Haha " + req.query.limit);
+    var limit = parseInt(req.query.limit);
     Product.find({})
+        .sort({
+            timestamp: -1
+        })
+        .limit(limit)
         .exec()
         .then((product) => {
             if (!product) {

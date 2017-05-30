@@ -17,8 +17,8 @@
             </div>
         </div>
         <div class="col-md-9 main-content">
-            <div class="panel panel-default">
-                <div class="panel-heading"><strong>Sản phẩm mới</strong></div>
+            <div class="panel panel-success">
+                <div class="panel-heading"><strong>Danh mục Sản phẩm</strong></div>
                 <div class="panel-body">
                     <div class="col-sm-6 col-md-4" ng-repeat="product in productList">
                         <div class="thumbnail">
@@ -30,7 +30,7 @@
                                 <p>{{product.description}}</p>
                                 <p>
                                     <a href="#" class="btn btn-primary" role="button" ng-click="viewDetail(product._id)">Xem chi tiết</a>
-                                    <a href="#" class="btn btn-success" role="button">
+                                    <a href="#" class="btn btn-success" role="button" ng-click="doBid(product._id)">
                                         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Đấu Giá
                                     </a>
                                 </p>

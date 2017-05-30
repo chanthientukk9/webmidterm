@@ -31,7 +31,8 @@ var productSchema = new Schema({
     seller: { type: Schema.Types.ObjectId, ref: "Member" },
     location: { type: String, required: false, default: null },
     startDate: { type: Number, required: false, default: Date.now() },
-    endDate: { type: Number, required: false, default: Date.now() }
+    endDate: { type: Number, required: false, default: Date.now() },
+    timestamp: { type: Number, required: false, default: Date.now() }
 });
 
 
