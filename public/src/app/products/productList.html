@@ -2,15 +2,15 @@
     <div class="row">
         <div class="col-md-3 side-bar">
             <div class="panel panel-default">
-                <div class="panel-heading">Danh sách sản phẩm</div>
+                <div class="panel-heading">Bộ lọc sản phẩm</div>
                 <div class="list-group">
-                    <a href="#" class="list-group-item" ng-click="goStatusPage('valid')">Danh sách sản phẩm đang đấu giá 
-                            <span class="badge badge-color">2</span>c
+                    <a href="#" class="list-group-item" ng-click="goStatusPage('valid')">Sản phẩm đang đấu giá 
+                            <span class="badge badge-color">2</span>
                         </a>
-                    <a href="#" class="list-group-item" ng-click="goStatusPage('notvalid')">Danh sách sản phẩm tham gia đấu giá 
+                    <a href="#" class="list-group-item" ng-click="goStatusPage('notvalid')">Sản phẩm ngưng đấu giá
                             <span class="badge badge-color">3</span>
                         </a>
-                    <a href="#" class="list-group-item">Danh sách sản phẩm đang quan tâm
+                    <a href="#" class="list-group-item">Sản phẩm quan tâm
                             <span class="badge badge-color">4</span>
                         </a>
                 </div>
@@ -20,6 +20,9 @@
             <div class="panel panel-success">
                 <div class="panel-heading"><strong>Danh mục Sản phẩm</strong></div>
                 <div class="panel-body">
+                    <div ng-if="productList.length == 0">
+                        <h3>Chưa có dữ liệu</h3>
+                    </div>
                     <div class="col-sm-6 col-md-4" ng-repeat="product in productList">
                         <div class="thumbnail">
                             <a href="#" role="button" ng-click="viewImage(product.urlMedia)">

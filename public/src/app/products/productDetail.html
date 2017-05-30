@@ -111,10 +111,46 @@
         </div>
         <div class="col-md-9 box-content">
             <uib-tabset active="active">
-                <uib-tab index="$index" heading="{{attribute.title}}" ng-repeat="attribute in product.attributes">
+                <uib-tab index="$index+1" heading="{{attribute.title}}" ng-repeat="attribute in product.attributes">
                     <div class="p-a-2 tab-content transition">
                         <div class="description-wrapper">
                             <div ng-bind-html="attribute.data | trusted"></div>
+                        </div>
+                    </div>
+                </uib-tab>
+                <uib-tab index="0" heading="Bảng xếp hạng">
+                    <div class="p-a-2 tab-content transition">
+                        <div class="description-wrapper">
+                            <div>
+                                <table class="table">
+                                    <tbody>
+                                        <tr>
+                                            <th>Số thứ tự</th>
+                                            <th>Người mua</th>
+                                            <th>Giá mua</th>
+                                            <th>Thời gian</th>
+                                        </tr>
+                                        <tr>
+                                            <td>Info 1</td>
+                                            <td>Info 2</td>
+                                            <td>Info 3</td>
+                                            <td>Info 4</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Info 1</td>
+                                            <td>Info 2</td>
+                                            <td>Info 3</td>
+                                            <td>Info 4</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Info 1</td>
+                                            <td>Info 2</td>
+                                            <td>Info 3</td>
+                                            <td>Info 4</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </uib-tab>
