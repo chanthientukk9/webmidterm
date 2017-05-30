@@ -39,6 +39,12 @@
             params: {
                 id: null
             }
+        })
+
+        .state('app.profile', {
+            url: 'profile',
+            templateUrl: './app/users/profile.html',
+            controller: 'ProfileController'
         });
 
 
