@@ -29,7 +29,11 @@
         }
 
         $scope.goPage = function goPage(id) {
-            $state.go("app.list", { categoryId: id });
+            if (!id) {
+                $state.go("app.list", { categoryId: id, status: id });
+            } else {
+                $state.go("app.list", { categoryId: id });
+            }
         }
 
         $scope.signIn = function signIn() {
