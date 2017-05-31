@@ -56,6 +56,10 @@
             });
         }
 
+        $scope.goUser = function goUser() {
+            $state.go("app.profile");
+        }
+
         $scope.goToHome = function goToHome() {
             window.location.replace("/");
         }

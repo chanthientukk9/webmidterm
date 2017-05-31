@@ -88,5 +88,9 @@
             })
         }
 
+        $scope.goUser = function goUser() {
+            window.location.replace("/product/profile");
+        }
+
     }
 })();
