@@ -10,8 +10,22 @@
     function IndexController($scope, $state, $uibModal, ProductService, Dialog) {
         var vm = this;
         $scope.preloader = true;
+
+        $scope.review = {
+            grid: true
+        }
+
+        $scope.price = {
+            grid: true
+        }
+
+        $scope.product = {
+            grid: true
+        }
+
         window.cc = $scope;
-        var limitProduct = 'limit=3';
+        $scope.categorySearch = null;
+        var limitProduct = 'limit=6';
         activate();
 
         ////////////////
@@ -55,6 +69,7 @@
         function getAllCategory() {
             ProductService.GetAllCategory().then(function(res) {
                 $scope.categoryList = res;
+                //$scope.categorySearch = res[0];
             }, function(err) {
                 Dialog.Error("Lỗi", err.data.message);
             })
@@ -92,5 +107,17 @@
             window.location.replace("/product/profile");
         }
 
+        $scope.changeView = function changeView(viewtype, booleanView) {
+            console.log(viewtype);
+            console.log(booleanView);
+
+            if (viewtype == "review") {
+                $scope.review.grid = booleanView;
+            } else if (viewtype == "price") {
+                $scope.price.grid = booleanView;
+            } else if (viewtype == "product") {
+                $scope.product.grid = booleanView;
+            }
+        }
     }
 })();
