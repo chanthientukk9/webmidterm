@@ -3,22 +3,52 @@
         <div class="col-md-3 side-bar">
             <div class="panel panel-default">
                 <div class="panel-heading">Bộ lọc sản phẩm</div>
-                <div class="list-group">
-                    <a href="#" class="list-group-item" ng-click="goStatusPage('valid')">Sản phẩm đang đấu giá 
+                <div class="panel-body">
+                    <div class="list-group">
+                        <a href="#" class="list-group-item" ng-click="goStatusPage('valid')">Sản phẩm đang đấu giá 
                             <span class="badge badge-color">2</span>
                         </a>
-                    <a href="#" class="list-group-item" ng-click="goStatusPage('notvalid')">Sản phẩm ngưng đấu giá
+                        <a href="#" class="list-group-item" ng-click="goStatusPage('notvalid')">Sản phẩm ngưng đấu giá
                             <span class="badge badge-color">3</span>
                         </a>
-                    <a href="#" class="list-group-item">Sản phẩm quan tâm
+                        <a href="#" class="list-group-item">Sản phẩm quan tâm
                             <span class="badge badge-color">4</span>
                         </a>
+                    </div>
+                    <!--search button-->
+                    <div class="row">
+                        <h4 class="margin-left-10px">Thương hiệu</h4>
+                        <div class="form-group col-md-9">
+                            <input type="text" class="form-control border-flat" placeholder="Search">
+                        </div>
+                        <button type="submit" class="btn btn-default col-md-2">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+                    <!--end search button-->
+
+                    <!--search for category-->
+                    <div class="scroll col-md-10">
+                        <span role="button" class="row" ng-repeat="category in categoryList" value="category._id">
+                                {{category.name}}
+                        </span>
+                    </div>
+                    <!--end search for category-->
                 </div>
             </div>
         </div>
         <div class="col-md-9 main-content">
             <div class="panel panel-success">
-                <div class="panel-heading"><strong>Danh mục Sản phẩm</strong></div>
+                <div class="panel-heading"><strong>Danh mục Sản phẩm</strong>
+                    <div class="navbar-right margin-right-10px">
+                        <label for="sort-by"> Sắp xếp theo: </label>
+                        <select class="selectpicker" name="sort-by">
+                            <option>Giá tăng dần</option>
+                            <option>Giá giảm dần</option>
+                            <option>Thời gian kết thúc giảm dần</option>
+                        </select>
+                    </div>
+                </div>
                 <div class="panel-body">
                     <div ng-if="productList.length == 0">
                         <h3>Chưa có dữ liệu</h3>

@@ -10,8 +10,11 @@
 
     <link rel="stylesheet" href="../../bower_components/sweetalert/dist/sweetalert.css">
     <link rel="stylesheet" href="../../bower_components/font-awesome/css/font-awesome.min.css">
-    <script src='https://www.google.com/recaptcha/api.js'></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
     <link rel="stylesheet" href="./styles/style.css">
+    <script src="https://www.google.com/recaptcha/api.js"></script>
+
 </head>
 
 <body class="body-contain" ng-controller="IndexController">
@@ -75,6 +78,26 @@
     </div>
     <!--End of navigation-->
 
+    <!--New product-->
+    <div class="container-fluid">
+        <div ng-controller="IndexController">
+            <div style="height: 305px">
+                <div uib-carousel active="active" interval="myInterval" no-wrap="noWrapSlides">
+                <div uib-slide ng-repeat="slide in slides track by slide.id" index="slide.id">
+                    <img ng-src="{{slide.image}}" style="margin:auto;">
+                    <div class="carousel-caption">
+                    <h4>Slide {{slide.id}}</h4>
+                    <p>{{slide.text}}</p>
+                    </div>
+                </div>
+                </div>
+            </div>
+    </div>
+    </div>
+    <!--End of new product-->
+
+
+    <!--Body content-->
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-3 side-bar">
@@ -89,8 +112,8 @@
                                     <a href="#" class="list-group-item"> Điểm tin cậy
                                         <span class="badge badge-color">69</span>
                                     </a>
-                                <tr>
-                                    <a href="#" class="list-group-item"> Bán đấu giá 
+                                    <tr>
+                                        <a href="#" class="list-group-item"> Bán đấu giá 
                                         <i class="fa fa-plus btn-plus" aria-hidden="true"></i>
                                     </a>
                             </tbody>
@@ -102,16 +125,16 @@
                     <div class="list-group">
                         <table class="table table-bordered">
                             <tbody>
-                            <tr>
-                                <a href="#" class="list-group-item">Danh sách sản phẩm đang đấu giá 
+                                <tr>
+                                    <a href="#" class="list-group-item">Danh sách sản phẩm đang đấu giá 
                                     <span class="badge badge-color">2</span>
                                 </a>
-                            <tr>
-                                <a href="#" class="list-group-item">Danh sách sản phẩm tham gia đấu giá 
+                                    <tr>
+                                        <a href="#" class="list-group-item">Danh sách sản phẩm tham gia đấu giá 
                                     <span class="badge badge-color">3</span>
                                 </a>
-                            <tr>
-                                <a href="#" class="list-group-item">Danh sách sản phẩm đang quan tâm
+                                        <tr>
+                                            <a href="#" class="list-group-item">Danh sách sản phẩm đang quan tâm
                                     <span class="badge badge-color">4</span>
                                 </a>
                             </tbody>
@@ -234,7 +257,7 @@
                     </div>
                 </div>
 
-				<div class="panel panel-success" ng-if="product.grid">
+                <div class="panel panel-success" ng-if="product.grid">
                     <div class="panel-heading">
                         <strong>Top 5 sản phẩm sắp kết thúc đấu giá</strong>
                         <div class="navbar-right margin-right-10px">
@@ -286,22 +309,9 @@
             </div>
         </div>
     </div>
-    <!--<nav aria-label="Page navigation">
-    <ul class="nav-page pagination">
-        <li>
-            <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
-            <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">4</a></li>
-            <li><a href="#">5</a></li>
-        <li>
-        <a href="#" aria-label="Next">
-            <span aria-hidden="true">&raquo;</span>
-        </a>
-        </li>
-    </ul>
-    </nav>-->
+    <!--End of body content-->
+
+    <!--contact-->
     <div class="container-fluid footer-bg ">
         <h2 class="text-center">CONTACT</h2>
         <div class="row footer-content">
@@ -331,6 +341,9 @@
     </div>
     </div>
     </div>
+    <!--End of contact-->
+
+    <!--Footer-->
     <footer>
         <div class="footer-copyright">
             <div class="container">
@@ -355,6 +368,7 @@
             </div>
         </div>
     </footer>
+    <!--End of footer-->
     <!-- bower:js -->
     <script src="../../bower_components/jquery/dist/jquery.min.js"></script>
     <script src="../../bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
@@ -364,7 +378,11 @@
     <script src="../../bower_components/angular-resource/angular-resource.min.js"></script>
     <script src="../../bower_components/sweetalert/dist/sweetalert.min.js"></script>
     <!-- endbower -->
+    <!--Third party-->
+    <!--<script src='https://www.google.com/recaptcha/api.js'></script>-->
+    <!-- end -->
     <script src="./scripts/app.js"></script>
+    </script>
 </body>
 
 </html>
