@@ -18,6 +18,12 @@ router.route('/product/:productId')
     .delete(routeProduct.deleteProduct);
 router.route('/products/find-params')
     .get(routeProduct.findByParams);
+router.route('/products/find-most-bid')
+    .get(routeProduct.findMostBid);
+router.route('/products/find-most-price')
+    .get(routeProduct.findMostPrice);
+router.route('/products/find-nearly-end-date')
+    .get(routeProduct.findNearlyEndDate);
 
 router.route('/category')
     .post(routeCategory.createCategory)

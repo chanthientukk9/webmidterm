@@ -144,3 +144,74 @@ module.exports.deleteProduct = function(req, res, next) {
             })
         })
 }
+
+module.exports.findMostBid = function(req, res, next) {
+    var limit = parseInt(req.query.limit);
+    Product.find({})
+        .sort({
+            amountBid: -1
+        })
+        .limit(limit)
+        .exec()
+        .then((product) => {
+            if (!product) {
+                return res.status(400).json({
+                    message: 'product not found'
+                });
+            } else {
+                return res.status(200).json(product);
+            }
+        }).catch((err) => {
+            return res.status(500).json({
+                message: 'Can not find product'
+            })
+        })
+}
+
+module.exports.findMostPrice = function(req, res, next) {
+    var limit = parseInt(req.query.limit);
+    Product.find({})
+        .sort({
+            finalPrice: -1
+        })
+        .limit(limit)
+        .exec()
+        .then((product) => {
+            if (!product) {
+                return res.status(404).json({
+                    message: 'Product not found'
+                });
+            } else {
+                return res.status(200).json(product);
+            }
+        }).catch((err) => {
+            return res.status(500).json({
+                message: 'Can not find product'
+            });
+        })
+}
+
+module.exports.findNearlyEndDate = function(req, res, next) {
+    var limit = parseInt(req.query.limit);
+    var now = Date.now();
+    Product.find({})
+        .where('endDate').gt(now)
+        .sort({
+            endDate: 1
+        })
+        .limit(limit)
+        .exec()
+        .then((product) => {
+            if (!product) {
+                return res.status(404).json({
+                    message: 'Product not found'
+                });
+            } else {
+                return res.status(200).json(product);
+            }
+        }).catch((err) => {
+            return res.status(500).json({
+                message: 'Can not find product'
+            });
+        })
+}

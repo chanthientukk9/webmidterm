@@ -25,6 +25,8 @@ var productSchema = new Schema({
     description: { type: String, required: false, default: null },
     category: { type: Schema.Types.ObjectId, ref: "Category" },
     price: { type: [Number], required: true },
+    finalPrice: { type: Number, require: true },
+    amountBid: { type: [Number], required: false, default: 0 },
     urlMedia: { type: [media], required: true },
     status: { type: String, default: "notvalid" },
     attributes: { type: [attributes], default: null },
