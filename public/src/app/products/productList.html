@@ -42,10 +42,9 @@
                 <div class="panel-heading"><strong>Danh mục Sản phẩm</strong>
                     <div class="navbar-right margin-right-10px">
                         <label for="sort-by"> Sắp xếp theo: </label>
-                        <select class="selectpicker" name="sort-by">
-                            <option>Giá tăng dần</option>
-                            <option>Giá giảm dần</option>
-                            <option>Thời gian kết thúc giảm dần</option>
+                        <select ng-model='sortValue' ng-change='sortBy()' class="selectpicker" name="sort-by">
+                            <option value="1">Giá tăng dần</option>
+                            <option value="2">Thời gian kết thúc giảm dần</option>
                         </select>
                     </div>
                 </div>

@@ -29,9 +29,10 @@
         activate();
 
         //////////////////////// Carousel
-        $scope.myInterval = 5000;
+        $scope.myInterval = 2000;
         $scope.noWrapSlides = false;
         $scope.active = 0;
+        $scope.sortValue = 0;
         var slides = $scope.slides = [];
         var currIndex = 0;
         //////////////////////////////

@@ -105,5 +105,20 @@
             })
         }
 
+        $scope.sortBy = function sortBy() {
+            console.log('hahaaaa');
+            var value = $scope.sortValue
+            if (value == '1') {
+                $scope.productList.sort(function(a, b) {
+                    return parseFloat(a.finalPrice) - parseFloat(b.finalPrice);
+                })
+            } else if (value == '2') {
+                $scope.productList.sort(function(a, b) {
+                    return parseFloat(a.endDate) - parseFloat(b.endDate);
+                })
+            }
+            console.log($scope.productList);
+        }
+
     }
 })();
