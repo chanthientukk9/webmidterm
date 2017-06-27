@@ -34,6 +34,13 @@
                     variables: '@variables'
                 },
                 isArray: true
+            },
+            UpdateBid: {
+                method: "PUT",
+                url: "/api/products/update-bid/:id",
+                params: {
+                    id: '@id'
+                }
             }
         });
 
@@ -51,7 +58,8 @@
             DeleteProduct: deleteProduct,
             GetSellerInfo: getSellerInfo,
             GetAllCategory: getAllCategory,
-            GetProductByParams: getProductByParams
+            GetProductByParams: getProductByParams,
+            UpdateBid: updateBid
         };
 
         return service;
@@ -97,6 +105,10 @@
 
         function getProductByParams(params) {
             return ProductResource.GetProductByParams({ variables: params }).$promise;
+        }
+
+        function updateBid(product) {
+            return ProductResource.UpdateBid({ id: product._id }, product).$promise;
         }
     }
 })();

@@ -24,6 +24,10 @@ router.route('/products/find-most-price')
     .get(routeProduct.findMostPrice);
 router.route('/products/find-nearly-end-date')
     .get(routeProduct.findNearlyEndDate);
+router.route('/products/count')
+    .get(routeProduct.countProduct);
+router.route('/products/update-bid/:productId')
+    .put(routeProduct.updateProductBid);
 
 router.route('/category')
     .post(routeCategory.createCategory)

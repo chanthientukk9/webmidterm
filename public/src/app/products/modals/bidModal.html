@@ -42,7 +42,7 @@
                 </div><br>
                 <div>
                     <div class="col-md-6">
-                        <input type="text" class="form-control" ng-model="price">
+                        <input type="text" class="form-control" placeholder="{{product.finalPrice + product.stepPrice}}" ng-model="price">
                     </div>
                     <div class="col-md-6">
                         <button type="button" class="btn btn-primary" ng-click="doBid()">Đấu giá</button>

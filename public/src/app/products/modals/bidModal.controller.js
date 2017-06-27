@@ -10,7 +10,6 @@
     function BidModalController(id, $scope, ProductService, $uibModalInstance, Dialog) {
         var vm = this;
         $scope.preloader = true;
-        $scope.price = 0;
 
         activate();
 
@@ -36,15 +35,21 @@
 
         $scope.doBid = function doBid() {
             $scope.preloader = true;
-            if ($scope.price > $scope.product.price[$scope.product.price.length - 1]) {
-                $scope.product.price.push($scope.price);
-                ProductService.UpdateProduct($scope.product).then(function(res) {
-                    $scope.preloader = false;
-                    Dialog.Success("Thành công", "Đã đấu giá");
-                }, function(err) {
-                    $scope.preloader = false;
-                    Dialog.Error("Lỗi", err.data.message);
+            if ($scope.price >= ($scope.product.finalPrice + $scope.product.stepPrice)) {
+                $scope.product.finalPrice = $scope.price;
+                Dialog.Confirm('Bạn có chắc chắn?', 'Ra giá ' + $scope.price + ' VNĐ cho sản phẩm ' + $scope.product.name, 'Tôi chắc chắn!', function(isComfirm) {
+                    if (isComfirm != true)
+                        return;
+                    ProductService.UpdateBid($scope.product).then(function(res) {
+                        $scope.preloader = false;
+                        $scope.product.price.push($scope.price);
+                        Dialog.Success("Thành công", "Đã đấu giá");
+                    }, function(err) {
+                        $scope.preloader = false;
+                        Dialog.Error("Lỗi", err.message);
+                    })
                 })
+
             } else {
                 $scope.preloader = false;
                 Dialog.Error("Lỗi", "Số tiền không đủ điều kiện");
