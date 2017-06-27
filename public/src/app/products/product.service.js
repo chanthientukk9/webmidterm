@@ -14,9 +14,10 @@
             },
             GetAllProduct: {
                 method: "GET",
-                url: "/api/product?:limit",
+                url: "/api/product?limit=:limit&page=:page",
                 params: {
-                    limit: '@limit'
+                    limit: '@limit',
+                    page: '@page'
                 },
                 isArray: true
             },
@@ -35,6 +36,38 @@
                 },
                 isArray: true
             },
+            GetMostBidProduct: {
+                method: "GET",
+                url: "/api/products/find-most-bid?limit=:limit",
+                params: {
+                    limit: '@limit'
+                },
+                isArray: true
+            },
+
+            GetMostPriceProduct: {
+                method: "GET",
+                url: "/api/products/find-most-price?limit=:limit",
+                params: {
+                    limit: '@limit'
+                },
+                isArray: true
+            },
+
+            GetNEDProduct: {
+                method: "GET",
+                url: "/api/products/find-nearly-end-date?limit=:limit",
+                params: {
+                    limit: '@limit'
+                },
+                isArray: true
+            },
+
+            CountProduct: {
+                method: "GET",
+                url: "/api/products/count"
+            },
+
             UpdateBid: {
                 method: "PUT",
                 url: "/api/products/update-bid/:id",
@@ -59,6 +92,10 @@
             GetSellerInfo: getSellerInfo,
             GetAllCategory: getAllCategory,
             GetProductByParams: getProductByParams,
+            GetMostBidProduct: getMostBidProduct,
+            GetMostPriceProduct: getMostPriceProduct,
+            GetNEDProduct: getNEDProduct,
+            CountProduct: countProduct,
             UpdateBid: updateBid
         };
 
@@ -69,8 +106,8 @@
             return (new Date(time)).toLocaleString('vi');
         }
 
-        function getAllProduct(limit) {
-            return ProductResource.GetAllProduct({ limit: limit }).$promise;
+        function getAllProduct(limit, page) {
+            return ProductResource.GetAllProduct({ limit: limit, page: page }).$promise;
         }
 
         function getProduct(id) {
@@ -91,6 +128,22 @@
 
         function getProductByCategory(categoryId) {
             return ProductResource.GetProductByCategory({ category: categoryId }).$promise;
+        }
+
+        function getMostBidProduct(limit) {
+            return ProductResource.GetMostBidProduct({ limit: limit }).$promise;
+        }
+
+        function getNEDProduct(limit) {
+            return ProductResource.GetNEDProduct({ limit: limit }).$promise;
+        }
+
+        function getMostPriceProduct(limit) {
+            return ProductResource.GetMostPriceProduct({ limit: limit }).$promise;
+        }
+
+        function countProduct() {
+            return ProductResource.CountProduct({}).$promise
         }
 
         function getAllCategory() {

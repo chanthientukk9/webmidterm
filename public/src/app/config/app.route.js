@@ -28,7 +28,9 @@
             controller: 'ProductListController',
             params: {
                 categoryId: null,
-                status: null
+                status: null,
+                page: '1',
+                limit: '2'
             }
         })
 

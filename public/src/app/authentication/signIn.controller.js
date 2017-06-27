@@ -9,7 +9,6 @@
 
     function SignInController($scope) {
         var vm = this;
-        $scope.user;
 
 
         activate();

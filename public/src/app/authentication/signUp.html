@@ -5,7 +5,7 @@
     <h4 class="modal-title">Đăng kí tài khoản</h4>
 </div>
 <div class="modal-body">
-    <form class="form-horizontal" action="javascript:alert(grecaptcha.getResponse(widgetId1));" method="POST" name="signInForm">
+    <form class="form-horizontal" action="javascript:alert(grecaptcha.getResponse(widgetId1));" method="POST" name="signUpForm">
         <div class="form-group">
             <label for="inputFullName" class="col-sm-2 control-label">Họ và Tên</label>
             <div class="col-sm-10">
@@ -15,7 +15,11 @@
         <div class="form-group">
             <label for="inputMail" class="col-sm-2 control-label">Email</label>
             <div class="col-sm-10">
-                <input type="email" class="form-control" name="inputEmail" placeholder="Email">
+                <input type="email" class="form-control" ng-model="user.email" name="inputEmail" placeholder="Email">
+                <span ng-show="signUpForm.inputEmail.$dirty && signUpForm.inputEmail.$invalid" class="input-error">
+                    <span ng-show="signUpForm.inputEmail.$error.required">Email is required</span>
+                <span ng-show="signUpForm.inputEmail.$error.email">Invalid email address</span>
+                </span>
             </div>
         </div>
         <div class="form-group">
@@ -28,8 +32,8 @@
             <label for="inputAcc" class="col-sm-2 control-label">Tên đăng nhập</label>
             <div class="col-sm-10">
                 <input class="form-control" type="text" required ng-maxlength="4" ng-model="user.account" name="inputAcc" placeholder="ngdinhtien1905">
-                <span ng-show="signInForm.inputAcc.$error.required" ng-hide="!user.account" class="input-error">
-                    This is a required field and at least 4 characters
+                <span ng-show="signUpForm.inputAcc.$error.required" ng-hide="!user.account" class="input-error">
+                    This is a required field and at least 5 characters
                 </span>
             </div>
         </div>

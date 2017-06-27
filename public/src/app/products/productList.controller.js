@@ -11,16 +11,23 @@
         var vm = this;
         window.cc = $scope;
         $scope.preloader = true;
-
+        $scope.pageNumber = $state.params.page;
+        $scope.pageLimit = 2;
+        $scope.isPageLoaded = false;
         activate();
 
         ////////////////
 
         function activate() {
+            if ($state.params.limit) {
+                $scope.pageLimit = $state.params.limit;
+            }
+
             var params = ''
             if ($state.params.categoryId) {
                 params += 'category=' + $state.params.categoryId + '&';
             }
+
             if ($state.params.status) {
                 params += 'status=' + $state.params.status;
             }
@@ -31,6 +38,7 @@
                 getProductByParams(params);
             }
             getAllCategory();
+            countProduct();
         }
 
         function getAllCategory() {
@@ -43,9 +51,11 @@
 
         function getAllProduct() {
             $scope.preloader = true;
-            ProductService.GetAllProduct().then(function(res) {
+            ProductService.GetAllProduct($scope.pageLimit, $state.params.page).then(function(res) {
                 $scope.productList = res;
                 $scope.preloader = false;
+                $scope.pageNumber = $state.params.page ? angular.copy($state.params.page) : 1;
+                $scope.isPageLoaded = true;
             }, function(err) {
                 $scope.preloader = false;
                 Dialog.Error("Lỗi", err.data.message);
@@ -59,6 +69,39 @@
                 $scope.preloader = false;
             }, function(err) {
                 $scope.preloader = false;
+                Dialog.Error("Lỗi", err.data.message);
+            })
+        }
+
+        function countProduct() {
+            ProductService.CountProduct().then(function(res) {
+                $scope.count = res.count;
+            }, function(err) {
+                Dialog.Error("Lỗi", err.data.message)
+            })
+        }
+
+        $scope.setPage = function(pageNo) {
+            $scope.currentPage = pageNo;
+        }
+
+        $scope.changePage = function() {
+            if (!$scope.isPageLoaded || $scope.pageNumber == $state.params.page) {
+                return;
+            }
+            $state.go('app.list', { page: $scope.pageNumber, limit: $scope.pageLimit });
+        }
+
+        $scope.chooseCategory = function(category) {
+            $scope.searchCategory = category;
+        }
+
+        $scope.searchByCategory = function() {
+            var param = 'category=' + $scope.searchCategory._id;
+            param = param + '&name=' + $scope.searchContent;
+            ProductService.GetProductByParams(param).then(function(res) {
+                $scope.productList = res;
+            }, function(err) {
                 Dialog.Error("Lỗi", err.data.message);
             })
         }

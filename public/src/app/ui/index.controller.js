@@ -26,6 +26,7 @@
         window.cc = $scope;
         $scope.categorySearch = null;
         var limitProduct = 'limit=6';
+        var productLimit = 5;
         activate();
 
         //////////////////////// Carousel
@@ -41,6 +42,9 @@
         function activate() {
             getNewProduct();
             getAllCategory();
+            getMostBidProduct();
+            getMostPriceProduct();
+            getNEDProduct();
         }
 
         $scope.signIn = function signIn() {
@@ -65,7 +69,7 @@
 
         function getNewProduct() {
             $scope.preloader = true;
-            ProductService.GetAllProduct(limitProduct).then(function(res) {
+            ProductService.GetAllProduct(limitProduct, 1).then(function(res) {
                 $scope.productList = res;
                 $scope.preloader = false;
             }, function(err) {
@@ -83,6 +87,29 @@
             })
         }
 
+        function getMostBidProduct() {
+            ProductService.GetMostBidProduct(productLimit).then(function(res) {
+                $scope.mostBidProductList = res;
+            }, function(err) {
+                Dialog.Error("Lỗi", err.data.message);
+            })
+        }
+
+        function getMostPriceProduct() {
+            ProductService.GetMostPriceProduct(productLimit).then(function(res) {
+                $scope.mostPriceProductList = res;
+            }, function(err) {
+                Dialog.Error("Lỗi", err.data.message);
+            })
+        }
+
+        function getNEDProduct() {
+            ProductService.GetNEDProduct(productLimit).then(function(res) {
+                $scope.nEDProductList = res;
+            }, function(err) {
+                Dialog.Error("Lỗi", err.data.message);
+            })
+        }
         $scope.goPage = function goPage(id) {
             if (!id) {
                 window.location.replace("/product/list");
@@ -178,7 +205,6 @@
 
             return array;
         }
-
         // end of carousel
     }
 })();
