@@ -38,11 +38,82 @@
                                 </div>
                             </div>
                         </fieldset>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Nhập mật khẩu hiện tại</label>
+                            <div class="col-sm-9">
+                                <input type="password" class="form-control" id="Password">
+                            </div>
+                        </div>
                     </form>
+                    </br>
+                    <span class="input-group-btn ">
+                        <button type="button" class="btn btn-warning btn-sit float-right">Cập nhật thông tin cá nhân</button>
+                    </span>
                 </div>
             </div>
         </uib-tab>
-        <uib-tab index="1" heading="Danh sách sản phẩm đang tham gia đấu giá">
+        <uib-tab index="1" heading="Sản phẩm đang tham gia đấu giá">
+            <table class="table table-striped info-fix">
+                <thead>
+                    <tr>
+                        <th class="text-center">Chủ sản phẩm đấu giá</th>
+                        <th class="text-center">Sản phẩm tham gia đấu giá</th>
+                        <th class="text-center">Giá</th>
+                        <th class="text-center">Hạn chót tham gia đấu giá</th>
+                        <th class="text-center">Thứ hạng hiện tại</th>
+                        <th class="text-center">Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="text-center">Nguyen Dinh Tien</td>
+                        <td class="text-center">Samsum galaxy S8</td>
+                        <td class="text-center">2.000.000 VNĐ</td>
+                        <td class="text-center">31/05/2017</td>
+                        <td class="text-center">02</td>
+                        <td class="text-center">
+                            <button class="btn btn-primary btn-sm" title="Xem chi tiết sản phẩm">
+                                <i class="fa fa-eye" aria-hidden="true"></i>                                
+                            </button>
+                            <button class="btn btn-success btn-sm" title="Đấu giá tại chỗ">
+                                <i class="fa fa-usd" aria-hidden="true"></i>                                
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-center">Chu Nguyen Anh Tuan</td>
+                        <td class="text-center">Samsum galaxy S8+</td>
+                        <td class="text-center">3.000.000 VNĐ</td>
+                        <td class="text-center">29/02/2017</td>
+                        <td class="text-center">02</td>
+                        <td class="text-center">
+                            <button class="btn btn-primary btn-sm" title="Xem chi tiết sản phẩm">
+                                <i class="fa fa-eye" aria-hidden="true"></i>                                
+                            </button>
+                            <button class="btn btn-success btn-sm" title="Đấu giá tại chỗ">
+                                <i class="fa fa-usd" aria-hidden="true"></i>                                
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-center">Lu Hoang Phi Tuan</td>
+                        <td class="text-center">B-Phone 2</td>
+                        <td class="text-center">10.000.000 VNĐ</td>
+                        <td class="text-center">31/05/2017</td>
+                        <td class="text-center">02</td>
+                        <td class="text-center">
+                            <button class="btn btn-primary btn-sm" title="Xem chi tiết sản phẩm">
+                                <i class="fa fa-eye" aria-hidden="true"></i>                                
+                            </button>
+                            <button class="btn btn-success btn-sm" title="Đấu giá tại chỗ">
+                                <i class="fa fa-usd" aria-hidden="true"></i>                                
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </uib-tab>
+        <uib-tab index="2" heading="Sản phẩm yêu thích">
             <table class="table table-striped info-fix">
                 <thead>
                     <tr>
@@ -99,6 +170,63 @@
                                 <i class="fa fa-usd" aria-hidden="true"></i>                                
                             </button>
                         </td>
+                    </tr>
+                </tbody>
+            </table>
+        </uib-tab>
+        <uib-tab index="3" heading="Sản phẩm đã đấu giá thắng">
+            <table class="table table-striped info-fix">
+                <thead>
+                    <tr>
+                        <th class="text-center">Tên tài khoản</th>
+                        <th class="text-center">Sản phẩm tham gia đấu giá</th>
+                        <th class="text-center">Giá</th>
+                        <th class="text-center">Giá chiến thắng sản phẩm</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="text-center">Nguyen Dinh Tien</td>
+                        <td class="text-center">Samsum galaxy S8</td>
+                        <td class="text-center">2.000.000 VNĐ</td>
+                        <td class="text-center">3.000.000 VNĐ</td>
+
+                    </tr>
+                    <tr>
+                        <td class="text-center">Chu Nguyen Anh Tuan</td>
+                        <td class="text-center">Samsum galaxy S8+</td>
+                        <td class="text-center">3.000.000 VNĐ</td>
+                        <td class="text-center">4.000.000 VNĐ</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center">Lu Hoang Phi Tuan</td>
+                        <td class="text-center">B-Phone 2</td>
+                        <td class="text-center">10.000.000 VNĐ</td>
+                        <td class="text-center">11.000.000 VNĐ</td>
+                    </tr>
+                </tbody>
+            </table>
+        </uib-tab>
+        <uib-tab index="4" heading="Đánh giá từ người dùng">
+            <table class="table table-striped info-fix">
+                <thead>
+                    <tr>
+                        <th>Tên người dùng</th>
+                        <th>Nhận xét</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Nguyen Dinh Tien</td>
+                        <td>Thật thà dũng cảm</td>
+                    </tr>
+                    <tr>
+                        <td>Chu Nguyen Anh Tuan</td>
+                        <td>Yêu nước</td>
+                    </tr>
+                    <tr>
+                        <td>Lu Hoang Phi Tuan</td>
+                        <td>LOL</td>
                     </tr>
                 </tbody>
             </table>

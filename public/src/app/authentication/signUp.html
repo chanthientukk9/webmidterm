@@ -5,38 +5,40 @@
     <h4 class="modal-title">Đăng kí tài khoản</h4>
 </div>
 <div class="modal-body">
-    <form class="form-horizontal" action="?" method="POST">
+    <form class="form-horizontal" action="javascript:alert(grecaptcha.getResponse(widgetId1));" method="POST" name="signInForm">
         <div class="form-group">
             <label for="inputFullName" class="col-sm-2 control-label">Họ và Tên</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" ng-model="user.name" id="inputFullName" placeholder="Nguyễn Đình Tiến">
+                <input type="text" class="form-control" ng-model="user.name" name="inputFullName" placeholder="Nguyễn Đình Tiến">
             </div>
         </div>
         <div class="form-group">
             <label for="inputMail" class="col-sm-2 control-label">Email</label>
             <div class="col-sm-10">
-                <input type="email" class="form-control" ng-model="user.mail" id="inputMail" placeholder="ngdinhtien1905@gmail.com">
+                <input type="email" class="form-control" name="inputEmail" placeholder="Email">
             </div>
         </div>
         <div class="form-group">
             <label for="inputPhone" class="col-sm-2 control-label">Số điện thoại</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" ng-model="user.phone" id="inputPhone" placeholder="09xx852xxx">
+                <input type="text" class="form-control" ng-model="user.phone" name="inputPhone" placeholder="09xx852xxx">
             </div>
         </div>
         <div class="form-group">
             <label for="inputAcc" class="col-sm-2 control-label">Tên đăng nhập</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" ng-model="user.account" id="inputAcc" placeholder="ngdinhtien1905">
+                <input class="form-control" type="text" required ng-maxlength="4" ng-model="user.account" name="inputAcc" placeholder="ngdinhtien1905">
+                <span ng-show="signInForm.inputAcc.$error.required" ng-hide="!user.account" class="input-error">
+                    This is a required field and at least 4 characters
+                </span>
             </div>
         </div>
         <div class="form-group">
             <label for="inputPassw" class="col-sm-2 control-label">Mật khẩu</label>
             <div class="col-sm-10">
-                <input type="password" class="form-control" ng-model="user.password" id="inputPassw" placeholder="********">
+                <input type="password" class="form-control" ng-model="user.password" name="inputPassw" placeholder="********">
             </div>
         </div>
-        <div class="g-recaptcha" data-sitekey="6LfHcyMUAAAAAI458Qcj9VW6lCReB8OxrM99CQ9c"></div>
     </form>
 </div>
 <div class="modal-footer">
