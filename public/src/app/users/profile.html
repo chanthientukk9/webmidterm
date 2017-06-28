@@ -242,10 +242,10 @@
                         <td class="text-center">02</td>
                         <td class="text-center">Đã đấu giá</td>
                         <td class="text-center">
-                            <button class="btn btn-primary btn-sm" title="Đánh giá người mua - upvote">
+                            <button class="btn btn-default btn-sm transition" ng-class="{'btn-primary': upVote}" ng-click="changeOption(1)" title="Đánh giá người mua - upvote">
                                 <i class="fa fa-thumbs-up" aria-hidden="true"></i>                                
                             </button>
-                            <button class="btn btn-default btn-sm" title="Đánh giá người mua - downvote">
+                            <button class="btn btn-default btn-sm transition" ng-class="{'btn-danger': downVote}" ng-click="changeOption(2)" title="Đánh giá người mua - downvote">
                                 <i class="fa fa-thumbs-down" aria-hidden="true"></i>                                
                             </button>
                             <button class="btn btn-success btn-sm" title="Gửi kèm nhận xét">
