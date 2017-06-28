@@ -1,0 +1,240 @@
+<div class="container body-content">
+    <uib-tabset active="active">
+        <uib-tab index="0" heading="Thông tin cá nhân">
+            <div class="row body-content">
+                <div class="col-md-3 text-center">
+                    <img class="img-responsive img-radius" src="../../../images/1_thumbs.png" alt="con dean">
+                    <span class="input-group-btn ">
+                        <button type="button" class="btn btn-success btn-sit">Đổi ảnh diện</button>
+                    </span>
+                </div>
+                <div class="col-md-6 info-fix">
+                    <form class="form-horizontal">
+                        <fieldset disabled>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">Chức vụ</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="role" value="Quản trị viên">
+                                </div>
+                            </div>
+                        </fieldset>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Họ và tên</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="inputName" value="Nguyễn Đình Tiến">
+                            </div>
+                        </div>
+                        <fieldset disabled>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">Email</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="inputMail" value="ngdinhtien1905@gmail.com">
+                                </div>
+                            </div>
+                        </fieldset>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Số điện thoại</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="inputPhone" value="0966852556">
+                            </div>
+                        </div>
+                        <fieldset disabled>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">Điểm tin cậy</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="inputPhone" value="100">
+                                </div>
+                            </div>
+                        </fieldset>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Nhập mật khẩu hiện tại</label>
+                            <div class="col-sm-9">
+                                <input type="password" class="form-control" id="Password">
+                            </div>
+                        </div>
+                    </form>
+                    </br>
+                    <span class="input-group-btn ">
+                        <button type="button" class="btn btn-warning btn-sit float-right">Cập nhật thông tin cá nhân</button>
+                    </span>
+                </div>
+            </div>
+        </uib-tab>
+        <uib-tab index="1" heading="Bài đăng chờ duyệt">
+            <table class="table table-striped info-fix">
+                <thead>
+                    <tr>
+                        <th class="text-center">Tên người đăng</th>
+                        <th class="text-center">Sản phẩm muốn đấu giá</th>
+                        <th class="text-center">Giá khởi điểm</th>
+                        <th class="text-center">Thời gian xin duyệt</th>
+                        <th class="text-center">Hạn chót tham gia đấu giá</th>
+                        <th class="text-center">Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="text-center">Nguyen Dinh Tien</td>
+                        <td class="text-center">Samsum galaxy S8</td>
+                        <td class="text-center">2.000.000 VNĐ</td>
+                        <td class="text-center">05/05/2017</td>
+                        <td class="text-center">31/05/2017</td>
+                        <td class="text-center">
+                            <button class="btn btn-success btn-sm" title="Phê duyệt sản phẩm">
+                                <i class="fa fa-check" aria-hidden="true"></i>                                
+                            </button>
+                            <button class="btn btn-danger btn-sm" title="Xóa khỏi danh sách">
+                                <i class="fa fa-times" aria-hidden="true"></i>                                
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-center">Chu Nguyen Anh Tuan</td>
+                        <td class="text-center">Samsum galaxy S8+</td>
+                        <td class="text-center">3.000.000 VNĐ</td>
+                        <td class="text-center">05/05/2017</td>
+                        <td class="text-center">31/05/2017</td>
+                        <td class="text-center">
+                            <button class="btn btn-success btn-sm" title="Phê duyệt sản phẩm">
+                                <i class="fa fa-check" aria-hidden="true"></i>                                
+                            </button>
+                            <button class="btn btn-danger btn-sm" title="Xóa khỏi danh sách">
+                                <i class="fa fa-times" aria-hidden="true"></i>                                
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-center">Lu Hoang Phi Tuan</td>
+                        <td class="text-center">B-Phone 2</td>
+                        <td class="text-center">10.000.000 VNĐ</td>
+                        <td class="text-center">05/05/2017</td>
+                        <td class="text-center">31/05/2017</td>
+                        <td class="text-center">
+                            <button class="btn btn-success btn-sm" title="Phê duyệt sản phẩm">
+                                <i class="fa fa-check" aria-hidden="true"></i>                                
+                            </button>
+                            <button class="btn btn-danger btn-sm" title="Xóa khỏi danh sách">
+                                <i class="fa fa-times" aria-hidden="true"></i>                                
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </uib-tab>
+        <uib-tab index="2" heading="Danh sách người dùng">
+            <table class="table table-striped info-fix">
+                <thead>
+                    <tr>
+                        <th class="text-center">Tên người dùng</th>
+                        <th class="text-center">Tên tài khoản</th>
+                        <th class="text-center">Email</th>
+                        <th class="text-center">Điểm tin cậy</th>
+                        <th class="text-center">Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="text-center">Nguyen Dinh Tien</td>
+                        <td class="text-center">ngdinhtien1905</td>
+                        <td class="text-center">ngdinhtien1905@gmail.com</td>
+                        <td class="text-center">100</td>
+                        <td class="text-center">
+                            <button class="btn btn-danger btn-sm" title="Xóa người dùng">
+                                <i class="fa fa-ban" aria-hidden="true"></i>                                
+                            </button>
+                            <button class="btn btn-warning btn-sm" title="Reset lại mật khẩu">
+                                <i class="fa fa-refresh" aria-hidden="true"></i>                                
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-center">Chu Nguyen Anh Tuan</td>
+                        <td class="text-center">chutuan1002</td>
+                        <td class="text-center">chutuan1002@gmail.com</td>
+                        <td class="text-center">90</td>
+                        <td class="text-center">
+                            <button class="btn btn-danger btn-sm" title="Xóa người dùng">
+                                <i class="fa fa-ban" aria-hidden="true"></i>                                
+                            </button>
+                            <button class="btn btn-warning btn-sm" title="Reset lại mật khẩu">
+                                <i class="fa fa-refresh" aria-hidden="true"></i>                                
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-center">Lu Hoang Phi Tuan</td>
+                        <td class="text-center">lhptuan2701</td>
+                        <td class="text-center">lhptuan2701@gmail.com</td>
+                        <td class="text-center">90</td>
+                        <td class="text-center">
+                            <button class="btn btn-danger btn-sm" title="Xóa người dùng">
+                                <i class="fa fa-ban" aria-hidden="true"></i>                                
+                            </button>
+                            <button class="btn btn-warning btn-sm" title="Reset lại mật khẩu">
+                                <i class="fa fa-refresh" aria-hidden="true"></i>                                
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </uib-tab>
+        <uib-tab index="3" heading="Quản lý danh mục sản phẩm">
+            <table class="table table-striped info-fix">
+                <thead>
+                    <tr>
+                        <th class="text-center">Loại danh mục</th>
+                        <th class="text-center">Số sản phẩm hiện có</th>
+                        <th class="text-center">Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="text-center">Điện Tử</td>
+                        <td class="text-center">4</td>
+                        <td class="text-center">
+                            <button class="btn btn-primary btn-sm" title="Thêm sản phẩm">
+                                <i class="fa fa-plus" aria-hidden="true"></i>                                
+                            </button>
+                            <button class="btn btn-danger btn-sm" title="Xóa sản phẩm">
+                                <i class="fa fa-ban" aria-hidden="true"></i>                                
+                            </button>
+                            <button class="btn btn-warning btn-sm" title="Sửa thông tin danh mục">
+                                <i class="fa fa-pencil" aria-hidden="true"></i>                                
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-center">Thời Trang</td>
+                        <td class="text-center">4</td>
+                        <td class="text-center">
+                            <button class="btn btn-primary btn-sm" title="Thêm sản phẩm">
+                                <i class="fa fa-plus" aria-hidden="true"></i>                                
+                            </button>
+                            <button class="btn btn-danger btn-sm" title="Xóa sản phẩm">
+                                <i class="fa fa-ban" aria-hidden="true"></i>                                
+                            </button>
+                            <button class="btn btn-warning btn-sm" title="Sửa thông tin danh mục">
+                                <i class="fa fa-pencil" aria-hidden="true"></i>                                
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-center">Gia Dụng</td>
+                        <td class="text-center">4</td>
+                        <td class="text-center">
+                            <button class="btn btn-primary btn-sm" title="Thêm sản phẩm">
+                                <i class="fa fa-plus" aria-hidden="true"></i>                                
+                            </button>
+                            <button class="btn btn-danger btn-sm" title="Xóa sản phẩm">
+                                <i class="fa fa-ban" aria-hidden="true"></i>                                
+                            </button>
+                            <button class="btn btn-warning btn-sm" title="Sửa thông tin danh mục">
+                                <i class="fa fa-pencil" aria-hidden="true"></i>                                
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </uib-tab>
+    </uib-tabset>
+</div>

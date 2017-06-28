@@ -14,6 +14,7 @@
         $scope.indexCurrentMedia = 0;
         $scope.currentMediaSet = [];
         $scope.indexSet = 0;
+        $scope.btnfavor = true;
         var limitSet = 4;
         $scope.limitSet = limitSet;
         $scope.countSet = 0;
@@ -147,6 +148,10 @@
                     }
                 }
             });
+        }
+
+        $scope.btnFavor = function btnFavor(booleanBtn) {
+            $scope.btnfavor = booleanBtn;
         }
     }
 })();

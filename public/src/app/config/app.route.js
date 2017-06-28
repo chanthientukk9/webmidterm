@@ -47,8 +47,13 @@
             url: 'profile',
             templateUrl: './app/users/profile.html',
             controller: 'ProfileController'
-        });
+        })
 
+        .state('app.admin', {
+            url: 'admin',
+            templateUrl: './app/users/admin.html',
+            controller: 'AdminController'
+        });
 
         if (window.history && window.history.pushState) {
             $locationProvider.html5Mode({
