@@ -71,7 +71,16 @@
             $scope.preloader = true;
             ProductService.GetAllProduct(limitProduct, 1).then(function(res) {
                 $scope.productList = res;
+                console.log(res);
                 $scope.preloader = false;
+                for (var i = 0; i < 4; i++) {
+                    slides.push({
+                        image: res[i].urlMedia[0].url,
+                        text: [res[0].description, res[1].description, res[2].description, res[3].description][slides.length % 4],
+                        name: [res[0].name, res[1].name, res[2].name, res[3].name][slides.length % 4],
+                        id: currIndex++
+                    });
+                }
             }, function(err) {
                 $scope.preloader = false;
                 Dialog.Error("Lỗi", err.data.message);
@@ -157,54 +166,52 @@
 
 
         //Carousel
-        $scope.addSlide = function() {
+        $scope.addSlide = function(index) {
             var newWidth = 600 + slides.length + 1;
             slides.push({
-                image: '//unsplash.it/' + newWidth + '/300',
+                image: productLimit[index].urlMedia[0].url,
                 text: ['Nice image', 'Awesome photograph', 'That is so cool', 'I love that'][slides.length % 4],
                 id: currIndex++
             });
         };
-        $scope.randomize = function() {
-            var indexes = generateIndexesArray();
-            assignNewIndexesToSlides(indexes);
-        };
+        // $scope.randomize = function() {
+        //     var indexes = generateIndexesArray();
+        //     assignNewIndexesToSlides(indexes);
+        // };
 
-        for (var i = 0; i < 4; i++) {
-            $scope.addSlide();
-        }
+
 
         // Randomize logic below
 
-        function assignNewIndexesToSlides(indexes) {
-            for (var i = 0, l = slides.length; i < l; i++) {
-                slides[i].id = indexes.pop();
-            }
-        }
+        // function assignNewIndexesToSlides(indexes) {
+        //     for (var i = 0, l = slides.length; i < l; i++) {
+        //         slides[i].id = indexes.pop();
+        //     }
+        // }
 
-        function generateIndexesArray() {
-            var indexes = [];
-            for (var i = 0; i < currIndex; ++i) {
-                indexes[i] = i;
-            }
-            return shuffle(indexes);
-        }
+        // function generateIndexesArray() {
+        //     var indexes = [];
+        //     for (var i = 0; i < currIndex; ++i) {
+        //         indexes[i] = i;
+        //     }
+        //     return shuffle(indexes);
+        // }
 
-        // http://stackoverflow.com/questions/962802#962890
-        function shuffle(array) {
-            var tmp, current, top = array.length;
+        // // http://stackoverflow.com/questions/962802#962890
+        // function shuffle(array) {
+        //     var tmp, current, top = array.length;
 
-            if (top) {
-                while (--top) {
-                    current = Math.floor(Math.random() * (top + 1));
-                    tmp = array[current];
-                    array[current] = array[top];
-                    array[top] = tmp;
-                }
-            }
+        //     if (top) {
+        //         while (--top) {
+        //             current = Math.floor(Math.random() * (top + 1));
+        //             tmp = array[current];
+        //             array[current] = array[top];
+        //             array[top] = tmp;
+        //         }
+        //     }
 
-            return array;
-        }
+        //     return array;
+        // }
         // end of carousel
     }
 })();

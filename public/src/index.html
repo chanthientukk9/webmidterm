@@ -81,13 +81,13 @@
     <!--New product-->
     <div class="container-fluid">
         <div ng-controller="IndexController">
-            <div style="height: 305px">
+            <div style="height: 405px">
                 <div uib-carousel active="active" interval="myInterval" no-wrap="noWrapSlides">
-                <div uib-slide ng-repeat="slide in slides track by slide.id" index="slide.id">
-                    <img ng-src="{{slide.image}}" style="margin:auto;">
-                    <div class="carousel-caption">
-                    <h4>Slide {{slide.id}}</h4>
-                    <p>{{slide.text}}</p>
+                <div uib-slide ng-repeat="slide in slides track by slide.id" index="slide.id" style="background-image:url('{{slide.image}}');background-size: cover;background-position: center">
+                    <img ng-src="{{slide.image}}" class="img-responsive" style="margin:auto;height: 400px;opacity: 0">
+                    <div class="carousel-caption" style="color:#fff">
+                        <h4>{{slide.name}}</h4>
+                        <p>{{slide.text}}</p>
                     </div>
                 </div>
                 </div>
