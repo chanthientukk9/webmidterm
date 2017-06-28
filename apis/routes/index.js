@@ -1,4 +1,5 @@
 var express = require('express');
+var auth = require('../modules/auth-middleware.js');
 
 // Controllers
 var routeProduct = require(__BASE + '/apis/controllers/product');
@@ -9,6 +10,8 @@ var routeAuth = require(__BASE + '/apis/controllers/auth');
 // Config routes
 //-----------------------------------------------
 var router = express.Router();
+var generalRole = 2;
+var specialRole = 1;
 
 router.route('/product')
     .post(routeProduct.createProduct)
@@ -48,6 +51,11 @@ router.route('/member/:memberId')
 
 router.route('/register')
     .post(routeAuth.registerMember);
+router.route('/login')
+    .post(routeAuth.login);
+router.route('/profile')
+    .get(auth(generalRole), routeAuth.getProfile);
+
 
 // 404 handler
 router.use('*', function(req, res, next) {

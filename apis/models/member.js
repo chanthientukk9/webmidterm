@@ -18,6 +18,8 @@ var memberSchema = new Schema({
     password: { type: String, required: true },
     name: { type: String, required: false },
     email: { type: String, required: true, default: null },
+    grole: { type: Number, required: true, default: 2 },
+    srole: { type: Number, required: false },
     phone: { type: String, required: false, default: null },
     birthday: { type: Number, required: false, default: null },
     avatar: { type: String, required: false, default: null },

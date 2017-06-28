@@ -5,9 +5,9 @@
         .module('app')
         .controller('IndexController', IndexController);
 
-    IndexController.inject = ['$scope', '$state', '$uibModal', 'ProductService', 'Dialog'];
+    IndexController.inject = ['$scope', '$state', '$uibModal', 'ProductService', 'UsersService', 'Dialog'];
 
-    function IndexController($scope, $state, $uibModal, ProductService, Dialog) {
+    function IndexController($scope, $state, $uibModal, ProductService, UsersService, Dialog) {
         var vm = this;
         $scope.preloader = true;
 
@@ -45,6 +45,16 @@
             getMostBidProduct();
             getMostPriceProduct();
             getNEDProduct();
+            getProfile();
+        }
+
+        function getProfile() {
+            UsersService.GetProfile().then(function(res) {
+                $scope.profile = res;
+
+            }, function(err) {
+
+            })
         }
 
         $scope.signIn = function signIn() {

@@ -8,13 +8,23 @@
     UsersService.inject = ['$resource'];
 
     function UsersService($resource) {
+
+        var UserResource = $resource("/api/profile", {}, {
+            update: {
+                method: "PUT"
+            }
+        })
         var service = {
-            exposedFn: exposedFn
+            GetProfile: getProfile
         };
 
         return service;
 
         ////////////////
-        function exposedFn() {}
+        function getProfile() {
+            return UserResource.get().$promise;
+        }
+
+
     }
 })();

@@ -20,17 +20,17 @@
             </button>
         </form>
         <ul class="nav navbar-nav navbar-right header-navbar-right">
-            <li>
+            <li ng-show="profile">
                 <button type="button" class="btn btn-default btn-header" ng-click="goUser()">
                     <i class="fa fa-user"></i>
                 </button>
             </li>
-            <li>
+            <li ng-show="!profile">
                 <button type="button" class="btn btn-default btn-header" ng-click="signUp()">
                     <i class="fa fa-pencil">Đăng Kí</i>
                 </button>
             </li>
-            <li>
+            <li ng-show="!profile">
                 <button type="button" class="btn btn-default btn-header" ng-click="signIn()">
                     <i class="fa fa-key">Đăng Nhập</i>
                 </button>

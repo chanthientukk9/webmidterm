@@ -5,26 +5,40 @@
         .module('app')
         .controller('HeaderController', HeaderController);
 
-    HeaderController.inject = ['$scope', '$state', 'ProductService', 'Dialog', '$uibModal'];
+    HeaderController.inject = ['$scope', '$state', 'ProductService', 'Dialog', 'UsersService', '$uibModal', '$cookies'];
 
-    function HeaderController($scope, $state, ProductService, Dialog, $uibModal) {
+    function HeaderController($scope, $state, ProductService, Dialog, UsersService, $uibModal, $cookies) {
         var vm = this;
         window.ck = $scope;
-
+        window.cki = $cookies;
 
         activate();
 
         ////////////////
 
         function activate() {
+
             getAllCategory();
+            getProfile();
+        }
+
+        function getProfile() {
+            console.log("Hahaha")
+            UsersService.GetProfile().then(function(res) {
+                $scope.profile = res;
+
+            }, function(err) {
+
+            })
         }
 
         function getAllCategory() {
             ProductService.GetAllCategory().then(function(res) {
                 $scope.categoryList = res;
             }, function(err) {
-                Dialog.Error("Lỗi", err.data.message);
+                if (err.data) {
+                    Dialog.Error("Lỗi", err.data.message);
+                }
             })
         }
 
@@ -62,6 +76,10 @@
 
         $scope.goToHome = function goToHome() {
             window.location.replace("/");
+        }
+
+        $scope.logout = function logout() {
+            $cookies = null;
         }
     }
 })();
