@@ -15,16 +15,18 @@ var point = new Schema({
 })
 
 var memberSchema = new Schema({
-    name: { type: String, required: true },
-    email: { type: String, required: false, default: null },
+    password: { type: String, required: true },
+    name: { type: String, required: false },
+    email: { type: String, required: true, default: null },
     phone: { type: String, required: false, default: null },
     birthday: { type: Number, required: false, default: null },
     avatar: { type: String, required: false, default: null },
-    point: { type: point, required: true },
+    point: { type: point, required: false },
     address: { type: String, required: false, default: null },
     wishList: { type: Schema.Types.ObjectId, ref: 'Product' },
     biddingList: { type: bidList, required: false, default: null },
-    bidedList: { type: bidList, required: false, default: null }
+    bidedList: { type: bidList, required: false, default: null },
+    timeStamp: { type: Number, required: false, default: Date.now() }
 });
 
 

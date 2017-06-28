@@ -8,11 +8,16 @@
     Auth.inject = ['$resource'];
 
     function Auth($resource) {
-        var AuthResource = $resource('/api/auth/:action', { action: '@action' });
+        var AuthResource = $resource('/api/auth/:action', { action: '@action' }, {
+            Register: {
+                method: "POST",
+                url: '/api/register'
+            }
+        });
 
         var service = {
             SignIn: signIn,
-            SignUp: signUp
+            Register: register
         };
 
         return service;
@@ -22,8 +27,8 @@
             return AuthResource.save({ action: "sign-in" }, data).$promise;
         }
 
-        function signUp(data) {
-            return AuthResource.save({ action: "sign-up" }, data).$promise;
+        function register(data) {
+            return AuthResource.Register(data).$promise;
         }
     }
 })();

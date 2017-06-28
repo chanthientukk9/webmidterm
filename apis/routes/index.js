@@ -4,6 +4,7 @@ var express = require('express');
 var routeProduct = require(__BASE + '/apis/controllers/product');
 var routeCategory = require(__BASE + '/apis/controllers/category');
 var routeMember = require(__BASE + '/apis/controllers/member');
+var routeAuth = require(__BASE + '/apis/controllers/auth');
 
 // Config routes
 //-----------------------------------------------
@@ -44,6 +45,9 @@ router.route('/member/:memberId')
     .get(routeMember.getMemberDetail)
     .put(routeMember.updateMember)
     .delete(routeMember.deleteMember);
+
+router.route('/register')
+    .post(routeAuth.registerMember);
 
 // 404 handler
 router.use('*', function(req, res, next) {

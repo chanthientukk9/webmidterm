@@ -5,9 +5,9 @@
         .module('app')
         .controller('SignUpController', SignUpController);
 
-    SignUpController.inject = ['$scope', 'Auth', 'Dialog'];
+    SignUpController.inject = ['$scope', 'Auth', 'Dialog', '$uibModalInstance'];
 
-    function SignUpController($scope, Auth, Dialog) {
+    function SignUpController($scope, Auth, Dialog, $uibModalInstance) {
         var vm = this;
 
         $scope.user = {};
@@ -19,11 +19,15 @@
 
         $scope.signUp = function signUp() {
             //....
-
-            Auth.SignUp($scope.user).then(function(res) {
-                Dialog.Success('Thành Công', 'Bạn đã đăng kí tài khoản thành công!!');
+            if ($scope.user.password != $scope.user.repassword) {
+                Dialog.Error('Lỗi', 'Mật khẩu không trùng khớp');
+                return;
+            }
+            Auth.Register($scope.user).then(function(res) {
+                Dialog.Success('Thành công', 'Bạn đã đăng kí tài khoản thành công!!');
+                $uibModalInstance.close();
             }, function(err) {
-                Dialog.Error('Thất bại')
+                Dialog.Error('Thất bại', err.data.message);
             })
 
         }
