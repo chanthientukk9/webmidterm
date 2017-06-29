@@ -119,6 +119,7 @@
         });
 
         var service = {
+            CreateProduct: createProduct,
             ConvertTimeToDate: convertTimeToDate,
             GetAllProduct: getAllProduct,
             GetProduct: getProduct,
@@ -144,6 +145,10 @@
         return service;
 
         ////////////////
+        function createProduct(data) {
+            return ProductResource.save(data).$promise;
+        }
+
         function convertTimeToDate(time) {
             return (new Date(time)).toLocaleString('vi');
         }

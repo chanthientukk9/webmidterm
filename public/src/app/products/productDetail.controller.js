@@ -9,6 +9,7 @@
 
     function ProductDetailController($scope, $state, ProductService, Dialog, $uibModal) {
         var vm = this;
+
         $scope.preloader = true;
         window.cc = $scope;
         $scope.indexCurrentMedia = 0;
@@ -25,6 +26,8 @@
         function activate() {
             getProduct();
         }
+
+
 
         function getProduct() {
             ProductService.GetProduct($state.params.id).then(function(res) {

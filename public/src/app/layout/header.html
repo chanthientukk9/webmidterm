@@ -23,8 +23,13 @@
             <li ng-show="profile">
                 <img role="button" class="img-responsive img-radius avatar-buyer inline" ng-click="goUser()" src="../../../images/1_thumbs.png" alt="Avatar người dùng">
                 <h3 class="panel-title inline" style="color:aliceblue">{{profile.name}}</h3>
-                <button class="btn btn-default" ng-click="logout()">
-                    <i class="fa fa-sign-out margin-left-10px" style="color:aliceblue"></i>
+
+                <button class="btn btn-warning" ng-click="sellModal()"> Đăng bán
+                    <i class="fa fa-plus" style="color:aliceblue"></i>
+                </button>
+
+                <button class="btn btn-primary" ng-click="logout()">
+                    <i class="fa fa-sign-out" style="color:aliceblue"></i>
                 </button>
             </li>c
             <li ng-show="!profile">
