@@ -52,8 +52,8 @@ router.route('/member/:memberId')
 router.route('/member-wishlist')
     .get(auth(generalRole), routeMember.getWishList)
     .put(auth(generalRole), routeMember.updateWishList);
-router.route('/member-wishlist-detail')
-    .get(auth(generalRole), routeMember.getWishListDetail);
+// router.route('/member-wishlist-detail')
+//     .get(auth(generalRole), routeMember.getWishListDetail);
 router.route('/member-biddinglist')
     .get(auth(generalRole), routeMember.getBiddingList)
     .put(auth(generalRole), routeMember.updateBiddingList);
