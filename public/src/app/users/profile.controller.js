@@ -5,9 +5,9 @@
         .module('app.users')
         .controller('ProfileController', ProfileController);
 
-    ProfileController.inject = ['$scope', 'UsersService', '$state', '$uibModal'];
+    ProfileController.inject = ['$scope', 'UsersService', '$state', '$uibModal', 'Dialog'];
 
-    function ProfileController($scope, UsersService, $state, $uibModal) {
+    function ProfileController($scope, UsersService, $state, $uibModal, Dialog) {
         var vm = this;
 
         $scope.upVote = false;
@@ -43,6 +43,16 @@
                     $scope.upVote = !$scope.upVote;
                 }
             }
+        }
+
+        $scope.upgrade = function upgrade() {
+            UsersService.Upgrade().then(function(res) {
+                if (res.message == 'success') {
+                    Dialog.Success("Thành công", "Đã gửi yêu cầu xin upgrade")
+                }
+            }, function(err) {
+                Dialog.Error("Lỗi", err.data.message)
+            })
         }
 
         $scope.gotoProduct = function(id) {

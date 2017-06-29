@@ -49,6 +49,9 @@
                     <span class="input-group-btn ">
                         <button type="button" class="btn btn-warning btn-sit float-right">Cập nhật thông tin cá nhân</button>
                     </span>
+                    <span class="input-group-btn ">
+                        <button type="button" class="btn btn-primary btn-sit float-right" ng-if="!profileInfo.srole" ng-click="upgrade()">Upgrade</button>
+                    </span>
                 </div>
             </div>
         </uib-tab>

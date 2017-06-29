@@ -12,11 +12,17 @@
         var UserResource = $resource("/api/profile", {}, {
             update: {
                 method: "PUT"
+            },
+
+            Upgrade: {
+                method: "GET",
+                url: "/api/member-upgrade"
             }
         })
         var service = {
             GetProfile: getProfile,
-            ConvertTimeToDate: convertTimeToDate
+            ConvertTimeToDate: convertTimeToDate,
+            Upgrade: upgrade
         };
 
         return service;
@@ -28,6 +34,10 @@
 
         function convertTimeToDate(time) {
             return (new Date(time)).toLocaleString('vi');
+        }
+
+        function upgrade() {
+            return UserResource.Upgrade().$promise;
         }
 
 
