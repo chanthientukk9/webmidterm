@@ -23,14 +23,16 @@
         // })
 
         .state('app.list', {
-            url: 'list?category=:categoryId&statusProduct=:status',
+            url: 'list?:page&:limit',
             templateUrl: './app/products/productList.html',
             controller: 'ProductListController',
             params: {
                 categoryId: null,
                 status: null,
                 page: '1',
-                limit: '2'
+                limit: '2',
+                searchCategory: null,
+                searchContent: null
             }
         })
 

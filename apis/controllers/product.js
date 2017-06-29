@@ -28,6 +28,8 @@ module.exports.getAllProduct = function(req, res, next) {
 }
 
 module.exports.findByParams = function(req, res, next) {
+    var limit = parseInt(req.query.limit);
+    var page = parseInt(req.query.page);
     var objParams = {};
     if (req.query.category) {
         objParams.category = req.query.category;
@@ -39,6 +41,11 @@ module.exports.findByParams = function(req, res, next) {
         objParams.name = new RegExp(req.query.name, "i");
     }
     Product.find(objParams)
+        .sort({
+            timestamp: -1
+        })
+        .limit(limit)
+        .skip((page - 1) * limit)
         .exec()
         .then((product) => {
             if (!product) {
@@ -216,7 +223,9 @@ module.exports.findMostBid = function(req, res, next) {
 
 module.exports.findMostPrice = function(req, res, next) {
     var limit = parseInt(req.query.limit);
+    var now = Date.now();
     Product.find({})
+        .where('endDate').gt(now)
         .sort({
             finalPrice: -1
         })
@@ -263,7 +272,15 @@ module.exports.findNearlyEndDate = function(req, res, next) {
 }
 
 module.exports.countProduct = function(req, res, next) {
-    Product.count({})
+
+    var obj = {};
+    if (req.query.category) {
+        obj.category = req.query.category;
+    }
+    if (req.query.name) {
+        obj.name = new RegExp(req.query.name, "i");
+    }
+    Product.count(obj)
         .exec()
         .then((count) => {
             return res.status(200).json({
