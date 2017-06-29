@@ -194,7 +194,7 @@
             return ProductResource.GetWishList({}).$promise;
         }
 
-        function getBiddingList(params) {
+        function getBiddingList() {
             return ProductResource.GetBiddingList({}).$promise;
         }
 

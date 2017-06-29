@@ -162,17 +162,23 @@
                     ProductService.UpdateBid($scope.product).then(function(res) {
                         $scope.preloader = false;
                         $scope.product.price.push($scope.price);
-                        $scope.biddingList.push($scope.product._id)
                         Dialog.Success("Thành công", "Đã đấu giá");
+                        for (var i = 0; i < $scope.biddingList.length; i++) {
+                            if ($scope.biddingList[i] == $scope.product._id) {
+                                return false;
+                            }
+                        }
+
+                        $scope.biddingList.push($scope.product._id)
+                        var data = {
+                            biddingList: $scope.biddingList
+                        }
+                        ProductService.UpdateBiddingList(data).then(function(res) {
+                            getBiddingList();
+                        })
                     }, function(err) {
                         $scope.preloader = false;
                         Dialog.Error("Lỗi", err.message);
-                    })
-                    var data = {
-                        biddingList: $scope.biddingList
-                    }
-                    ProductService.UpdateBiddingList(data).then(function(res) {
-                        $scope.$evalAsync();
                     })
                 })
 

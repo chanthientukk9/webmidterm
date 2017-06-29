@@ -5,9 +5,9 @@
         .module('app.users')
         .controller('ProfileController', ProfileController);
 
-    ProfileController.inject = ['$scope', 'UsersService'];
+    ProfileController.inject = ['$scope', 'UsersService', '$state', '$uibModal'];
 
-    function ProfileController($scope, UsersService) {
+    function ProfileController($scope, UsersService, $state, $uibModal) {
         var vm = this;
 
         $scope.upVote = false;
@@ -38,6 +38,25 @@
                     $scope.upVote = !$scope.upVote;
                 }
             }
+        }
+
+        $scope.gotoProduct = function(id) {
+            $state.go('app.detail', { id: id })
+        }
+
+        $scope.gotoBid = function(id) {
+            $uibModal.open({
+                templateUrl: 'app/products/modals/bidModal.html',
+                controller: 'BidModalController',
+                size: 'md',
+                resolve: {
+                    id: function() {
+                        return angular.copy(id);
+                    }
+                }
+            }).result.then(function() {
+
+            })
         }
     }
 })();
