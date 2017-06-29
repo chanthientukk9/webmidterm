@@ -183,5 +183,5 @@ module.exports.getWishListDetail = function(req, res, next) {
 //     Member.findOne({
 //         _id: req.userData._id
 //     })
-//     populate({})
+//     populate({path: ''})
 // }

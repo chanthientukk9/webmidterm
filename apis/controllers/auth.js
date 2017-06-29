@@ -85,6 +85,7 @@ module.exports.getProfile = function(req, res, next) {
     memberModal.findOne({
             _id: req.userData._id
         })
+        .populate({ path: 'wishList', model: 'Products' })
         .exec()
         .then((profile) => {
             if (!profile) {
