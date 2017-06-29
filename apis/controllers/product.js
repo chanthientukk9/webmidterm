@@ -84,16 +84,18 @@ module.exports.getProductDetail = function(req, res, next) {
 }
 
 module.exports.createProduct = function(req, res, next) {
+    var bidderList = [req.userData._id];
     Product.create({
             name: req.body.name,
             description: req.body.description,
+            bidder: bidderList,
             price: req.body.price,
             stepPrice: req.body.stepPrice,
-            finalPrice: req.body.price,
+            finalPrice: req.body.price[0],
             urlMedia: req.body.urlMedia,
             status: req.body.status,
             attributes: req.body.attributes,
-            seller: req.body.seller,
+            seller: req.userData._id,
             location: req.body.location,
             startDate: req.body.startDate,
             endDate: req.body.endDate
@@ -109,36 +111,81 @@ module.exports.createProduct = function(req, res, next) {
 }
 
 module.exports.updateProduct = function(req, res, next) {
-    Product.findByIdAndUpdate({
-            _id: req.params.productId
-        }, {
-            name: req.body.name,
-            description: req.body.description,
-            urlMedia: req.body.urlMedia,
-            status: req.body.status,
-            attributes: req.body.attributes,
-            seller: req.body.seller,
-            location: req.body.location,
-            startDate: req.body.startDate,
-            endDate: req.body.endDate
+    var check = 0;
+    Product.findOne({
+            _id: req.params.productId,
+            seller: req.userData._id
         })
-        .exec().then((product) => {
+        .exec()
+        .then((product) => {
             if (!product) {
-                return res.status(404).json({
-                    message: 'product not found'
-                });
+                check = 0;
             } else {
-                return res.status(200).json(product);
+                check = 1;
             }
         }).catch((err) => {
-            return res.status(500).json({
-                message: 'error'
-            });
+            check = 0;
         })
+    Member.findOne({
+            _id: req.userData._id,
+            srole: 1001
+        })
+        .exec()
+        .then((member) => {
+            if (!member) {
+
+            } else {
+                check = 1;
+            }
+        }).catch((err) => {
+
+        });
+    if (check == 1) {
+        Product.findByIdAndUpdate({
+                _id: req.params.productId
+            }, {
+                name: req.body.name,
+                description: req.body.description,
+                urlMedia: req.body.urlMedia,
+                status: req.body.status,
+                attributes: req.body.attributes,
+                location: req.body.location,
+                startDate: req.body.startDate,
+                endDate: req.body.endDate
+            })
+            .exec().then((product) => {
+                if (!product) {
+                    return res.status(404).json({
+                        message: 'product not found'
+                    });
+                } else {
+                    return res.status(200).json(product);
+                }
+            }).catch((err) => {
+                return res.status(500).json({
+                    message: 'error'
+                });
+            })
+    } else {
+        return res.status(401).json({
+            message: "You do hot have right"
+        })
+    }
 }
 
 module.exports.updateProductBid = function(req, res, next) {
     var memberData = null;
+    var bidderList = null;
+    Product.findOne({
+            _id: req.params.productId
+        }, 'bidder')
+        .exec()
+        .then((bidder) => {
+            bidderList = bidder;
+        }).catch((err) => {
+
+        });
+
     Member.findOne({
             _id: req.userData._id
         })
@@ -157,9 +204,11 @@ module.exports.updateProductBid = function(req, res, next) {
                         })
                     }
                 }
+
                 if (parseInt(req.body.finalPrice) >= (parseInt(req.body.price[parseInt(req.body.amountBid)]) + parseInt(req.body.stepPrice))) {
                     req.body.price.push(req.body.finalPrice);
                     req.body.amountBid++;
+                    bidderList.push(memberData._id);
                     Product.findByIdAndUpdate({
                             _id: req.params.productId
                         }, {

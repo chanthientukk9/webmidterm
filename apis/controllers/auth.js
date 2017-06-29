@@ -144,3 +144,28 @@ module.exports.upgradeMember = function(req, res, next) {
             }
         })
 }
+
+module.exports.allowUpgrade = function(req, res, next) {
+    memberModal.findByIdAndUpdate({
+            _id: req.body._id,
+            srole: 909
+        }, {
+            srole: 1
+        })
+        .exec()
+        .then((member) => {
+            if (!member) {
+                return res.status(404).json({
+                    message: "Member not found"
+                });
+            } else {
+                return res.status(200).json({
+                    message: "Upgrade Success"
+                });
+            }
+        }).catch((err) => {
+            return res.status(500).json({
+                message: "Error"
+            });
+        })
+}
