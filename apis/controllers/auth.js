@@ -25,15 +25,24 @@ module.exports.registerMember = function(req, res, next) {
                     message: 'Email exist'
                 });
             }
-            var newMember = new memberModal(body);
-            newMember.save(function(err, member) {
-                if (err) {
-                    return res.status(500).json(err);
-                }
-                return res.status(200).json({
-                    message: 'Success'
+            memberModal.create(body).then((member) => {
+                    return res.status(200).json(member);
                 })
-            })
+                .catch((err) => {
+                    return res.status(500).json({
+                        message: "Err",
+                        detail: err
+                    });
+                })
+                // var newMember = new memberModal(body);
+                // newMember.save(function(err, member) {
+                //     if (err) {
+                //         return res.status(500).json(err);
+                //     }
+                //     return res.status(200).json({
+                //         message: 'Success'
+                //     })
+                // })
 
         }).catch((err) => {
             return res.status(500).json({

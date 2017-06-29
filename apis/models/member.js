@@ -9,11 +9,6 @@ var Schema = mongoose.Schema;
 //     result: { type: Boolean, required: false, default: false }
 // })
 
-var point = new Schema({
-    good: { type: Number, required: true, default: 0 },
-    total: { type: Number, required: true, default: 0 }
-})
-
 var memberSchema = new Schema({
     password: { type: String, required: true },
     name: { type: String, required: false },
@@ -23,7 +18,10 @@ var memberSchema = new Schema({
     phone: { type: String, required: false, default: null },
     birthday: { type: Number, required: false, default: null },
     avatar: { type: String, required: false, default: null },
-    point: { type: point, required: false },
+    point: {
+        good: { type: Number, default: 0 },
+        total: { type: Number, default: 0 }
+    },
     address: { type: String, required: false, default: null },
     wishList: [{ type: Schema.Types.ObjectId, ref: 'Products', default: null }],
     biddingList: [{ type: Schema.Types.ObjectId, ref: 'Products', default: null }],
