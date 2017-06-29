@@ -24,6 +24,7 @@ var productSchema = new Schema({
     name: { type: String, required: true },
     description: { type: String, required: false, default: null },
     category: { type: Schema.Types.ObjectId, ref: "Category" },
+    bidder: [{ type: Schema.Types.ObjectId, ref: "Members" }],
     price: { type: [Number], required: true },
     stepPrice: { type: Number, required: true },
     finalPrice: { type: Number, require: true },

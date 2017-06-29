@@ -22,7 +22,7 @@ router.route('/product')
 router.route('/product/:productId')
     .get(routeProduct.getProductDetail)
     .put(auth(specialRole), routeProduct.updateProduct)
-    .delete(auth(specialRole), routeProduct.deleteProduct);
+    .delete(auth(adminRole), routeProduct.deleteProduct);
 router.route('/products/find-params')
     .get(routeProduct.findByParams);
 router.route('/products/find-most-bid')
@@ -46,7 +46,7 @@ router.route('/category/:categoryId')
 
 router.route('/member')
     .post(auth(adminRole), routeMember.createMember)
-    .get(routeMember.getAllMember);
+    .get(auth(adminRole), routeMember.getAllMember);
 router.route('/member/:memberId')
     .get(routeMember.getMemberDetail)
     .put(auth(generalRole), routeMember.updateMember)
@@ -78,6 +78,8 @@ router.route('/profile')
     .get(auth(generalRole), routeAuth.getProfile);
 router.route('/member-upgrade')
     .get(auth(generalRole), routeAuth.upgradeMember);
+router.route('/allow-upgrade')
+    .put(auth(adminRole), routeAuth.allowUpgrade);
 
 
 
