@@ -63,6 +63,16 @@
                 isArray: true
             },
 
+            UpdateWishList: {
+                method: "PUT",
+                url: "/api/member-wishlist",
+            },
+
+            GetWishList: {
+                method: "GET",
+                url: "/api/member-wishlist"
+            },
+
             CountProduct: {
                 method: "GET",
                 url: "/api/products/count"
@@ -75,6 +85,8 @@
                     id: '@id'
                 }
             }
+
+
         });
 
         var CategoryResource = $resource("/api/category/:categoryId", { categoryId: '@categoryId' }, {
@@ -95,6 +107,8 @@
             GetMostBidProduct: getMostBidProduct,
             GetMostPriceProduct: getMostPriceProduct,
             GetNEDProduct: getNEDProduct,
+            GetWishList: getWishList,
+            UpdateWishList: updateWishList,
             CountProduct: countProduct,
             UpdateBid: updateBid
         };
@@ -158,6 +172,14 @@
 
         function getProductByParams(params) {
             return ProductResource.GetProductByParams({ variables: params }).$promise;
+        }
+
+        function updateWishList(data) {
+            return ProductResource.UpdateWishList(data).$promise;
+        }
+
+        function getWishList() {
+            return ProductResource.GetWishList({}).$promise;
         }
 
         function updateBid(product) {

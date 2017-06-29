@@ -14,7 +14,7 @@
         $scope.indexCurrentMedia = 0;
         $scope.currentMediaSet = [];
         $scope.indexSet = 0;
-        $scope.btnfavor = true;
+        $scope.btnfavor = false;
         var limitSet = 4;
         $scope.limitSet = limitSet;
         $scope.countSet = 0;
@@ -45,7 +45,7 @@
                 }, function(err2) {
                     Dialog.Error("Lỗi", err2.data.message);
                 })
-
+                getWishList();
                 $scope.preloader = false;
             }, function(err) {
                 $scope.preloader = false;
@@ -150,8 +150,33 @@
             });
         }
 
+        function getWishList() {
+            ProductService.GetWishList().then(function(res) {
+                $scope.wishList = res.wishList;
+                if (!$scope.wishList) {
+                    $scope.wishList = [];
+                } else {
+                    for (var i = 0; i < $scope.wishList.length; i++) {
+                        if ($scope.wishList[i] == $scope.product._id) {
+                            $scope.btnfavor = true;
+                        }
+                    }
+                }
+            })
+        }
+
         $scope.btnFavor = function btnFavor(booleanBtn) {
             $scope.btnfavor = booleanBtn;
+            if ($scope.btnfavor) {
+                $scope.wishList.push($scope.product._id);
+            } else {
+                var index = $scope.wishList.indexOf($scope.product._id);
+                $scope.wishList.removeAt(index);
+            }
+
+            ProductService.UpdateWishList($scope.wishList).then(function(res) {
+                $scope.$evalAsync();
+            })
         }
     }
 })();

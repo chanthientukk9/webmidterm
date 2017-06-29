@@ -5,9 +5,9 @@
         .module('app.users')
         .controller('ProfileController', ProfileController);
 
-    ProfileController.inject = ['$scope'];
+    ProfileController.inject = ['$scope', 'UsersService'];
 
-    function ProfileController($scope) {
+    function ProfileController($scope, UsersService) {
         var vm = this;
 
         $scope.upVote = false;
@@ -16,7 +16,11 @@
 
         ////////////////
 
-        function activate() {}
+        function activate() {
+            UsersService.GetProfile().then(function(res) {
+                $scope.profileInfo = res;
+            })
+        }
 
         $scope.changeOption = function(value) {
             if (value == '1') {

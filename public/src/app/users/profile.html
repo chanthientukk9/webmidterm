@@ -13,35 +13,35 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label">Họ và tên</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="inputName" value="Nguyễn Đình Tiến">
+                                <input type="text" class="form-control" id="inputName" ng-model="profileInfo.name">
                             </div>
                         </div>
                         <fieldset disabled>
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">Email</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="inputMail" value="ngdinhtien1905@gmail.com">
+                                    <input type="text" class="form-control" id="inputMail" value="{{profileInfo.email}}">
                                 </div>
                             </div>
                         </fieldset>
                         <div class="form-group">
                             <label class="col-sm-3 control-label">Số điện thoại</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="inputPhone" value="0966852556">
+                                <input type="text" class="form-control" id="inputPhone" ng-model="profileInfo.phone">
                             </div>
                         </div>
                         <fieldset disabled>
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">Điểm tin cậy</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="inputPhone" value="100">
+                                    <input type="text" class="form-control" id="inputPhone" value="{{profileInfo.point}}">
                                 </div>
                             </div>
                         </fieldset>
                         <div class="form-group">
                             <label class="col-sm-3 control-label">Nhập mật khẩu hiện tại</label>
                             <div class="col-sm-9">
-                                <input type="password" class="form-control" id="Password">
+                                <input type="password" class="form-control" id="Password" placeholder="************">
                             </div>
                         </div>
                     </form>
@@ -126,41 +126,11 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
+                    <tr ng-repeat="item in profile.wishList">
                         <td class="text-center">Nguyen Dinh Tien</td>
-                        <td class="text-center">Samsum galaxy S8</td>
-                        <td class="text-center">2.000.000 VNĐ</td>
-                        <td class="text-center">31/05/2017</td>
-                        <td class="text-center">02</td>
-                        <td class="text-center">
-                            <button class="btn btn-primary btn-sm" title="Xem chi tiết sản phẩm">
-                                <i class="fa fa-eye" aria-hidden="true"></i>                                
-                            </button>
-                            <button class="btn btn-success btn-sm" title="Đấu giá tại chỗ">
-                                <i class="fa fa-usd" aria-hidden="true"></i>                                
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="text-center">Chu Nguyen Anh Tuan</td>
-                        <td class="text-center">Samsum galaxy S8+</td>
-                        <td class="text-center">3.000.000 VNĐ</td>
-                        <td class="text-center">29/02/2017</td>
-                        <td class="text-center">02</td>
-                        <td class="text-center">
-                            <button class="btn btn-primary btn-sm" title="Xem chi tiết sản phẩm">
-                                <i class="fa fa-eye" aria-hidden="true"></i>                                
-                            </button>
-                            <button class="btn btn-success btn-sm" title="Đấu giá tại chỗ">
-                                <i class="fa fa-usd" aria-hidden="true"></i>                                
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="text-center">Lu Hoang Phi Tuan</td>
-                        <td class="text-center">B-Phone 2</td>
-                        <td class="text-center">10.000.000 VNĐ</td>
-                        <td class="text-center">31/05/2017</td>
+                        <td class="text-center">{{item.name}}</td>
+                        <td class="text-center">{{item.price}}</td>
+                        <td class="text-center">{{item.date}}</td>
                         <td class="text-center">02</td>
                         <td class="text-center">
                             <button class="btn btn-primary btn-sm" title="Xem chi tiết sản phẩm">
