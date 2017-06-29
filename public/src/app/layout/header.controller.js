@@ -56,7 +56,8 @@
                 controller: 'SignInController',
                 size: 'lg',
             }).result.then(function(data) {
-                console.log(data);
+                $scope.profile = data;
+                $scope.$evalAsync();
             });
         }
 
@@ -79,7 +80,12 @@
         }
 
         $scope.logout = function logout() {
-            $cookies = null;
+            var cookie = $cookies.getAll();
+            angular.forEach(cookie, function(v, k) {
+                $cookies.remove(k, { path: '/' });
+            });
+            $scope.profile = null;
+            $scope.$evalAsync();
         }
     }
 })();

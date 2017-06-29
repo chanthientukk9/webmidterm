@@ -25,7 +25,7 @@
                 var expire = new Date();
                 expire.setHours(expire.getHours() + 6);
                 $cookies.put('tkcc', res.token, { path: '/', expries: expire });
-                $uibModalInstance.close();
+                $uibModalInstance.close(res.data);
             }, function(err) {
                 Dialog.Error("Lỗi", err.data.message);
             })

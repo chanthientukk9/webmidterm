@@ -22,9 +22,11 @@
         <ul class="nav navbar-nav navbar-right header-navbar-right">
             <li ng-show="profile">
                 <img role="button" class="img-responsive img-radius avatar-buyer inline" ng-click="goUser()" src="../../../images/1_thumbs.png" alt="Avatar người dùng">
-                <h3 class="panel-title inline" style="color:aliceblue">Nguyễn Đình Tiến</h3>
-                <i class="fa fa-sign-out margin-left-10px" style="color:aliceblue" role="button" ng-click="logout()"></i>
-            </li>
+                <h3 class="panel-title inline" style="color:aliceblue">{{profile.name}}</h3>
+                <button class="btn btn-default" ng-click="logout()">
+                    <i class="fa fa-sign-out margin-left-10px" style="color:aliceblue"></i>
+                </button>
+            </li>c
             <li ng-show="!profile">
                 <button type="button" class="btn btn-default btn-header" ng-click="signUp()">
                     <i class="fa fa-pencil">Đăng Kí</i>
@@ -32,7 +34,7 @@
             </li>
             <li ng-show="!profile">
                 <button type="button" class="btn btn-default btn-header" ng-click="signIn()">
-                    <i class="fa fa-key">Đăng Nhập</i>
+                    <i class="fa fa-key">Đăng cNhập</i>
                 </button>
             </li>
         </ul>

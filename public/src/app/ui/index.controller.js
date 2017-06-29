@@ -5,9 +5,9 @@
         .module('app')
         .controller('IndexController', IndexController);
 
-    IndexController.inject = ['$scope', '$state', '$uibModal', 'ProductService', 'UsersService', 'Dialog'];
+    IndexController.inject = ['$scope', '$state', '$uibModal', 'ProductService', 'UsersService', 'Dialog', '$cookies'];
 
-    function IndexController($scope, $state, $uibModal, ProductService, UsersService, Dialog) {
+    function IndexController($scope, $state, $uibModal, ProductService, UsersService, Dialog, $cookies) {
         var vm = this;
         $scope.preloader = true;
 
@@ -63,7 +63,8 @@
                 controller: 'SignInController',
                 size: 'lg',
             }).result.then(function(data) {
-                console.log(data);
+                $scope.profile = data;
+                $scope.$evalAsync();
             });
         }
 
@@ -184,6 +185,16 @@
                 id: currIndex++
             });
         };
+
+        $scope.logout = function logout() {
+            var cookie = $cookies.getAll();
+            angular.forEach(cookie, function(v, k) {
+                $cookies.remove(k, { path: '/' });
+            });
+            $scope.profile = null;
+            $scope.$evalAsync();
+        }
+
         // $scope.randomize = function() {
         //     var indexes = generateIndexesArray();
         //     assignNewIndexesToSlides(indexes);
