@@ -25,7 +25,7 @@ var memberSchema = new Schema({
     avatar: { type: String, required: false, default: null },
     point: { type: point, required: false },
     address: { type: String, required: false, default: null },
-    wishList: { type: [Schema.Types.ObjectId], ref: 'Product', default: null },
+    wishList: [{ type: Schema.Types.ObjectId, ref: 'Products', default: null }],
     biddingList: { type: [bidList], required: false, default: null },
     bidedList: { type: [bidList], required: false, default: null },
     timeStamp: { type: Number, required: false, default: Date.now() }
@@ -35,4 +35,4 @@ var memberSchema = new Schema({
 
 // Compile schema
 //-----------------------------------------------
-mongoose.model('Member', memberSchema, 'Members');
+mongoose.model('Members', memberSchema, 'Members');

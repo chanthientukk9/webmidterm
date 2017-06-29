@@ -1,6 +1,6 @@
 var jwt = require('./jwt-helper');
 var mongoose = require('mongoose');
-var memberModel = mongoose.model('Member');
+var memberModel = mongoose.model('Members');
 
 module.exports = function(right) {
 

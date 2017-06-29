@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var Product = mongoose.model('Product');
+var Product = mongoose.model('Products');
 
 module.exports.getAllProduct = function(req, res, next) {
     var limit = parseInt(req.query.limit);

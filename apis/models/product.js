@@ -31,7 +31,7 @@ var productSchema = new Schema({
     urlMedia: { type: [media], required: true },
     status: { type: String, default: "notvalid" },
     attributes: { type: [attributes], default: null },
-    seller: { type: Schema.Types.ObjectId, ref: "Member" },
+    seller: { type: Schema.Types.ObjectId, ref: "Members" },
     location: { type: String, required: false, default: null },
     startDate: { type: Number, required: false, default: Date.now() },
     endDate: { type: Number, required: false, default: Date.now() },
@@ -42,4 +42,4 @@ var productSchema = new Schema({
 
 // Compile schema
 //-----------------------------------------------
-mongoose.model('Product', productSchema, 'Products');
+mongoose.model('Products', productSchema, 'Products');
