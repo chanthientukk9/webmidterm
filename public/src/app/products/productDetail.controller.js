@@ -174,7 +174,10 @@
                 $scope.wishList.removeAt(index);
             }
 
-            ProductService.UpdateWishList($scope.wishList).then(function(res) {
+            var data = {
+                wishList: $scope.wishList
+            }
+            ProductService.UpdateWishList(data).then(function(res) {
                 $scope.$evalAsync();
             })
         }

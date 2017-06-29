@@ -126,11 +126,11 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="item in profile.wishList">
+                    <tr ng-repeat="item in profileInfo.wishList">
                         <td class="text-center">Nguyen Dinh Tien</td>
                         <td class="text-center">{{item.name}}</td>
-                        <td class="text-center">{{item.price}}</td>
-                        <td class="text-center">{{item.date}}</td>
+                        <td class="text-center">{{item.finalPrice}}</td>
+                        <td class="text-center">{{convertTime(item.endDate)}}</td>
                         <td class="text-center">02</td>
                         <td class="text-center">
                             <button class="btn btn-primary btn-sm" title="Xem chi tiết sản phẩm">

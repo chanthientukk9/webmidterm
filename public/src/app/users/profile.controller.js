@@ -22,6 +22,10 @@
             })
         }
 
+        $scope.convertTime = function convertTime(time) {
+            return UsersService.ConvertTimeToDate(time);
+        }
+
         $scope.changeOption = function(value) {
             if (value == '1') {
                 $scope.upVote = !$scope.upVote;
