@@ -57,6 +57,9 @@ router.route('/member-wishlist')
 router.route('/member-biddinglist')
     .get(auth(generalRole), routeMember.getBiddingList)
     .put(auth(generalRole), routeMember.updateBiddingList);
+router.route('/member-biddedlist')
+    .get(auth(generalRole), routeMember.getBiddedList)
+    .put(auth(generalRole), routeMember.updateBiddedList);
 
 router.route('/register')
     .post(routeAuth.registerMember);

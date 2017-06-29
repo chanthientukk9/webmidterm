@@ -3,11 +3,11 @@ var Schema = mongoose.Schema;
 
 // LO schema
 //-----------------------------------------------
-var bidList = new Schema({
-    productId: { type: Schema.Types.ObjectId, ref: 'Product' },
-    timeStamp: { type: Number, required: false, default: Date.now() },
-    result: { type: Boolean, required: false, default: false }
-})
+// var bidList = new Schema({
+//     productId: { type: Schema.Types.ObjectId, ref: 'Product' },
+//     timeStamp: { type: Number, required: false, default: Date.now() },
+//     result: { type: Boolean, required: false, default: false }
+// })
 
 var point = new Schema({
     good: { type: Number, required: true, default: 0 },
@@ -27,7 +27,7 @@ var memberSchema = new Schema({
     address: { type: String, required: false, default: null },
     wishList: [{ type: Schema.Types.ObjectId, ref: 'Products', default: null }],
     biddingList: [{ type: Schema.Types.ObjectId, ref: 'Products', default: null }],
-    bidedList: { type: [bidList], required: false, default: null },
+    biddedList: [{ type: Schema.Types.ObjectId, ref: 'Products', default: null }],
     timeStamp: { type: Number, required: false, default: Date.now() }
 });
 
