@@ -10,6 +10,7 @@
     function ProductListController($scope, $state, ProductService, Dialog, $uibModal) {
         var vm = this;
         window.cc = $scope;
+        window.ck = $state;
         $scope.preloader = true;
         $scope.pageNumber = $state.params.page;
         $scope.pageLimit = 2;
@@ -19,26 +20,44 @@
         ////////////////
 
         function activate() {
+            var params = '';
+
             if ($state.params.limit) {
                 $scope.pageLimit = $state.params.limit;
+                params += 'limit=' + $scope.pageLimit + '&'
+            }
+            if ($state.params.page) {
+                $scope.pageNumber = $state.params.page;
+                params += 'page=' + $scope.pageNumber + '&'
             }
 
-            var params = ''
+            var searchParams = '';
             if ($state.params.categoryId) {
                 params += 'category=' + $state.params.categoryId + '&';
+
             }
 
             if ($state.params.status) {
                 params += 'status=' + $state.params.status;
             }
             console.log(params);
-            if (params == '') {
+            if ($state.params.searchContent) {
+                $scope.searchCategory = $state.params.searchCategory;
+                $scope.searchContent = $state.params.searchContent;
+            }
+            if ($state.params.searchContent) {
+                searchByCate();
+                countProduct($scope.searchCategory._id, $scope.searchContent);
+                console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+            } else if (params == '') {
                 getAllProduct();
+                countProduct();
             } else {
                 getProductByParams(params);
+                countProduct($state.params.categoryId);
             }
             getAllCategory();
-            countProduct();
+
         }
 
         function getAllCategory() {
@@ -73,9 +92,10 @@
             })
         }
 
-        function countProduct() {
-            ProductService.CountProduct().then(function(res) {
+        function countProduct(category, searchContent) {
+            ProductService.CountProduct(category, searchContent).then(function(res) {
                 $scope.count = res.count;
+                console.log('so luong: ' + $scope.count);
             }, function(err) {
                 Dialog.Error("Lỗi", err.data.message)
             })
@@ -86,19 +106,42 @@
         }
 
         $scope.changePage = function() {
+            console.log('ahaha');
             if (!$scope.isPageLoaded || $scope.pageNumber == $state.params.page) {
                 return;
             }
-            $state.go('app.list', { page: $scope.pageNumber, limit: $scope.pageLimit });
+            if ($scope.searchContent) {
+                $state.go('app.list', { page: $scope.pageNumber, limit: $scope.pageLimit, searchCategory: $scope.searchCategory, searchContent: $scope.searchContent });
+            } else {
+                $state.go('app.list', { page: $scope.pageNumber, limit: $scope.pageLimit });
+            }
         }
 
         $scope.chooseCategory = function(category) {
             $scope.searchCategory = category;
         }
 
-        $scope.searchByCategory = function() {
+        function searchByCate() {
+
             var param = 'category=' + $scope.searchCategory._id;
             param = param + '&name=' + $scope.searchContent;
+            param = param + '&limit=' + $scope.pageLimit;
+            param = param + '&page=' + $state.params.page;
+            ProductService.GetProductByParams(param).then(function(res) {
+                $scope.productList = res;
+                countProduct($scope.searchCategory._id, $scope.searchContent);
+                console.log('bbbbbbbbbbbbbbbbbbbbbbbbbb');
+            }, function(err) {
+                Dialog.Error("Lỗi", err.data.message);
+            })
+        }
+
+        $scope.searchByCategory = function searchByCategory() {
+            countProduct($scope.searchCategory._id, $scope.searchContent);
+            var param = 'category=' + $scope.searchCategory._id;
+            param = param + '&name=' + $scope.searchContent;
+            param = param + '&limit=' + $scope.pageLimit;
+            param = param + '&page=' + $state.params.page;
             ProductService.GetProductByParams(param).then(function(res) {
                 $scope.productList = res;
             }, function(err) {

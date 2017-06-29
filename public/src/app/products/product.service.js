@@ -142,8 +142,8 @@
             return ProductResource.GetMostPriceProduct({ limit: limit }).$promise;
         }
 
-        function countProduct() {
-            return ProductResource.CountProduct({}).$promise
+        function countProduct(category, searchContent) {
+            return ProductResource.CountProduct({ category: category, name: searchContent }).$promise
         }
 
         function getAllCategory() {
