@@ -150,7 +150,7 @@ module.exports.updateProductBid = function(req, res, next) {
                 });
             } else {
                 memberData = member;
-                if (parseInt(memberData.point.total != 0)) {
+                if (parseInt(memberData.point.total) != 0) {
                     if ((parseFloat(memberData.point.good) / parseFloat(memberData.point.total)) < 0.8) {
                         return res.status(500).json({
                             message: 'Not enough good point to do bid'
