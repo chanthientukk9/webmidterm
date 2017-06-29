@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var memberModal = mongoose.model('Member');
+var memberModal = mongoose.model('Members');
 var helpers = require('../modules/helpers.js');
 var md5 = require('js-md5');
 var jwt = require('../modules/jwt-helper.js');
@@ -13,7 +13,7 @@ module.exports.registerMember = function(req, res, next) {
         });
     }
     body.password = md5(body.password);
-
+    // body.point =
     memberModal.findOne({
             email: body.email
         })

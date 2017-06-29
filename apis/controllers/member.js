@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var Member = mongoose.model('Member');
+var Member = mongoose.model('Members');
 
 module.exports.getAllMember = function(req, res, next) {
     Member.find({})
@@ -46,7 +46,6 @@ module.exports.createMember = function(req, res, next) {
             phone: req.body.phone,
             birthday: req.body.birthday,
             avatar: req.body.avatar,
-            point: req.body.point,
             address: req.body.address
         })
         .then((member) => {
@@ -64,11 +63,9 @@ module.exports.updateMember = function(req, res, next) {
             _id: req.params.memberId
         }, {
             name: req.body.name,
-            email: req.body.email,
             phone: req.body.phone,
             birthday: req.body.birthday,
             avatar: req.body.avatar,
-            point: rea.body.point,
             address: req.body.address
         })
         .exec()
@@ -139,6 +136,29 @@ module.exports.getWishList = function(req, res, next) {
     Member.findOne({
             _id: req.userData._id
         })
+        .exec()
+        .then((member) => {
+            if (!member) {
+                return res.status(404).json({
+                    message: 'Member not found'
+                });
+            } else {
+                return res.status(200).json({
+                    wishList: member.wishList
+                });
+            }
+        }).catch((err) => {
+            return res.status(500).json({
+                message: 'Can not get wish list'
+            })
+        })
+}
+
+module.exports.getWishListDetail = function(req, res, next) {
+    Member.findOne({
+            _id: req.userData._id
+        })
+        .populate({ path: 'wishList', model: 'Products' })
         .exec()
         .then((member) => {
             if (!member) {
