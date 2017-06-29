@@ -92,6 +92,7 @@ module.exports.getProfile = function(req, res, next) {
                     message: 'Profile not found'
                 });
             } else {
+                profile.password = undefined;
                 return res.status(200).json(profile);
             }
         }).catch((err) => {

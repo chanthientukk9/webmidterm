@@ -10,6 +10,7 @@ module.exports.getAllMember = function(req, res, next) {
                     message: "Member not found"
                 })
             } else {
+                member.password = undefined;
                 return res.status(200).json(member);
             }
         })
@@ -29,6 +30,7 @@ module.exports.getMemberDetail = function(req, res, next) {
                     message: "Member not found"
                 })
             } else {
+                member.password = undefined;
                 return res.status(200).json(member);
             }
         })
@@ -176,3 +178,10 @@ module.exports.getWishListDetail = function(req, res, next) {
             })
         })
 }
+
+// module.exports.getBiddingList = function(req, res, next) {
+//     Member.findOne({
+//         _id: req.userData._id
+//     })
+//     populate({})
+// }
