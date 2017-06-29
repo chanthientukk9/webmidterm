@@ -1,5 +1,7 @@
 var express = require('express');
 var auth = require('../modules/auth-middleware.js');
+var multipart = require('connect-multiparty');
+var multipartMiddleware = multipart({ uploadDir: './upload' });
 
 // Controllers
 var routeProduct = require(__BASE + '/apis/controllers/product');
@@ -60,6 +62,13 @@ router.route('/member-biddinglist')
 router.route('/member-biddedlist')
     .get(auth(generalRole), routeMember.getBiddedList)
     .put(auth(generalRole), routeMember.updateBiddedList);
+router.route('/member-sellinglist')
+    .get(auth(specialRole), routeMember.getSellingList)
+    .put(auth(specialRole), routeMember.updateSellingList);
+router.route('/member-soldlist')
+    .get(auth(specialRole), routeMember.getSoldList)
+    .put(auth(specialRole), routeMember.updateSoldList);
+
 
 router.route('/register')
     .post(routeAuth.registerMember);
@@ -67,7 +76,19 @@ router.route('/login')
     .post(routeAuth.login);
 router.route('/profile')
     .get(auth(generalRole), routeAuth.getProfile);
+router.route('/member-upgrade')
+    .get(auth(generalRole), routeAuth.upgradeMember);
 
+
+
+router.post('/upload', multipartMiddleware, function(req, res) {
+    console.log(req.body, req.files);
+    return res.json(req.files.file);
+});
+
+router.get('/download/:path', function(req, res) {
+    res.sendfile(req.params.path);
+})
 
 // 404 handler
 router.use('*', function(req, res, next) {

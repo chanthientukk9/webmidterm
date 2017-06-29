@@ -3,6 +3,7 @@ var memberModal = mongoose.model('Members');
 var helpers = require('../modules/helpers.js');
 var md5 = require('js-md5');
 var jwt = require('../modules/jwt-helper.js');
+var upgradeWaiting = 909;
 
 module.exports.registerMember = function(req, res, next) {
     var body = req.body;
@@ -102,5 +103,35 @@ module.exports.getProfile = function(req, res, next) {
             return res.status(500).json({
                 message: 'Can not get profile'
             });
+        })
+}
+
+module.exports.upgradeMember = function(req, res, next) {
+    memberModal.findOne({
+            _id: req.userData._id
+        })
+        .exec()
+        .then((member) => {
+            if (!member) {
+                return res.status(404).json({
+                    message: 'Member not found'
+                });
+            } else {
+                memberModal.findByIdAndUpdate({
+                        _id: member._id
+                    }, {
+                        srole: upgradeWaiting
+                    })
+                    .exec()
+                    .then((member) => {
+                        return res.status(200).json({
+                            message: "success"
+                        });
+                    }).catch((err) => {
+                        return res.status(500).json({
+                            message: 'Can not upgrade'
+                        });
+                    })
+            }
         })
 }
