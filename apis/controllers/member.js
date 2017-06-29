@@ -156,11 +156,33 @@ module.exports.getWishList = function(req, res, next) {
         })
 }
 
-module.exports.getWishListDetail = function(req, res, next) {
+// module.exports.getWishListDetail = function(req, res, next) {
+//     Member.findOne({
+//             _id: req.userData._id
+//         })
+//         .populate({ path: 'wishList', model: 'Products' })
+//         .exec()
+//         .then((member) => {
+//             if (!member) {
+//                 return res.status(404).json({
+//                     message: 'Member not found'
+//                 });
+//             } else {
+//                 return res.status(200).json({
+//                     wishList: member.wishList
+//                 });
+//             }
+//         }).catch((err) => {
+//             return res.status(500).json({
+//                 message: 'Can not get wish list'
+//             })
+//         })
+// }
+
+module.exports.getBiddingList = function(req, res, next) {
     Member.findOne({
             _id: req.userData._id
         })
-        .populate({ path: 'wishList', model: 'Products' })
         .exec()
         .then((member) => {
             if (!member) {
@@ -169,19 +191,36 @@ module.exports.getWishListDetail = function(req, res, next) {
                 });
             } else {
                 return res.status(200).json({
-                    wishList: member.wishList
+                    biddingList: member.biddingList
                 });
             }
         }).catch((err) => {
             return res.status(500).json({
-                message: 'Can not get wish list'
-            })
+                message: 'Can not get bidding list'
+            });
         })
 }
 
-// module.exports.getBiddingList = function(req, res, next) {
-//     Member.findOne({
-//         _id: req.userData._id
-//     })
-//     populate({path: ''})
-// }
+module.exports.updateBiddingList = function(req, res, next) {
+    Member.findByIdAndUpdate({
+            _id: req.userData._id
+        }, {
+            biddingList: req.body.biddingList
+        })
+        .exec()
+        .then((member) => {
+            if (!member) {
+                return res.status(404).json({
+                    message: 'Member not found'
+                });
+            } else {
+                return res.status(200).json({
+                    biddingList: member.biddingList
+                });
+            }
+        }).catch((err) => {
+            return res.status(500).json({
+                message: 'Can not get bidding list'
+            });
+        })
+}

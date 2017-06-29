@@ -26,7 +26,7 @@ var memberSchema = new Schema({
     point: { type: point, required: false },
     address: { type: String, required: false, default: null },
     wishList: [{ type: Schema.Types.ObjectId, ref: 'Products', default: null }],
-    biddingList: { type: [bidList], required: false, default: null },
+    biddingList: [{ type: Schema.Types.ObjectId, ref: 'Products', default: null }],
     bidedList: { type: [bidList], required: false, default: null },
     timeStamp: { type: Number, required: false, default: Date.now() }
 });
