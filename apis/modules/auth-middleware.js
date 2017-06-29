@@ -39,6 +39,14 @@ module.exports = function(right) {
                                 message: 'You do not have right'
                             })
                         }
+                    } else if (right == 765) {
+                        if (member.srole) {
+                            return res.status(500).json({
+                                message: 'You are in srole'
+                            });
+                        } else {
+                            return next();
+                        }
                     } else if (right == 1001) {
                         if (member.srole == right) {
                             return next();

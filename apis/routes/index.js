@@ -15,6 +15,7 @@ var router = express.Router();
 var generalRole = 2;
 var specialRole = 100;
 var adminRole = 1001;
+var waitingRole = 765;
 
 router.route('/product')
     .post(auth(specialRole), routeProduct.createProduct)
@@ -77,7 +78,7 @@ router.route('/login')
 router.route('/profile')
     .get(auth(generalRole), routeAuth.getProfile);
 router.route('/member-upgrade')
-    .get(auth(generalRole), routeAuth.upgradeMember);
+    .get(auth(waitingRole), routeAuth.upgradeMember);
 router.route('/allow-upgrade')
     .put(auth(adminRole), routeAuth.allowUpgrade);
 
