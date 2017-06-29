@@ -180,6 +180,11 @@ module.exports.getWishList = function(req, res, next) {
 // }
 
 module.exports.getBiddingList = function(req, res, next) {
+    // if (req.body.biddingList.indexOf(req.body.biddingList[req.body.biddingList.length - 1]) != req.body.biddingList.length - 1) {
+    //     return res.status(200).json({
+    //         biddingList: member.biddingList
+    //     });
+    // }
     Member.findOne({
             _id: req.userData._id
         })
@@ -272,7 +277,7 @@ module.exports.updateBiddedList = function(req, res, next) {
 }
 
 
-module.exports.getsellingList = function(req, res, next) {
+module.exports.getSellingList = function(req, res, next) {
     Member.findOne({
             _id: req.userData._id
         })
@@ -284,21 +289,21 @@ module.exports.getsellingList = function(req, res, next) {
                 });
             } else {
                 return res.status(200).json({
-                    biddedList: member.biddedList
+                    sellingList: member.sellingList
                 });
             }
         }).catch((err) => {
             return res.status(500).json({
-                message: 'Can not get bidding list'
+                message: 'Can not get selling list'
             });
         })
 }
 
-module.exports.updateBiddedList = function(req, res, next) {
+module.exports.updateSellingList = function(req, res, next) {
     Member.findByIdAndUpdate({
             _id: req.userData._id
         }, {
-            biddedList: req.body.biddedList
+            sellingList: req.body.sellingList
         })
         .exec()
         .then((member) => {
@@ -308,12 +313,58 @@ module.exports.updateBiddedList = function(req, res, next) {
                 });
             } else {
                 return res.status(200).json({
-                    biddedList: member.biddedList
+                    sellingList: member.sellingList
                 });
             }
         }).catch((err) => {
             return res.status(500).json({
-                message: 'Can not get bidded list'
+                message: 'Can not get selling list'
+            });
+        })
+}
+
+module.exports.getSoldList = function(req, res, next) {
+    Member.findOne({
+            _id: req.userData._id
+        })
+        .exec()
+        .then((member) => {
+            if (!member) {
+                return res.status(404).json({
+                    message: 'Member not found'
+                });
+            } else {
+                return res.status(200).json({
+                    soldList: member.soldList
+                });
+            }
+        }).catch((err) => {
+            return res.status(500).json({
+                message: 'Can not get selling list'
+            });
+        })
+}
+
+module.exports.updateSoldList = function(req, res, next) {
+    Member.findByIdAndUpdate({
+            _id: req.userData._id
+        }, {
+            soldList: req.body.soldList
+        })
+        .exec()
+        .then((member) => {
+            if (!member) {
+                return res.status(404).json({
+                    message: 'Member not found'
+                });
+            } else {
+                return res.status(200).json({
+                    soldList: member.soldList
+                });
+            }
+        }).catch((err) => {
+            return res.status(500).json({
+                message: 'Can not get selling list'
             });
         })
 }
