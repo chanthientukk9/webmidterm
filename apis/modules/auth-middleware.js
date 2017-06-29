@@ -31,12 +31,30 @@ module.exports = function(right) {
                         message: 'Invalid token'
                     });
                 } else {
-                    if (member.grole != right && right.srole != right) {
-                        return res.status(401).json({
-                            message: 'You do not have right'
-                        })
+                    if (right == 100) {
+                        if (member.srole == 1 || member.srole == 1001) {
+                            return next();
+                        } else {
+                            return res.status(401).json({
+                                message: 'You do not have right'
+                            })
+                        }
+                    } else if (right == 1001) {
+                        if (member.srole == right) {
+                            return next();
+                        } else {
+                            return res.status(401).json({
+                                message: 'You do not have right'
+                            });
+                        }
                     } else {
-                        return next();
+                        if (member.grole != right && right.srole != right) {
+                            return res.status(401).json({
+                                message: 'You do not have right'
+                            })
+                        } else {
+                            return next();
+                        }
                     }
                 }
             })

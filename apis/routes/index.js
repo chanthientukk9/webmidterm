@@ -11,15 +11,16 @@ var routeAuth = require(__BASE + '/apis/controllers/auth');
 //-----------------------------------------------
 var router = express.Router();
 var generalRole = 2;
-var specialRole = 1;
+var specialRole = 100;
+var adminRole = 1001;
 
 router.route('/product')
-    .post(routeProduct.createProduct)
+    .post(auth(specialRole), routeProduct.createProduct)
     .get(routeProduct.getAllProduct);
 router.route('/product/:productId')
     .get(routeProduct.getProductDetail)
-    .put(routeProduct.updateProduct)
-    .delete(routeProduct.deleteProduct);
+    .put(auth(specialRole), routeProduct.updateProduct)
+    .delete(auth(specialRole), routeProduct.deleteProduct);
 router.route('/products/find-params')
     .get(routeProduct.findByParams);
 router.route('/products/find-most-bid')
@@ -31,23 +32,26 @@ router.route('/products/find-nearly-end-date')
 router.route('/products/count')
     .get(routeProduct.countProduct);
 router.route('/products/update-bid/:productId')
-    .put(routeProduct.updateProductBid);
+    .put(auth(generalRole), routeProduct.updateProductBid);
 
 router.route('/category')
-    .post(routeCategory.createCategory)
+    .post(auth(adminRole), routeCategory.createCategory)
     .get(routeCategory.getAllCategory);
 router.route('/category/:categoryId')
     .get(routeCategory.getCategoryDetail)
-    .put(routeCategory.updateCategory)
-    .delete(routeCategory.deleteCategory);
+    .put(auth(adminRole), routeCategory.updateCategory)
+    .delete(auth(adminRole), routeCategory.deleteCategory);
 
 router.route('/member')
-    .post(routeMember.createMember)
+    .post(auth(adminRole), routeMember.createMember)
     .get(routeMember.getAllMember);
 router.route('/member/:memberId')
     .get(routeMember.getMemberDetail)
-    .put(routeMember.updateMember)
-    .delete(routeMember.deleteMember);
+    .put(auth(generalRole), routeMember.updateMember)
+    .delete(auth(adminRole), routeMember.deleteMember);
+router.route('/member-wishlist')
+    .get(auth(generalRole), routeMember.getWishList)
+    .put(auth(generalRole), routeMember.updateWishList);
 
 router.route('/register')
     .post(routeAuth.registerMember);
