@@ -46,7 +46,7 @@
                     Dialog.Error("Lỗi", err2.data.message);
                 })
                 getWishList();
-                getBidProduct();
+                getBiddingList();
                 $scope.preloader = false;
             }, function(err) {
                 $scope.preloader = false;
@@ -146,6 +146,9 @@
         function getBiddingList() {
             ProductService.GetBiddingList().then(function(res) {
                 $scope.biddingList = res.biddingList;
+                if (!$scope.biddingList) {
+                    $scope.biddingList = [];
+                }
             })
         }
 
@@ -159,7 +162,7 @@
                     ProductService.UpdateBid($scope.product).then(function(res) {
                         $scope.preloader = false;
                         $scope.product.price.push($scope.price);
-                        $scope.bidProduct.push($scope.product._id)
+                        $scope.biddingList.push($scope.product._id)
                         Dialog.Success("Thành công", "Đã đấu giá");
                     }, function(err) {
                         $scope.preloader = false;
