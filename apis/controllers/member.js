@@ -270,3 +270,50 @@ module.exports.updateBiddedList = function(req, res, next) {
             });
         })
 }
+
+
+module.exports.getsellingList = function(req, res, next) {
+    Member.findOne({
+            _id: req.userData._id
+        })
+        .exec()
+        .then((member) => {
+            if (!member) {
+                return res.status(404).json({
+                    message: 'Member not found'
+                });
+            } else {
+                return res.status(200).json({
+                    biddedList: member.biddedList
+                });
+            }
+        }).catch((err) => {
+            return res.status(500).json({
+                message: 'Can not get bidding list'
+            });
+        })
+}
+
+module.exports.updateBiddedList = function(req, res, next) {
+    Member.findByIdAndUpdate({
+            _id: req.userData._id
+        }, {
+            biddedList: req.body.biddedList
+        })
+        .exec()
+        .then((member) => {
+            if (!member) {
+                return res.status(404).json({
+                    message: 'Member not found'
+                });
+            } else {
+                return res.status(200).json({
+                    biddedList: member.biddedList
+                });
+            }
+        }).catch((err) => {
+            return res.status(500).json({
+                message: 'Can not get bidded list'
+            });
+        })
+}

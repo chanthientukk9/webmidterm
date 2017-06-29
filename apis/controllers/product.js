@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var Product = mongoose.model('Products');
+var Member = mongoose.model('Members');
 
 module.exports.getAllProduct = function(req, res, next) {
     var limit = parseInt(req.query.limit);
@@ -137,43 +138,62 @@ module.exports.updateProduct = function(req, res, next) {
 }
 
 module.exports.updateProductBid = function(req, res, next) {
-    console.log("Test");
-    if (parseInt(req.userData.point.total != 0)) {
-        if ((parseFloat(req.userData.point.good) / parseFloat(req.userData.point.total)) < 0.8) {
-            return res.status(500).json({
-                message: 'Not enough good point to do bid'
-            })
-        }
-    }
-    if (parseInt(req.body.finalPrice) >= (parseInt(req.body.price[parseInt(req.body.amountBid)]) + parseInt(req.body.stepPrice))) {
-        req.body.price.push(req.body.finalPrice);
-        req.body.amountBid++;
-        Product.findByIdAndUpdate({
-                _id: req.params.productId
-            }, {
-                price: req.body.price,
-                finalPrice: req.body.finalPrice,
-                amountBid: req.body.amountBid
-            })
-            .exec()
-            .then((product) => {
-                if (!product) {
-                    return res.status(404).json({
-                        message: 'Product not found'
-                    });
-                } else {
-                    return res.status(200).json(product);
-                }
-            }).catch((err) => {
-                return res.status(500).json({
-                    message: 'Can not do the bid'
-                });
-            })
-    } else {
-        return res.status('500').json({
-            message: 'Invalid Price'
+    var memberData = null;
+    Member.findOne({
+            _id: req.userData._id
         })
-    }
+        .exec()
+        .then((member) => {
+            if (!member) {
+                return res.status(404).json({
+                    message: 'Member not found'
+                });
+            } else {
+                memberData = member;
+                if (parseInt(memberData.point.total != 0)) {
+                    if ((parseFloat(memberData.point.good) / parseFloat(memberData.point.total)) < 0.8) {
+                        return res.status(500).json({
+                            message: 'Not enough good point to do bid'
+                        })
+                    }
+                }
+                if (parseInt(req.body.finalPrice) >= (parseInt(req.body.price[parseInt(req.body.amountBid)]) + parseInt(req.body.stepPrice))) {
+                    req.body.price.push(req.body.finalPrice);
+                    req.body.amountBid++;
+                    Product.findByIdAndUpdate({
+                            _id: req.params.productId
+                        }, {
+                            price: req.body.price,
+                            finalPrice: req.body.finalPrice,
+                            amountBid: req.body.amountBid
+                        })
+                        .exec()
+                        .then((product) => {
+                            if (!product) {
+                                return res.status(404).json({
+                                    message: 'Product not found'
+                                });
+                            } else {
+                                return res.status(200).json(product);
+                            }
+                        }).catch((err) => {
+                            return res.status(500).json({
+                                message: 'Can not do the bid'
+                            });
+                        })
+                } else {
+                    return res.status('500').json({
+                        message: 'Invalid Price'
+                    })
+                }
+            }
+        }).catch((err) => {
+            return res.status(500).json({
+                message: 'Can not get info'
+            })
+        })
+
+
 
 }
 
