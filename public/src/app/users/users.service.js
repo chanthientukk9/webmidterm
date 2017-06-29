@@ -15,7 +15,8 @@
             }
         })
         var service = {
-            GetProfile: getProfile
+            GetProfile: getProfile,
+            ConvertTimeToDate: convertTimeToDate
         };
 
         return service;
@@ -23,6 +24,10 @@
         ////////////////
         function getProfile() {
             return UserResource.get().$promise;
+        }
+
+        function convertTimeToDate(time) {
+            return (new Date(time)).toLocaleString('vi');
         }
 
 
