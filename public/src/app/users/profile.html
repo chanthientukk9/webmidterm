@@ -65,47 +65,17 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
+                    <tr ng-repeat="item in profileInfo.biddingList">
                         <td class="text-center">Nguyen Dinh Tien</td>
-                        <td class="text-center">Samsum galaxy S8</td>
-                        <td class="text-center">2.000.000 VNĐ</td>
-                        <td class="text-center">31/05/2017</td>
+                        <td class="text-center">{{item.name}}</td>
+                        <td class="text-center">{{item.finalPrice}}</td>
+                        <td class="text-center">{{convertTime(item.endDate)}}</td>
                         <td class="text-center">02</td>
                         <td class="text-center">
-                            <button class="btn btn-primary btn-sm" title="Xem chi tiết sản phẩm">
+                            <button class="btn btn-primary btn-sm" ng-click="gotoProduct(item._id)" title="Xem chi tiết sản phẩm">
                                 <i class="fa fa-eye" aria-hidden="true"></i>                                
                             </button>
-                            <button class="btn btn-success btn-sm" title="Đấu giá tại chỗ">
-                                <i class="fa fa-usd" aria-hidden="true"></i>                                
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="text-center">Chu Nguyen Anh Tuan</td>
-                        <td class="text-center">Samsum galaxy S8+</td>
-                        <td class="text-center">3.000.000 VNĐ</td>
-                        <td class="text-center">29/02/2017</td>
-                        <td class="text-center">02</td>
-                        <td class="text-center">
-                            <button class="btn btn-primary btn-sm" title="Xem chi tiết sản phẩm">
-                                <i class="fa fa-eye" aria-hidden="true"></i>                                
-                            </button>
-                            <button class="btn btn-success btn-sm" title="Đấu giá tại chỗ">
-                                <i class="fa fa-usd" aria-hidden="true"></i>                                
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="text-center">Lu Hoang Phi Tuan</td>
-                        <td class="text-center">B-Phone 2</td>
-                        <td class="text-center">10.000.000 VNĐ</td>
-                        <td class="text-center">31/05/2017</td>
-                        <td class="text-center">02</td>
-                        <td class="text-center">
-                            <button class="btn btn-primary btn-sm" title="Xem chi tiết sản phẩm">
-                                <i class="fa fa-eye" aria-hidden="true"></i>                                
-                            </button>
-                            <button class="btn btn-success btn-sm" title="Đấu giá tại chỗ">
+                            <button class="btn btn-success btn-sm" ng-click="gotoBid(item._id)" title="Đấu giá tại chỗ">
                                 <i class="fa fa-usd" aria-hidden="true"></i>                                
                             </button>
                         </td>
@@ -133,10 +103,10 @@
                         <td class="text-center">{{convertTime(item.endDate)}}</td>
                         <td class="text-center">02</td>
                         <td class="text-center">
-                            <button class="btn btn-primary btn-sm" title="Xem chi tiết sản phẩm">
+                            <button class="btn btn-primary btn-sm" ng-click="gotoProduct(item._id)" title="Xem chi tiết sản phẩm">
                                 <i class="fa fa-eye" aria-hidden="true"></i>                                
                             </button>
-                            <button class="btn btn-success btn-sm" title="Đấu giá tại chỗ">
+                            <button class="btn btn-success btn-sm" ng-click="gotoBid(item._id)" title="Đấu giá tại chỗ">
                                 <i class="fa fa-usd" aria-hidden="true"></i>                                
                             </button>
                         </td>
