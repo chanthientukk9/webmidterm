@@ -78,6 +78,16 @@
             });
         }
 
+        $scope.sellModal = function sellModal() {
+            $uibModal.open({
+                templateUrl: 'app/users/sellModal.html',
+                controller: 'SellModalController',
+                size: 'lg',
+            }).result.then(function(data) {
+                console.log(data);
+            });
+        }
+
         function getNewProduct() {
             $scope.preloader = true;
             ProductService.GetAllProduct(limitProduct, 1).then(function(res) {
