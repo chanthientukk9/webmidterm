@@ -204,5 +204,32 @@
                 $scope.$evalAsync();
             })
         }
+
+        function getBiddedList() {
+            ProductService.GetBiddedList().then(function(res) {
+                $scope.biddedList = res.biddedList;
+                if (!$scope.biddedList) {
+                    $scope.biddedList = [];
+                }
+            })
+        }
+
+        function getSellingList() {
+            ProductService.GetSellingList().then(function(res) {
+                $scope.sellingList = res.sellingList;
+                if (!$scope.sellingList) {
+                    $scope.sellingList = [];
+                }
+            })
+        }
+
+        function getSoldList() {
+            ProductService.GetSoldList().then(function(res) {
+                $scope.soldList = res.soldList;
+                if (!$scope.soldList) {
+                    $scope.soldList = [];
+                }
+            })
+        }
     }
 })();

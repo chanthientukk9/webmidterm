@@ -19,6 +19,7 @@
         function activate() {
             UsersService.GetProfile().then(function(res) {
                 $scope.profileInfo = res;
+                $scope.trustPoint = parseInt(res.point.good) * 100 / parseInt(res.point.total);
             })
         }
 

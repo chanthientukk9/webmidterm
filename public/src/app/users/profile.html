@@ -34,7 +34,7 @@
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">Điểm tin cậy</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="inputPhone" value="{{profileInfo.point}}">
+                                    <input type="text" class="form-control" id="inputPhone" value="{{trustPoint}}">
                                 </div>
                             </div>
                         </fieldset>
@@ -118,36 +118,24 @@
             <table class="table table-striped info-fix">
                 <thead>
                     <tr>
-                        <th class="text-center">Tên tài khoản</th>
+                        <th class="text-center">Chủ sản phẩm</th>
                         <th class="text-center">Sản phẩm tham gia đấu giá</th>
                         <th class="text-center">Giá</th>
                         <th class="text-center">Giá chiến thắng sản phẩm</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
+                    <tr ng-repeat="item in profileInfo.biddedList">
                         <td class="text-center">Nguyen Dinh Tien</td>
-                        <td class="text-center">Samsum galaxy S8</td>
-                        <td class="text-center">2.000.000 VNĐ</td>
-                        <td class="text-center">3.000.000 VNĐ</td>
-
-                    </tr>
-                    <tr>
-                        <td class="text-center">Chu Nguyen Anh Tuan</td>
-                        <td class="text-center">Samsum galaxy S8+</td>
-                        <td class="text-center">3.000.000 VNĐ</td>
-                        <td class="text-center">4.000.000 VNĐ</td>
-                    </tr>
-                    <tr>
-                        <td class="text-center">Lu Hoang Phi Tuan</td>
-                        <td class="text-center">B-Phone 2</td>
-                        <td class="text-center">10.000.000 VNĐ</td>
-                        <td class="text-center">11.000.000 VNĐ</td>
+                        <td class="text-center">{{item.name}}</td>
+                        <td class="text-center">{{item.stepPrice}}</td>
+                        <td class="text-center">{{item.finalPrice}}</td>
                     </tr>
                 </tbody>
             </table>
         </uib-tab>
-        <uib-tab index="4" heading="Sản phẩm đang bán">
+        <uib-tab ng-if="profileInfo.srole == 1 || profileInfo.srole == 1001" index="4" heading="Sản phẩm đăng bán">
+            <h3>Sản phẩm đang bán</h3>
             <table class="table table-striped info-fix">
                 <thead>
                     <tr>
@@ -155,58 +143,34 @@
                         <th class="text-center">Giá</th>
                         <th class="text-center">Hạn chót tham gia đấu giá</th>
                         <th class="text-center">Số người tham gia đấu giá</th>
-                        <th class="text-center">Tình trạng</th>
-                        <th class="text-center">Thao tác</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td class="text-center">Samsum galaxy S8</td>
-                        <td class="text-center">2.000.000 VNĐ</td>
-                        <td class="text-center">31/05/2017</td>
+                    <tr ng-repeat="item in profileInfo.sellingList">
+                        <td class="text-center">{{item.name}}</td>
+                        <td class="text-center">{{item.stepPrice}}</td>
+                        <td class="text-center">{{convertTime(item.endDate)}}</td>
                         <td class="text-center">02</td>
-                        <td class="text-center">Đang đấu giá</td>
-                        <td class="text-center">
-                            <button class="btn btn-primary btn-sm" title="Xem chi tiết sản phẩm">
-                                <i class="fa fa-eye" aria-hidden="true"></i>                                
-                            </button>
-                            <button class="btn btn-success btn-sm" title="Đấu giá tại chỗ">
-                                <i class="fa fa-usd" aria-hidden="true"></i>                                
-                            </button>
-                        </td>
                     </tr>
+                </tbody>
+            </table>
+            <br>
+            <h3>Sản phẩm đã bán</h3>
+            <table class="table table-striped info-fix">
+                <thead>
                     <tr>
-                        <td class="text-center">Samsum galaxy S8+</td>
-                        <td class="text-center">3.000.000 VNĐ</td>
-                        <td class="text-center">29/02/2017</td>
-                        <td class="text-center">02</td>
-                        <td class="text-center">Đã đấu giá</td>
-                        <td class="text-center">
-                            <button class="btn btn-default btn-sm transition" ng-class="{'btn-primary': upVote}" ng-click="changeOption(1)" title="Đánh giá người mua - upvote">
-                                <i class="fa fa-thumbs-up" aria-hidden="true"></i>                                
-                            </button>
-                            <button class="btn btn-default btn-sm transition" ng-class="{'btn-danger': downVote}" ng-click="changeOption(2)" title="Đánh giá người mua - downvote">
-                                <i class="fa fa-thumbs-down" aria-hidden="true"></i>                                
-                            </button>
-                            <button class="btn btn-success btn-sm" title="Gửi kèm nhận xét">
-                                <i class="fa fa-commenting" aria-hidden="true"></i>                                
-                            </button>
-                        </td>
+                        <th class="text-center">Sản phẩm tham gia đấu giá</th>
+                        <th class="text-center">Giá</th>
+                        <th class="text-center">Hạn chót tham gia đấu giá</th>
+                        <th class="text-center">Số người tham gia đấu giá</th>
                     </tr>
-                    <tr>
-                        <td class="text-center">B-Phone 2</td>
-                        <td class="text-center">10.000.000 VNĐ</td>
-                        <td class="text-center">31/05/2017</td>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in profileInfo.soldList">
+                        <td class="text-center">{{item.name}}</td>
+                        <td class="text-center">{{item.stepPrice}}</td>
+                        <td class="text-center">{{convertTime(item.endDate)}}</td>
                         <td class="text-center">02</td>
-                        <td class="text-center">Đang đấu giá</td>
-                        <td class="text-center">
-                            <button class="btn btn-primary btn-sm" title="Xem chi tiết sản phẩm">
-                                <i class="fa fa-eye" aria-hidden="true"></i>                                
-                            </button>
-                            <button class="btn btn-success btn-sm" title="Đấu giá tại chỗ">
-                                <i class="fa fa-usd" aria-hidden="true"></i>                                
-                            </button>
-                        </td>
                     </tr>
                 </tbody>
             </table>

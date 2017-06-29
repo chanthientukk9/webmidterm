@@ -78,11 +78,24 @@
                 url: "/api/products/count"
             },
 
+            GetBiddedList: {
+                method: "GET",
+                url: "/api/member-biddedlist"
+            },
+
             GetBiddingList: {
                 method: "GET",
                 url: "/api/member-biddinglist"
             },
 
+            GetSellingingList: {
+                method: "GET",
+                url: "/api/member-sellinglist"
+            },
+            GetSoldList: {
+                method: "GET",
+                url: "/api/member-soldlist"
+            },
             UpdateBiddingList: {
                 method: "PUT",
                 url: "/api/member-biddinglist"
@@ -121,6 +134,9 @@
             UpdateWishList: updateWishList,
             GetBiddingList: getBiddingList,
             UpdateBiddingList: updateBiddingList,
+            GetBiddedList: getBiddedList,
+            GetSellingList: getSellingList,
+            GetSoldList: getSoldList,
             CountProduct: countProduct,
             UpdateBid: updateBid
         };
@@ -200,6 +216,18 @@
 
         function updateBiddingList(data) {
             return ProductResource.UpdateBiddingList(data).$promise;
+        }
+
+        function getBiddedList() {
+            return ProductResource.GetBiddedList({}).$promise;
+        }
+
+        function getSellingList() {
+            return ProductResource.GetSellingList({}).$promise;
+        }
+
+        function getSoldList() {
+            return ProductResource.GetSoldList({}).$promise;
         }
 
         function updateBid(product) {
