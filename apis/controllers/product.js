@@ -138,8 +138,8 @@ module.exports.updateProduct = function(req, res, next) {
 
 module.exports.updateProductBid = function(req, res, next) {
     console.log("Test");
-    if (parseInt(req.body.point.total != 0)) {
-        if ((parseFloat(req.body.point.good) / parseFloat(req.body.point.total)) < 0.8) {
+    if (parseInt(req.userData.point.total != 0)) {
+        if ((parseFloat(req.userData.point.good) / parseFloat(req.userData.point.total)) < 0.8) {
             return res.status(500).json({
                 message: 'Not enough good point to do bid'
             })

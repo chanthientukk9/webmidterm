@@ -28,6 +28,8 @@ var memberSchema = new Schema({
     wishList: [{ type: Schema.Types.ObjectId, ref: 'Products', default: null }],
     biddingList: [{ type: Schema.Types.ObjectId, ref: 'Products', default: null }],
     biddedList: [{ type: Schema.Types.ObjectId, ref: 'Products', default: null }],
+    sellingList: [{ type: Schema.Types.ObjectId, ref: 'Products', default: null }],
+    soldList: [{ type: Schema.Types.ObjectId, ref: 'Products', default: null }],
     timeStamp: { type: Number, required: false, default: Date.now() }
 });
 
