@@ -5,19 +5,24 @@
         .module('app.users')
         .controller('SellModalController', SellModalController);
 
-    SellModalController.inject = ['$scope', 'ProductService', 'Dialog'];
+    SellModalController.inject = ['$scope', '$http', 'ProductService', 'Dialog'];
 
-    function SellModalController($scope, ProductService, Dialog) {
+    function SellModalController($scope, $http, ProductService, Dialog) {
         var vm = this;
+        window.cs = $scope;
         $scope.product = {
-            price: [0]
+            price: [0],
+            urlMedia: []
         };
+        $scope.watch = 0;
 
         activate();
 
         ////////////////
 
-        function activate() {}
+        function activate() {
+            // setTimeout(watch, 100);
+        }
 
 
         $scope.createProduct = function createProduct() {
@@ -102,6 +107,47 @@
             }
 
             return '';
+        }
+
+        $scope.upload = function upload() {
+            $('#file').click();
+            // watch();
+            if ($scope.watch == 0) {
+                setTimeout(watch, 100);
+                $scope.watch++;
+            }
+        }
+
+
+        function watch() {
+            $("#file").change(function() {
+                $scope.uploadFile();
+            });
+        };
+
+        $scope.uploadFile = function uploadFile() {
+            $scope.preloader = true;
+            var file = $('#file').get(0).files[0];
+
+            var formData = new FormData();
+            formData.append('file', file);
+            $scope.preloader = true;
+            $http({
+                method: 'POST',
+                url: '/api/upload',
+                data: formData,
+                headers: {
+                    'Content-Type': undefined
+                }
+            }).then(function(res) {
+                $scope.url = {
+                    url: 'http://localhost:7000/api/download/' + encodeURIComponent(res.data.path)
+                };
+                $scope.product.urlMedia.push($scope.url);
+                $scope.preloader = false;
+            }, function(err) {
+                Dialog.Error("Lỗi", err.data.message);
+            });
         }
     }
 })();

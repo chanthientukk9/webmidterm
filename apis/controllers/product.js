@@ -85,6 +85,7 @@ module.exports.getProductDetail = function(req, res, next) {
 
 module.exports.createProduct = function(req, res, next) {
     var bidderList = [req.userData._id];
+    console.log(req.body);
     Product.create({
             name: req.body.name,
             description: req.body.description,
