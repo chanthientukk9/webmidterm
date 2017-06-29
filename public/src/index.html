@@ -48,17 +48,19 @@
                 </form>
                 <ul class="nav navbar-nav navbar-right btn-login">
                     <li ng-show="profile">
-                        <button type="button" class="btn btn-default btn-header" ng-click="goUser()" title="Trang cá nhân">
-                            <i class="fa fa-user"></i>
+                        <img role="button" class="img-responsive img-radius avatar-buyer inline" ng-click="goUser()" src="../../../images/1_thumbs.png" alt="Avatar người dùng">
+                        <h3 class="panel-title inline" style="color:aliceblue">Nguyễn Đình Tiến</h3>
+                        <i class="fa fa-sign-out margin-left-10px" style="color:aliceblue" role="button" ng-click="logout()"></i>
+                    </li>
+                    <li ng-show="!profile">
+                        <button type="button" class="btn btn-default btn-header" ng-click="signUp()">
+                            <i class="fa fa-pencil">Đăng Kí</i>
                         </button>
                     </li>
                     <li ng-show="!profile">
-                        <button type="submit" class="btn btn-default btn-signup" ng-click="signUp()">
-                        <i class="fa fa-pencil" aria-hidden="true"></i> Đăng Kí
-                    </li>
-                    <li ng-show="!profile">
-                        <button type="submit" class="btn btn-default" ng-click="signIn()">
-                        <i class="fa fa-key" aria-hidden="true"></i> Đăng Nhập
+                        <button type="button" class="btn btn-default btn-header" ng-click="signIn()">
+                            <i class="fa fa-key">Đăng Nhập</i>
+                        </button>
                     </li>
                 </ul>
             </div>
@@ -68,11 +70,11 @@
         <div id="nav">
             <ul>
                 <li ng-click="goPage()">
-					<a href="#">Tất cả</a>
-				</li>
-				<li ng-repeat="category in categoryList" ng-click="goPage(category._id)">
-					<a href="#">{{category.name}}</a>
-				</li>
+                    <a href="#">Tất cả</a>
+                </li>
+                <li ng-repeat="category in categoryList" ng-click="goPage(category._id)">
+                    <a href="#">{{category.name}}</a>
+                </li>
             </ul>
         </div>
     </div>
@@ -81,18 +83,18 @@
     <!--New product-->
     <div class="container-fluid">
         <div ng-controller="IndexController">
-            <div style="height: 405px">
+            <div style="height: 405px" class="margin-top-10px">
                 <div uib-carousel active="active" interval="myInterval" no-wrap="noWrapSlides">
-                <div uib-slide ng-repeat="slide in slides track by slide.id" index="slide.id" style="background-image:url('{{slide.image}}');background-size: cover;background-position: center">
-                    <img ng-src="{{slide.image}}" class="img-responsive" style="margin:auto;height: 400px;opacity: 0">
-                    <div class="carousel-caption" style="color:#fff">
-                        <h4>{{slide.name}}</h4>
-                        <p>{{slide.text}}</p>
+                    <div uib-slide ng-repeat="slide in slides track by slide.id" index="slide.id" style="background-image:url('{{slide.image}}');background-size: cover;background-position: center">
+                        <img ng-src="{{slide.image}}" class="img-responsive" style="margin:auto; width: 100%;height: 400px;opacity: 0">
+                        <div class="carousel-caption" style="color: black">
+                            <h4>{{slide.name}}</h4>
+                            <p>{{slide.text}}</p>
+                        </div>
                     </div>
                 </div>
-                </div>
             </div>
-    </div>
+        </div>
     </div>
     <!--End of new product-->
 
@@ -343,10 +345,10 @@
                         <button class="btn btn-default pull-right" type="submit">
                                 <i class="fa fa-paper-plane"></i> SEND MESSAGE
                             </button>
+                    </div>
+                </div>
             </div>
-    </div>
-    </div>
-    </div>
+        </div>
     </div>
     <!--End of contact-->
 

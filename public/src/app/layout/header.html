@@ -21,9 +21,9 @@
         </form>
         <ul class="nav navbar-nav navbar-right header-navbar-right">
             <li ng-show="profile">
-                <button type="button" class="btn btn-default btn-header" ng-click="goUser()">
-                    <i class="fa fa-user"></i>
-                </button>
+                <img role="button" class="img-responsive img-radius avatar-buyer inline" ng-click="goUser()" src="../../../images/1_thumbs.png" alt="Avatar người dùng">
+                <h3 class="panel-title inline" style="color:aliceblue">Nguyễn Đình Tiến</h3>
+                <i class="fa fa-sign-out margin-left-10px" style="color:aliceblue" role="button" ng-click="logout()"></i>
             </li>
             <li ng-show="!profile">
                 <button type="button" class="btn btn-default btn-header" ng-click="signUp()">
