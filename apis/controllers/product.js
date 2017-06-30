@@ -1,6 +1,8 @@
 var mongoose = require('mongoose');
 var Product = mongoose.model('Products');
 var Member = mongoose.model('Members');
+var emailService = require('../modules/email.js');
+
 
 module.exports.scanDatabase = function(req, res, next) {
 
@@ -381,6 +383,7 @@ module.exports.updateProductBid = function(req, res, next) {
                                     message: 'Product not found'
                                 });
                             } else {
+                                emailService.sendDoBidSuccess(req.userData.email, req.userData.email);
                                 return res.status(200).json(product);
                             }
                         }).catch((err) => {
