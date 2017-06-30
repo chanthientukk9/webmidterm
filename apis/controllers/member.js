@@ -368,3 +368,44 @@ module.exports.updateSoldList = function(req, res, next) {
             });
         })
 }
+
+module.exports.votePoint = function(req, res, next) {
+    var point = null;
+
+    Member.findOne({
+            _id: req.body.memberId
+        })
+        .exec()
+        .then((member) => {
+            if (!member) {
+                return res.status(404).json({
+                    message: 'Member not found'
+                });
+            } else {
+                point = member.point;
+                point.total++;
+                if (req.body.vote == 1) {
+                    point.good++;
+                }
+                Member.findByIdAndUpdate({
+                        _id: req.body.memberId
+                    }, {
+                        point: point
+                    })
+                    .exec()
+                    .then((member) => {
+                        return res.status(200).json({
+                            message: 'Success'
+                        });
+                    }).catch((err) => {
+                        return res.status(500).json({
+                            message: err
+                        })
+                    })
+            }
+        }).catch((err) => {
+            return res.status(500).json({
+                message: err
+            })
+        })
+}
