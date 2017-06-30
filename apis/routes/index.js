@@ -38,6 +38,8 @@ router.route('/products/update-bid/:productId')
     .put(auth(generalRole), routeProduct.updateProductBid);
 router.route('/products/kick-bidder')
     .post(auth(specialRole), routeProduct.kickBidder);
+router.route('/products/scan-database')
+    .get(auth(adminRole), routeProduct.scanDatabase);
 
 router.route('/category')
     .post(auth(adminRole), routeCategory.createCategory)

@@ -85,6 +85,8 @@
             $scope.preloader = true;
             ProductService.GetProductByParams(params).then(function(res) {
                 $scope.productList = res
+                $scope.pageNumber = $state.params.page ? angular.copy($state.params.page) : 1;
+                $scope.isPageLoaded = true;
                 $scope.preloader = false;
             }, function(err) {
                 $scope.preloader = false;
@@ -110,9 +112,11 @@
             if (!$scope.isPageLoaded || $scope.pageNumber == $state.params.page) {
                 return;
             }
+            console.log("yeyeyeye" + $scope.searchContent);
             if ($scope.searchContent) {
                 $state.go('app.list', { page: $scope.pageNumber, limit: $scope.pageLimit, searchCategory: $scope.searchCategory, searchContent: $scope.searchContent });
             } else {
+                console.log('ahahazz');
                 $state.go('app.list', { page: $scope.pageNumber, limit: $scope.pageLimit });
             }
         }
@@ -129,6 +133,8 @@
             param = param + '&page=' + $state.params.page;
             ProductService.GetProductByParams(param).then(function(res) {
                 $scope.productList = res;
+                $scope.pageNumber = $state.params.page ? angular.copy($state.params.page) : 1;
+                $scope.isPageLoaded = true;
                 countProduct($scope.searchCategory._id, $scope.searchContent);
                 console.log('bbbbbbbbbbbbbbbbbbbbbbbbbb');
             }, function(err) {
@@ -144,6 +150,8 @@
             param = param + '&page=' + $state.params.page;
             ProductService.GetProductByParams(param).then(function(res) {
                 $scope.productList = res;
+                $scope.pageNumber = $state.params.page ? angular.copy($state.params.page) : 1;
+                $scope.isPageLoaded = true;
             }, function(err) {
                 Dialog.Error("Lỗi", err.data.message);
             })

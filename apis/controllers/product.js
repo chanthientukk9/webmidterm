@@ -2,9 +2,140 @@ var mongoose = require('mongoose');
 var Product = mongoose.model('Products');
 var Member = mongoose.model('Members');
 
+module.exports.scanDatabase = function(req, res, next) {
+
+    var now = Date.now();
+
+    Product.find({})
+        // .sort({
+        //     timestamp: -1
+        // })
+        .exec()
+        .then((product) => {
+            console.log("err hahahahahahashfbsdhjfsd");
+            if (!product) {
+                return res.status(404).json({
+                    message: 'Product not found'
+                })
+            } else {
+
+                for (var i = 0; i < product.length; i++) {
+                    if (product[i].endDate >= now && product[i].status == 'notvalid') {
+                        product[i].status = 'valid';
+                    }
+                    if (product[i].endDate < now && product[i].status == 'valid') {
+                        product[i].status = 'notvalid';
+                        var indexWonBidder = parseInt(product[i]['bidder'].length - 1);
+                        console.log("capcap" + product[i].bidder);
+                        var wonBidder = product[i].bidder[indexWonBidder];
+                        var biddedList = null;
+                        var biddingList = null;
+                        var seller = product[i].seller;
+                        var soldList = null;
+                        var sellingList = null;
+                        Member.findOne({
+                                _id: wonBidder
+                            })
+                            .exec()
+                            .then((member) => {
+                                console.log("iiiiiiiiiiiiiiiiiiii");
+                                if (!member) {
+                                    console.log("Big member " + member);
+                                    return res.status(404).json({
+                                        message: 'Member not found'
+                                    });
+                                } else {
+                                    console.log("iiiiiiiiiiiiiiiiiiii");
+                                    biddingList = member.biddingList;
+                                    biddedList = member.biddedList;
+                                    biddingList.splice(biddingList.indexOf(product._id), 1);
+                                    biddedList.push(product._id);
+                                    console.log("iiiiiiiiiiiiiiiiiiii");
+                                    Member.findByIdAndUpdate({
+                                            _id: wonBidder
+                                        }, {
+                                            biddingList: biddingList,
+                                            biddedList: biddedList
+                                        })
+                                        .exec()
+                                        .then((member2) => {
+                                            console.log("mem1 " + member2);
+                                        }).catch((err) => {
+                                            return res.status(500).json({
+                                                message: err
+                                            })
+                                        })
+                                }
+                            }).catch((err) => {
+                                return res.status(500).json({
+                                    message: err
+                                });
+                            });
+                        Member.findOne({
+                                _id: selller
+                            })
+                            .exec()
+                            .then((member) => {
+                                if (!member) {
+                                    return res.status(404).json({
+                                        message: 'Member not found'
+                                    });
+                                } else {
+                                    sellingList = member.sellingList
+                                    soldList = member.soldList;
+                                    sellingList.splice(sellingList.indexOf(product._id), 1);
+                                    soldList.push(product._id);
+                                    Member.findByIdAndUpdate({
+                                            _id: wonBidder
+                                        }, {
+                                            sellingList: sellingList,
+                                            soldList: soldList
+                                        })
+                                        .exec()
+                                        .then((member2) => {
+                                            console.log("mem2 " + member2);
+                                        }).catch((err) => {
+                                            return res.status(500).json({
+                                                message: err
+                                            })
+                                        })
+                                }
+                            }).catch((err) => {
+                                return res.status(500).json({
+                                    message: err
+                                });
+                            });
+
+                    }
+                    Product.findByIdAndUpdate({
+                            _id: product[i]._id
+                        }, {
+                            status: product[i].status
+                        })
+                        .exec()
+                        .then((product2) => {
+                            console.log("product2 " + product2);
+                        }).catch((err) => {
+                            return res.status(500).json({
+                                message: err
+                            });
+                        });
+                }
+                return res.status(200).json(product);
+            }
+        })
+        .catch((err) => {
+            return res.status(500).json({
+                message: 'Cannot get product list'
+            });
+        });
+}
+
 module.exports.getAllProduct = function(req, res, next) {
     var limit = parseInt(req.query.limit);
     var page = parseInt(req.query.page);
+    var now = Date.now();
+
     Product.find({})
         .sort({
             timestamp: -1
@@ -85,7 +216,6 @@ module.exports.getProductDetail = function(req, res, next) {
 
 module.exports.createProduct = function(req, res, next) {
     var bidderList = [req.userData._id];
-    console.log(req.body);
     Product.create({
             name: req.body.name,
             description: req.body.description,
@@ -102,6 +232,33 @@ module.exports.createProduct = function(req, res, next) {
             endDate: req.body.endDate
         })
         .then((product) => {
+            var sellingList = null;
+
+            Member.findOne({
+                    _id: req.userData._id
+                })
+                .exec()
+                .then((member) => {
+                    sellingList = member.sellingList;
+                    sellingList.push(product._id);
+                    Member.findByIdAndUpdate({
+                            _id: member._id
+                        }, {
+                            sellingList: sellingList
+                        })
+                        .exec()
+                        .then((member2) => {
+                            return res.status(200).json(product);
+                        }).catch((err) => {
+                            return res.status(500).json({
+                                message: err
+                            })
+                        })
+                }).catch((err) => {
+                    return res.status(500).json({
+                        message: err
+                    })
+                })
             return res.status(200).json(product);
         })
         .catch((err) => {
