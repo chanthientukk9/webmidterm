@@ -29,6 +29,7 @@ app.use('/api', routeApi);
 app.use(express.static(__BASE + '/public/build'));
 app.use('/bower_components', express.static(__BASE + '/bower_components'));
 app.use('/images', express.static(__BASE + '/public/images'));
+app.use('/plugins', express.static(__BASE + '/public/plugins'));
 
 // For route with AngularJs route
 app.get('/', (req, res) => {
