@@ -61,6 +61,7 @@ module.exports.scanDatabase = function(req, res, next) {
                                         })
                                         .exec()
                                         .then((member2) => {
+                                            emailService.sendDoneBid(member2.email, member2.name);
                                             console.log("mem1 " + member2);
                                         }).catch((err) => {
                                             return res.status(500).json({
@@ -95,6 +96,7 @@ module.exports.scanDatabase = function(req, res, next) {
                                         })
                                         .exec()
                                         .then((member2) => {
+                                            emailService.sendDoneSell(member2.email, member2.name);
                                             console.log("mem2 " + member2);
                                         }).catch((err) => {
                                             return res.status(500).json({
@@ -595,6 +597,7 @@ module.exports.kickBidder = function(req, res, next) {
                             })
                             .exec()
                             .then((member2) => {
+                                emailService.sendKickBid(member2.email, member2.name);
                                 return res.status(200).json({
                                     message: 'Success'
                                 });
