@@ -98,6 +98,8 @@ module.exports.getProfile = function(req, res, next) {
         .populate({ path: 'wishList', model: 'Products' })
         .populate({ path: 'biddingList', model: 'Products' })
         .populate({ path: 'biddedList', model: 'Products' })
+        .populate({ path: 'sellingList', model: 'Products' })
+        .populate({ path: 'soldList', model: 'Products' })
         .exec()
         .then((profile) => {
             if (!profile) {
