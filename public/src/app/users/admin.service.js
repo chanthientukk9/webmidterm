@@ -19,12 +19,20 @@
                 method: "GET",
                 url: 'api/member',
                 isArray: true
+            },
+            DeleteMember: {
+                method: "DELETE",
+                url: '/api/member/:memberId',
+                params: {
+                    memberId: '@memberId'
+                }
             }
         })
 
         var service = {
             AllowUpgrade: allowUpgrade,
-            GetMember: getMember
+            GetMember: getMember,
+            DeleteMember: deleteMember
         };
 
         return service;
@@ -36,6 +44,10 @@
 
         function getMember() {
             return AdminResource.GetMember().$promise;
+        }
+
+        function deleteMember(memberId) {
+            return AdminResource.DeleteMember({ memberId: memberId }).$promise
         }
     }
 })();

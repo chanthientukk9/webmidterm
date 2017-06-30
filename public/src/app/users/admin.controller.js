@@ -33,9 +33,16 @@
                 _id: id
             }
             AdminService.AllowUpgrade(data).then(function(res) {
-                Dialog.Success("Thành công", "Đã chấp thuận upgrade");
+                Dialog.Success("Thành công", "Đã chấp thuận nâng cấp tài khoản");
             }, function(err) {
                 Dialog.Error("Lỗi", err.data.message);
+            })
+        }
+
+        $scope.deleteMember = function deleteMember(index) {
+            AdminService.DeleteMember($scope.members[index]._id).then(function(res) {
+                Dialog.Success("Thành công", "Đã xóa tài khoản");
+                $scope.members.splice(index, 1);
             })
         }
     }
