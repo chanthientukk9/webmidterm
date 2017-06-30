@@ -36,6 +36,8 @@ router.route('/products/count')
     .get(routeProduct.countProduct);
 router.route('/products/update-bid/:productId')
     .put(auth(generalRole), routeProduct.updateProductBid);
+router.route('/products/kick-bidder')
+    .post(auth(specialRole), routeProduct.kickBidder);
 
 router.route('/category')
     .post(auth(adminRole), routeCategory.createCategory)

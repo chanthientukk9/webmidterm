@@ -362,3 +362,92 @@ module.exports.countProduct = function(req, res, next) {
             });
         })
 }
+
+module.exports.kickBidder = function(req, res, next) {
+
+    var bidder = req.body.bidderId;
+
+    var bidderList = null;
+    var priceList = null;
+    var biddingList = null;
+
+    var flag = 0;
+    var indexBidder = 0;
+    Product.findOne({
+            _id: req.body.productId,
+            seller: req.userData._id
+        })
+        .exec()
+        .then((product) => {
+            if (!product) {
+                return res.status(404).json({
+                    message: 'Product not found'
+                });
+            } else {
+                bidderList = product.bidder;
+                priceList = product.price;
+            }
+        }).catch((err) => {
+            return res.status(500).json({
+                message: 'Err: ' + err
+            })
+        });
+
+    for (var i = 0; i < bidderList.length; i++) {
+        if (bidderList[i] == bidder) {
+            bidderList.splice(i, 1);
+            priceList.splice(i, 1);
+            flag = 1;
+        }
+    }
+
+    if (flag == 0) {
+        return res.status(500).json({
+            message: 'Bidder not in list'
+        });
+    }
+
+    Product.findByIdAndUpdate({
+            _id: req.body.productId,
+            seller: req.userData._id
+        }, {
+            bidder: bidderList,
+            price: priceList
+        })
+        .exec()
+        .then((product) => {
+            Member.findOne({
+                    _id: bidder
+                })
+                .exec()
+                .then((member) => {
+                    if (!member) {
+                        return res.status(404).json({
+                            message: 'Member not found'
+                        });
+                    } else {
+                        biddingList = member.biddingList;
+                        biddingList.splice(biddingList.indexOf(product._id), 1);
+                        Member.findByIdAndUpdate({
+                                _id: bidder
+                            }, {
+                                biddingList: biddingList
+                            })
+                            .exec()
+                            .then((member2) => {
+                                return res.status(200).json({
+                                    message: 'Success'
+                                });
+                            }).catch((err) => {
+                                return res.status(500).json({
+                                    message: err
+                                })
+                            })
+                    }
+                })
+        }).catch((err) => {
+            return res.status(500).json({
+                message: err
+            });
+        })
+}
