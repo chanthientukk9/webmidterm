@@ -11,8 +11,15 @@
             // JWT token to call apis
             $http.defaults.headers.common.Authorization = 'Bearer ' + token;
 
+            if ($state.is('app.admin')) {
+                if (($rootScope.role && ($rootScope.role != 1 || $rootScope.role != 1001)) || !$rootScope.role) {
+                    window.location.pathname = "/";
+                }
+            }
         } else {
-
+            if (!(window.location.pathname == "/") && !(window.location.pathname == "/product/detail") && !(window.location.pathname == "/product/list")) {
+                window.location.pathname = "/";
+            }
         }
     });
 })();
