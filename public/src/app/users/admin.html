@@ -127,17 +127,17 @@
                     <tr>
                         <th class="text-center">Tên người dùng</th>
                         <th class="text-center">Tên tài khoản</th>
-                        <th class="text-center">Email</th>
+                        <th class="text-center">Số điện thoại</th>
                         <th class="text-center">Điểm tin cậy</th>
                         <th class="text-center">Thao tác</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td class="text-center">Nguyen Dinh Tien</td>
-                        <td class="text-center">ngdinhtien1905</td>
-                        <td class="text-center">ngdinhtien1905@gmail.com</td>
-                        <td class="text-center">100</td>
+                    <tr ng-repeat="member in members">
+                        <td class="text-center">{{member.name}}</td>
+                        <td class="text-center">{{member.email}}</td>
+                        <td class="text-center">{{member.phone}}</td>
+                        <td class="text-center">{{trustPoint}}</td>
                         <td class="text-center">
                             <button class="btn btn-danger btn-sm" title="Xóa người dùng">
                                 <i class="fa fa-ban" aria-hidden="true"></i>                                
@@ -145,40 +145,15 @@
                             <button class="btn btn-warning btn-sm" title="Reset lại mật khẩu">
                                 <i class="fa fa-refresh" aria-hidden="true"></i>                                
                             </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="text-center">Chu Nguyen Anh Tuan</td>
-                        <td class="text-center">chutuan1002</td>
-                        <td class="text-center">chutuan1002@gmail.com</td>
-                        <td class="text-center">90</td>
-                        <td class="text-center">
-                            <button class="btn btn-danger btn-sm" title="Xóa người dùng">
-                                <i class="fa fa-ban" aria-hidden="true"></i>                                
-                            </button>
-                            <button class="btn btn-warning btn-sm" title="Reset lại mật khẩu">
-                                <i class="fa fa-refresh" aria-hidden="true"></i>                                
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="text-center">Lu Hoang Phi Tuan</td>
-                        <td class="text-center">lhptuan2701</td>
-                        <td class="text-center">lhptuan2701@gmail.com</td>
-                        <td class="text-center">90</td>
-                        <td class="text-center">
-                            <button class="btn btn-danger btn-sm" title="Xóa người dùng">
-                                <i class="fa fa-ban" aria-hidden="true"></i>                                
-                            </button>
-                            <button class="btn btn-warning btn-sm" title="Reset lại mật khẩu">
-                                <i class="fa fa-refresh" aria-hidden="true"></i>                                
+                            <button class="btn btn-success btn-sm" title="Upgrade cho người dùng" ng-click="allowUpgrade(member._id)">
+                                <i class="fa fa-check-circle" aria-hidden="true"></i>                                
                             </button>
                         </td>
                     </tr>
                 </tbody>
             </table>
         </uib-tab>
-        <uib-tab index="3" heading="Quản lý danh mục sản phẩm">
+        <uib-tab index="3" heading="Quản lý danh mục sản phẩm">c
             <table class="table table-striped info-fix">
                 <thead>
                     <tr>
