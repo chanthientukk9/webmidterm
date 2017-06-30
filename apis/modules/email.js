@@ -144,6 +144,57 @@ service.sendDoBidSuccess = function(email, userName) {
     });
 }
 
+service.sendKickBid = function(email, userName) {
+    var data = {
+        from: 'AUCTION SERVICE <service@unitest.vn>',
+        subject: '[AUCTION] Kick khỏi đấu giá',
+        to: email,
+        html: `<p>Xin chào, <strong>${userName}</strong>, bạn đã bị kích khỏi 1 phiên đấu giá tại <a href="139.59.230.231:3000">AUCTION SERVICE</a></p>` +
+            `----` +
+            `<p>Trân trọng</p>` +
+            `<strong>Bp. Kỹ thuật</strong>`,
+    }
+    MailGun.messages().send(data, function(err, result) {
+        if (err)
+            console.log(err);
+        console.log('an email is sent to ' + data.to);
+    });
+}
+
+service.sendDoneBid = function(email, userName) {
+    var data = {
+        from: 'AUCTION SERVICE <service@unitest.vn>',
+        subject: '[AUCTION] Hoàn tất đấu giá',
+        to: email,
+        html: `<p>Xin chào, <strong>${userName}</strong>, bạn đã chiến thắng 1 phiên đấu giá tại <a href="139.59.230.231:3000">AUCTION SERVICE</a></p>` +
+            `----` +
+            `<p>Trân trọng</p>` +
+            `<strong>Bp. Kỹ thuật</strong>`,
+    }
+    MailGun.messages().send(data, function(err, result) {
+        if (err)
+            console.log(err);
+        console.log('an email is sent to ' + data.to);
+    });
+}
+
+service.sendDoneSell = function(email, userName) {
+    var data = {
+        from: 'AUCTION SERVICE <service@unitest.vn>',
+        subject: '[AUCTION] Đã bán sản phẩm',
+        to: email,
+        html: `<p>Xin chào, <strong>${userName}</strong>, bạn đã bán thành công sản phẩm trong 1 phiên đấu giá tại <a href="139.59.230.231:3000">AUCTION SERVICE</a></p>` +
+            `----` +
+            `<p>Trân trọng</p>` +
+            `<strong>Bp. Kỹ thuật</strong>`,
+    }
+    MailGun.messages().send(data, function(err, result) {
+        if (err)
+            console.log(err);
+        console.log('an email is sent to ' + data.to);
+    });
+}
+
 module.exports = service;
 
 //service.send('Unitest Admin <admin@unitest.vn>', 'chunguyenanhtuan@gmail.com', 'Test Email', 'Hello World');
