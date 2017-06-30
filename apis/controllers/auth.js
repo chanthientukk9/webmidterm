@@ -146,6 +146,7 @@ module.exports.upgradeMember = function(req, res, next) {
 }
 
 module.exports.allowUpgrade = function(req, res, next) {
+    console.log(req.body);
     memberModal.findByIdAndUpdate({
             _id: req.body._id,
             srole: 909

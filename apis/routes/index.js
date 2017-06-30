@@ -73,7 +73,7 @@ router.route('/member-sellinglist')
 router.route('/member-soldlist')
     .get(auth(specialRole), routeMember.getSoldList)
     .put(auth(specialRole), routeMember.updateSoldList);
-route.route('/vote-point')
+router.route('/vote-point')
     .post(auth(generalRole), routeMember.votePoint);
 
 router.route('/register')
