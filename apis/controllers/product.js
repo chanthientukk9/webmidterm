@@ -94,8 +94,8 @@ module.exports.createProduct = function(req, res, next) {
             stepPrice: req.body.stepPrice,
             finalPrice: req.body.price[0],
             urlMedia: req.body.urlMedia,
-            status: req.body.status,
-            attributes: req.body.attributes,
+            status: 'Invalid',
+            // attributes: req.body.attributes,
             seller: req.userData._id,
             location: req.body.location,
             startDate: req.body.startDate,
@@ -106,7 +106,7 @@ module.exports.createProduct = function(req, res, next) {
         })
         .catch((err) => {
             return res.status(500).json({
-                message: 'Cannot create product'
+                message: 'Cannot create product ' + err
             })
         })
 }

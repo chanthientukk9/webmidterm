@@ -12,7 +12,9 @@
         window.cs = $scope;
         $scope.product = {
             price: [0],
-            urlMedia: []
+            urlMedia: [],
+            endDate: Date(),
+            startDate: Date()
         };
         $scope.watch = 0;
 
@@ -26,6 +28,8 @@
 
 
         $scope.createProduct = function createProduct() {
+            $scope.product.startDate = Date.parse($scope.product.startDate);
+            $scope.product.endDate = Date.parse($scope.product.endDate);
             ProductService.CreateProduct($scope.product).then(function(res) {
                 Dialog.Success("Thành công", 'Đã đăng bán sản phẩm');
             }, function(err) {
@@ -33,11 +37,6 @@
             })
 
         }
-
-        $scope.today = function() {
-            $scope.dt = new Date();
-        };
-        $scope.today();
 
         $scope.clear = function() {
             $scope.dt = null;
@@ -63,10 +62,6 @@
 
         $scope.open2 = function() {
             $scope.popup2.opened = true;
-        };
-
-        $scope.setDate = function(year, month, day) {
-            $scope.dt = new Date(year, month, day);
         };
 
         $scope.popup1 = {
