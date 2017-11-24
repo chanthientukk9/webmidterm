@@ -125,7 +125,9 @@ module.exports.createCustomer = function(req, res, next) {
         timestamp: Date.now()
     }
     var newCustomer = customerRef.push(customerData).then(function(customer) {
-        return res.status(200).json(customer)
+        return res.status(200).json({
+            message: 'Create Success'
+        })
     }).catch(function(err) {
         return res.status(500).json({
             message: 'Can not create new customer'
@@ -147,13 +149,21 @@ module.exports.createCustomer = function(req, res, next) {
 
 module.exports.updateCustomer = function(req, res, next) {
     var customerData = {
+        address: req.body.address,
+        lat: req.body.lat,
+        lng: req.body.lng,
+        carType: req.body.carType,
         status: req.body.status,
-        driver: req.body.driver
+        driver: req.body.driver,
+        timestamp: req.body.timestamp        
     };
     var updates = {};
     updates['/customers/' + req.params.customerId] = customerData;
     return customerRef.update(updates).then(function(customer) {
-        return res.status(200).json(customer)
+        return res.status(200).json({
+            id: req.params.customerId,
+            value: customerData
+        })
     }).catch(function(err) {
         return res.status(500).json({
             message: 'Can not update customer'

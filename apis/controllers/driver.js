@@ -64,12 +64,14 @@ module.exports.createDriver = function(req, res, next) {
         lat: req.body.lat,
         lng: req.body.lng,
         carType: req.body.carType,
-        status: 'pending',
+        status: 'waiting',
         customer: null,
         timestamp: Date.now()
     }
     var newDriver = driverRef.push(driverData).then(function(driver) {
-        return res.status(200).json(driver)
+        return res.status(200).json({
+            message: 'Create Success'
+        })
     }).catch(function(err) {
         return res.status(500).json({
             message: 'Can not create new driver'
@@ -79,13 +81,20 @@ module.exports.createDriver = function(req, res, next) {
 
 module.exports.updateDriver = function(req, res, next) {
     var driverData = {
+        lat: req.body.lat,
+        lng: req.body.lng,
+        carType: req.body.carType,
         status: req.body.status,
-        customer: req.body.customer
+        customer: req.body.customer,
+        timestamp: req.body.timestamp
     };
     var updates = {};
     updates['/drivers/' + req.params.driverId] = driverData;
-    return driverRef.update(updates).then(function(driver) {
-        return res.status(200).json(driver)
+    firebase.database().ref().update(updates).then(function(driver) {
+        return res.status(200).json({
+            id: req.params.driverId,
+            value: driverData
+        })
     }).catch(function(err) {
         return res.status(500).json({
             message: 'Can not update driver'
