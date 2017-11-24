@@ -9,6 +9,10 @@ var routeCategory = require(__BASE + '/apis/controllers/category');
 var routeMember = require(__BASE + '/apis/controllers/member');
 var routeAuth = require(__BASE + '/apis/controllers/auth');
 
+var routeCustomer = require(__BASE + '/apis/controllers/customer');
+var routeDriver = require(__BASE + '/apis/controllers/driver');
+
+
 // Config routes
 //-----------------------------------------------
 var router = express.Router();
@@ -16,6 +20,34 @@ var generalRole = 2;
 var specialRole = 100;
 var adminRole = 1001;
 var waitingRole = 765;
+
+router.route('/customer')
+    .get(routeCustomer.getAllCustomers)
+    .post(routeCustomer.createCustomer)
+router.route('/customer/pending')
+    .get(routeCustomer.getPendingCustomers)
+router.route('/customer/waiting')
+    .get(routeCustomer.getWaitingCustomers)
+router.route('/customer/moving')
+    .get(routeCustomer.getMovingCustomers)
+router.route('/customer/done')
+    .get(routeCustomer.getDoneCustomers)
+router.route('/customer/detail/:customerId')
+    .get(routeCustomer.getCustomerDetail)
+    .put(routeCustomer.updateCustomer)
+
+router.route('/driver')
+    .get(routeDriver.getAllDrivers)
+    .post(routeDriver.createDriver)
+router.route('/driver/waiting')
+    .get(routeDriver.getWaitingDrivers)
+router.route('/driver/picking')
+    .get(routeDriver.getPickingDrivers)
+router.route('/driver/moving')
+    .get(routeDriver.getMovingDrivers)
+router.route('/driver/detail/:driverId')
+    .get(routeDriver.getDriverDetail)
+    .put(routeDriver.updateDriver)
 
 router.route('/product')
     .post(auth(specialRole), routeProduct.createProduct)

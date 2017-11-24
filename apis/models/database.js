@@ -55,3 +55,5 @@ process.once('SIGTERM', () => {
 require('./product');
 require('./category');
 require('./member');
+require('./customer');
+require('./driver');

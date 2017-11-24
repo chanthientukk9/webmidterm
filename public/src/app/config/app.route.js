@@ -11,6 +11,10 @@
                 url: '/product/',
                 templateUrl: './app/layout/layout.html'
             })
+            .state('booking', {
+                url: '/booking/',
+                templateUrl: './app/layout/booking.html'
+            })
 
         // .state('auth', {
         //     url: '/auth/',

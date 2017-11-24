@@ -3,6 +3,14 @@ var express = require('express');
 var bodyparser = require('body-parser');
 var morgan = require('morgan');
 var app = express();
+var admin = require("firebase-admin");
+
+var serviceAccount = require('../booking-car-f3860-firebase-adminsdk-kwk0t-4f9c4b52ef.json');
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: "https://booking-car-f3860.firebaseio.com"
+});
 
 // Common config
 //-------------------------------------------------
@@ -38,6 +46,10 @@ app.get('/', (req, res) => {
 
 app.get('/product/*', (req, res) => {
     res.sendFile(path.join(__BASE, '/public/build/app/layout/layout.html'));
+})
+
+app.get('/booking/*', (req, res) => {
+    res.sendFile(path.join(__BASE, '/public/build/app/layout/booking.html'));
 })
 
 app.get('/auth/*', (req, res) => {
