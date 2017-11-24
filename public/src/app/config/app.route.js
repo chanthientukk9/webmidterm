@@ -15,6 +15,21 @@
                 url: '/booking/',
                 templateUrl: './app/layout/booking.html'
             })
+            .state('booking.phone', {
+                url: 'phone',
+                templateUrl: './app/booking/phone/phone.html',
+                controller: 'PhoneController'
+            })
+            .state('booking.location', {
+                url: 'location',
+                templateUrl: './app/booking/location/location.html',
+                controller: 'LocationController'
+            })
+            .state('booking.status', {
+                url: 'status',
+                templateUrl: './app/booking/status/status.html',
+                controller: 'StatusController'
+            })
 
         // .state('auth', {
         //     url: '/auth/',

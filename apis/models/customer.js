@@ -5,6 +5,8 @@ var Schema = mongoose.Schema;
 //-----------------------------------------------
 var customerSchema = new Schema({
     address: { type: String, required: true },
+    lat: { type: Number },
+    lng: { type: Number },
     carType: { type: Number, required: true },
     status: { type: String, default: 'pending' },
     driver: { type: Schema.Types.ObjectId, ref: 'Drivers' },

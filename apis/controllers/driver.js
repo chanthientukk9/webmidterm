@@ -1,167 +1,98 @@
-var mongoose = require('mongoose');
-var Drivers = mongoose.model('Drivers');
+var firebase = require('firebase-admin');
+var driverRef = firebase.database().ref().child('drivers');
 
 module.exports.getAllDrivers = function(req, res, next) {
-    Drivers.find({})
-        .exec()
-        .then((drivers) => {
-            if (!drivers) {
-                return res.status(404).json({
-                    message: "Drivers not found"
-                });
-            } else {
-                return res.status(200).json(drivers);
+    var drivers = [];
+    driverRef.once('value', function(snapshot) {
+        snapshot.forEach(function(element) {
+            var data = {
+                id: element.key,
+                value: element.val()
             }
+            drivers.push(data);
         })
-        .catch((error) => {
-            return res.status(500).json({
-                message: "Can not get drivers"
-            });
+    }).then(function(){
+        return res.status(200).json(drivers);
+    }).catch(function(err) {
+        return res.status(500).json({
+            message: 'Cannot get drivers'
         });
+    });
 }
 
-module.exports.getPickingDrivers = function(req, res, next) {
-    Drivers.find({
-        status: 'picking'
-    })
-        .exec()
-        .then((drivers) => {
-            if (!drivers) {
-                return res.status(404).json({
-                    message: "Drivers not found"
-                });
-            } else {
-                return res.status(200).json(drivers);
+module.exports.getDrivers = function(req, res, next) {
+    var drivers = [];
+    driverRef.orderByChild('status').equalTo(req.query.status).once('value', function(snapshot) {
+        snapshot.forEach(function(element) {
+            var data = {
+                id: element.key,
+                value: element.val()
             }
+            drivers.push(data);
         })
-        .catch((error) => {
-            return res.status(500).json({
-                message: "Can not get drivers"
-            });
+    }).then(function(){
+        return res.status(200).json(drivers);
+    }).catch(function(err) {
+        return res.status(500).json({
+            message: 'Cannot get drivers'
         });
-}
-
-module.exports.getWaitingDrivers = function(req, res, next) {
-    Drivers.find({
-        status: 'waiting'
-    })
-        .exec()
-        .then((drivers) => {
-            if (!drivers) {
-                return res.status(404).json({
-                    message: "Drivers not found"
-                });
-            } else {
-                return res.status(200).json(drivers);
-            }
-        })
-        .catch((error) => {
-            return res.status(500).json({
-                message: "Can not get drivers"
-            });
-        });
-}
-
-module.exports.getMovingDrivers = function(req, res, next) {
-    Drivers.find({
-        status: 'moving'
-    })
-        .exec()
-        .then((drivers) => {
-            if (!drivers) {
-                return res.status(404).json({
-                    message: "Drivers not found"
-                });
-            } else {
-                return res.status(200).json(drivers);
-            }
-        })
-        .catch((error) => {
-            return res.status(500).json({
-                message: "Can not get drivers"
-            });
-        });
+    });
 }
 
 
 module.exports.getDriverDetail = function(req, res, next) {
-    Drivers.findOne({
-            _id: req.params.driverId
-        })
-        .exec()
-        .then((driver) => {
-            if (!driver) {
-                return res.status(404).json({
-                    message: "Driver not found"
-                });
-            } else {
-                return res.status(200).json(driver);
+    var driver = {};
+    driverRef.orderByKey().equalTo(req.params.driverId).once('value', function(snapshot) {
+        snapshot.forEach(function(element) {
+            var data = {
+                id: element.key,
+                value: element.val()
             }
+            driver = data;
         })
-        .catch((error) => {
-            return res.status(500).json({
-                message: "Can not get driver"
-            })
+    }).then(function(){
+        return res.status(200).json(driver);
+    }).catch(function(err) {
+        return res.status(500).json({
+            message: 'Cannot get driver'
         });
+    });
 }
 
 module.exports.createDriver = function(req, res, next) {
-    Drivers.create({
-            carType: req.body.carType,
-        })
-        .then((driver) => {
-            return res.status(200).json(driver);
-        })
-        .catch((error) => {
-            return res.status(500).json({
-                message: "Can not create new driver"
-            });
+    var driverData = {
+        lat: req.body.lat,
+        lng: req.body.lng,
+        carType: req.body.carType,
+        status: 'pending',
+        customer: null,
+        timestamp: Date.now()
+    }
+    var newDriver = driverRef.push(driverData).then(function(driver) {
+        return res.status(200).json(driver)
+    }).catch(function(err) {
+        return res.status(500).json({
+            message: 'Can not create new driver'
         });
+    });
 }
 
 module.exports.updateDriver = function(req, res, next) {
-    Drivers.findByIdAndUpdate({
-            _id: req.params.driverId
-        }, {
-            status: req.body.status,
-            customer: req.body.customer
-        })
-        .exec()
-        .then((driver) => {
-            if (!driver) {
-                return res.status(404).json({
-                    message: "Driver not found"
-                });
-            } else {
-                return res.status(200).json(driver);
-            }
-        })
-        .catch((error) => {
-            return res.status(500).json({
-                message: "Can not update driver"
-            });
+    var driverData = {
+        status: req.body.status,
+        customer: req.body.customer
+    };
+    var updates = {};
+    updates['/drivers/' + req.params.driverId] = driverData;
+    return driverRef.update(updates).then(function(driver) {
+        return res.status(200).json(driver)
+    }).catch(function(err) {
+        return res.status(500).json({
+            message: 'Can not update driver'
         });
+    });
 }
 
 module.exports.deleteDriver = function(req, res, next) {
-    Category.findByIdAndRemove({
-            _id: req.params.driverId
-        })
-        .exec()
-        .then((driver) => {
-            if (!driver) {
-                return res.status(404).json({
-                    message: "Driver not found"
-                });
-            } else {
-                return res.status(200).json({
-                    message: "Success"
-                });
-            }
-        })
-        .catch((error) => {
-            return res.status(500).json({
-                message: "Can not delete driver"
-            });
-        });
+    driverRef.child(req.params.driverId).remove();
 }
