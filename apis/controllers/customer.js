@@ -155,7 +155,7 @@ module.exports.updateCustomer = function(req, res, next) {
         carType: req.body.carType,
         status: req.body.status,
         driver: req.body.driver,
-        timestamp: req.body.timestamp        
+        timestamp: req.body.timestamp
     };
     var updates = {};
     updates['/customers/' + req.params.customerId] = customerData;

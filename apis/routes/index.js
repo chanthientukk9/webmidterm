@@ -29,6 +29,8 @@ router.route('/customer/status')
 router.route('/customer/detail/:customerId')
     .get(routeCustomer.getCustomerDetail)
     .put(routeCustomer.updateCustomer)
+router.route('/customer/near-drivers')
+    .post(routeDriver.nearDrivers)
 
 router.route('/driver')
     .get(routeDriver.getAllDrivers)

@@ -1,5 +1,6 @@
 var firebase = require('firebase-admin');
 var driverRef = firebase.database().ref().child('drivers');
+const RADIAN = 0.015;
 
 module.exports.getAllDrivers = function(req, res, next) {
     var drivers = [];
@@ -104,4 +105,30 @@ module.exports.updateDriver = function(req, res, next) {
 
 module.exports.deleteDriver = function(req, res, next) {
     driverRef.child(req.params.driverId).remove();
+}
+
+module.exports.nearDrivers = function(req, res, next) {
+    var drivers = [];
+    var customer = {
+        lat: req.body.lat,
+        lng: req.body.lng
+    }
+    driverRef.once('value', function(snapshot) {
+        snapshot.forEach(function(element) {
+            var data = {
+                id: element.key,
+                value: element.val()
+            }
+            var distance = Math.sqrt(Math.pow(customer.lat - element.val().lat, 2) + Math.pow(customer.lng - element.val().lng, 2));
+            if(distance < RADIAN) {
+                drivers.push(data);            
+            }
+        })
+    }).then(function(){
+        return res.status(200).json(drivers);
+    }).catch(function(err) {
+        return res.status(500).json({
+            message: 'Cannot get drivers'
+        });
+    });
 }

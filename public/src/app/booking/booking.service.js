@@ -27,8 +27,11 @@
                 params: {
                     customerId: '@customerId'
                 }
+            },
+            GetNearDriver: {
+                method: 'POST',
+                url: '/api/customer/near-drivers'
             }
-            
         });
 
         var DriverResource = $resource('/api/driver', {}, {
@@ -57,6 +60,7 @@
             GetCustomers: getCustomers,
             GetCustomerDetail: getCustomerDetail,
             UpdateCustomer: updateCustomer,
+            GetNearDriver: getNearDriver,
             GetAllDrivers: getAllDrivers,
             GetDrivers: getDrivers,
             GetDriverDetail: getDriverDetail,
@@ -79,6 +83,9 @@
         }
         function updateCustomer(customer) {
             return CustomerResource.UpdateCustomer({customerId: customer.id}, customer.value).$promise;
+        }
+        function getNearDriver(customerLocation) {
+            return CustomerResource.GetNearDriver(customerLocation).$promise;
         }
 
         function getAllDrivers() { 
