@@ -3,10 +3,10 @@
 
     angular
         .module('app.booking')
-        .controller('StatisController', StatisController);
+        .controller('StatusController', StatusController);
 
-    StatisController.$inject = ['$scope', 'BookingService'];
-    function StatisController($scope, BookingService) {
+    StatusController.$inject = ['$scope', 'BookingService'];
+    function StatusController($scope, BookingService) {
         var vm = this;
         
 

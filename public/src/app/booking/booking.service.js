@@ -55,6 +55,7 @@
         var service = {
             GetAllCustomers: getAllCustomers,
             GetCustomers: getCustomers,
+            CreateCustomer: createCustomer,
             GetCustomerDetail: getCustomerDetail,
             UpdateCustomer: updateCustomer,
             GetAllDrivers: getAllDrivers,
@@ -72,6 +73,9 @@
 
         function getCustomers() {
             return CustomerResource.GetCustomers().$promise;
+        }
+        function createCustomer(customer) {
+            return CustomerResource.save(customer).$promise;
         }
 
         function getCustomerDetail(customerId) {
