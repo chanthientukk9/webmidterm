@@ -75,8 +75,8 @@
             return CustomerResource.query().$promise;
         }
 
-        function getCustomers() {
-            return CustomerResource.GetCustomers().$promise;
+        function getCustomers(status) {
+            return CustomerResource.GetCustomers({status: status}).$promise;
         }
         function createCustomer(customer) {
             return CustomerResource.save(customer).$promise;
