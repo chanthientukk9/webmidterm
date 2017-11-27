@@ -158,7 +158,7 @@ module.exports.updateCustomer = function(req, res, next) {
         timestamp: req.body.timestamp
     };
     var updates = {};
-    updates['/customers/' + req.params.customerId] = customerData;
+    updates['/' + req.params.customerId] = customerData;
     return customerRef.update(updates).then(function(customer) {
         return res.status(200).json({
             id: req.params.customerId,
