@@ -30,7 +30,8 @@
             },
             GetNearDriver: {
                 method: 'POST',
-                url: '/api/customer/near-drivers'
+                url: '/api/customer/near-drivers',
+                isArray: true
             }
         });
 

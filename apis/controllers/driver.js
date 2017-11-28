@@ -1,6 +1,6 @@
 var firebase = require('firebase-admin');
 var driverRef = firebase.database().ref().child('drivers');
-const RADIAN = 0.015;
+const RADIAN = 0.015; // 0.015
 
 module.exports.getAllDrivers = function(req, res, next) {
     var drivers = [];
@@ -90,7 +90,7 @@ module.exports.updateDriver = function(req, res, next) {
         timestamp: req.body.timestamp
     };
     var updates = {};
-    updates['/drivers/' + req.params.driverId] = driverData;
+    updates['/' + req.params.driverId] = driverData;
     firebase.database().ref().update(updates).then(function(driver) {
         return res.status(200).json({
             id: req.params.driverId,
@@ -120,7 +120,7 @@ module.exports.nearDrivers = function(req, res, next) {
                 value: element.val()
             }
             var distance = Math.sqrt(Math.pow(customer.lat - element.val().lat, 2) + Math.pow(customer.lng - element.val().lng, 2));
-            if(distance < RADIAN) {
+            if(distance < RADIAN && element.val().status == 'waiting') {
                 drivers.push(data);            
             }
         })

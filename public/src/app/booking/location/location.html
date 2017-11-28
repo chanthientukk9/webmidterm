@@ -8,9 +8,9 @@
         <label for="address"> Thông tin khách hàng</label>
         <input class="form-control" name="address" type="text" ng-value="customerDetail.value.address" disabled>
         <label for="lat"> Vĩ độ </label> 
-        <input class="form-control" name="lat" type="number" value={{customerDetail.value.lat}} disabled>     
+        <input class="form-control" id="latinput" name="lat" type="number" ng-value="customerDetail.value.lat" disabled>
         <label for="lng"> Kinh độ </label>
-        <input class="form-control" name="lng" type="number" value={{customerDetail.value.lng}} disabled>
+        <input class="form-control" id="lnginput" name="lng" type="number" ng-value="customerDetail.value.lng" disabled>
         <label for="status"> Trạng thái</label>
         <input class="form-control" name="status" type="text" ng-value="customerDetail.value.status" disabled>     
         
@@ -18,7 +18,14 @@
         <input class="form-control" name="carType" type="text" ng-if="customerDetail.value.carType == 1" value="Normal" disabled>             
         <input class="form-control" name="carType" type="text" ng-if="customerDetail.value.carType == 2" value="Premium" disabled>     
         <br>
-        <button type="button" class="btn btn-success" ng-click="updateCustomer()" >Submit</button>
+        <div class="row">
+          <div class="col-md-6">
+            <button type="button" class="btn btn-primary" ng-click="locatedCustomer()" >Located</button>        
+          </div>
+          <div class="col-md-6">
+            <button type="button" class="btn btn-success" ng-click="updateCustomer()" >Submit</button>        
+          </div>
+        </div>
     </div>
 
     <table class="table table-striped float-left margin-top_10px">
