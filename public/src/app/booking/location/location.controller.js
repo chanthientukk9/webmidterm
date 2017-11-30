@@ -17,11 +17,16 @@
         ////////////////
 
         function activate() { 
-            loadFirstData();
+            BookingService.GetCustomers('pending').then(function (res) {
+                $scope.customers = res;
+                initMap();
+                initAutocomplete();
+            })
         }
         var map;
         var marker;
         var markers = [];
+        var markerSearch = [];
         function initMap() {
           map = new google.maps.Map(document.getElementById('map'), {
             center: {lat: 10.7638442, lng: 106.6622009},
@@ -35,7 +40,6 @@
         function loadFirstData() {
             BookingService.GetCustomers('pending').then(function (res) {
                 $scope.customers = res;
-                initMap();
             })
         }
 
@@ -71,7 +75,11 @@
             for(var i = 0; i < markers.length; i++) {
                 markers[i].setMap(null);
             }
+            for(var i = 0; i < markerSearch.length; i++) {
+                markerSearch[i].setMap(null)
+            }
             markers = [];
+            markerSearch = [];
             if (marker) {
                 marker.setMap(null);
             }
@@ -122,9 +130,9 @@
             BookingService.UpdateCustomer(data).then( function (res) {
                 Dialog.Success('Thành Công', 'Đã thêm khách hàng');
                 BookingService.UpdateDriver($scope.choosenDriver).then(function(res) {
+                    $scope.reset();                   
                     loadFirstData();
                     $scope.customerDetail = null;
-                    $scope.reset();
                 }).catch(function(err) {
                     Dialog.Error('That bai', err.message);
                 })
@@ -181,7 +189,71 @@
                 console.log(err);
                 Dialog.Error('Loi', 'Cannot get near drivers');
             })
-        } 
+        }
+
+        function initAutocomplete() {
+    
+            // Create the search box and link it to the UI element.
+            var input = document.getElementById('pac-input');
+            var searchBox = new google.maps.places.SearchBox(input);
+            map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+    
+            // Bias the SearchBox results towards current map's viewport.
+            map.addListener('bounds_changed', function() {
+              searchBox.setBounds(map.getBounds());
+            });
+    
+            // Listen for the event fired when the user selects a prediction and retrieve
+            // more details for that place.
+            searchBox.addListener('places_changed', function() {
+                alert('HAHA');
+              var places = searchBox.getPlaces();
+    
+              if (places.length == 0) {
+                return;
+              }
+    
+              // Clear out the old markerSearch.
+              markerSearch.forEach(function(resMarker) {
+                resMarker.setMap(null);
+              });
+              markerSearch = [];
+    
+              // For each place, get the icon, name and location.
+              var bounds = new google.maps.LatLngBounds();
+              places.forEach(function(place) {
+                if (!place.geometry) {
+                  console.log("Returned place contains no geometry");
+                  return;
+                }
+
+                // Create a marker for each place.
+                var iconSearch = {
+                    url: place.icon,
+                    // size: new google.maps.Size(71, 71),
+                    origin: new google.maps.Point(0, 0),
+                    anchor: new google.maps.Point(17, 34),
+                    scaledSize: new google.maps.Size(25, 25)
+                  };
+
+                markerSearch.push(new google.maps.Marker({
+                  map: map,
+                  icon: iconSearch,
+                  title: place.name,
+                  position: place.geometry.location
+                }));
+                console.log('place', place);
+                if (place.geometry.viewport) {
+                  // Only geocodes have viewport.
+                  bounds.union(place.geometry.viewport);
+                } else {
+                  bounds.extend(place.geometry.location);
+                }
+              });
+              map.fitBounds(bounds);
+              map.setZoom(14);
+            });
+          }
 
     }
 })();
