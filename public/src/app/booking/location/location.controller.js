@@ -29,7 +29,7 @@
           });
           $scope.showMarkerWhenClicking();
         }
-
+        
         var position;
         
         $scope.showDetail = function showDetail(customer) {
