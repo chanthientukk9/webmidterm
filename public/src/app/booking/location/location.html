@@ -13,16 +13,21 @@
         <input class="form-control" id="lnginput" name="lng" type="number" ng-value="customerDetail.value.lng" disabled>
         <label for="status"> Trạng thái</label>
         <input class="form-control" name="status" type="text" ng-value="customerDetail.value.status" disabled>     
-        
+        <label for="status"> Xe</label>
+        <input class="form-control" id="driver" type="text" ng-value="choosenDriver.id" disabled>
         <label for="carType"> Loại xe</label>
         <input class="form-control" name="carType" type="text" ng-if="customerDetail.value.carType == 1" value="Normal" disabled>             
         <input class="form-control" name="carType" type="text" ng-if="customerDetail.value.carType == 2" value="Premium" disabled>     
         <br>
+
         <div class="row">
-          <div class="col-md-6">
+          <div class="col-md-4">
             <button type="button" class="btn btn-primary" ng-click="locatedCustomer()" >Located</button>        
           </div>
-          <div class="col-md-6">
+          <div class="col-md-4">
+            <button type="button" class="btn btn-default" ng-click="reset()" >Reset</button>        
+          </div>
+          <div class="col-md-4">
             <button type="button" class="btn btn-success" ng-click="updateCustomer()" >Submit</button>        
           </div>
         </div>

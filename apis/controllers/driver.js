@@ -91,7 +91,7 @@ module.exports.updateDriver = function(req, res, next) {
     };
     var updates = {};
     updates['/' + req.params.driverId] = driverData;
-    firebase.database().ref().update(updates).then(function(driver) {
+    driverRef.update(updates).then(function(driver) {
         return res.status(200).json({
             id: req.params.driverId,
             value: driverData
