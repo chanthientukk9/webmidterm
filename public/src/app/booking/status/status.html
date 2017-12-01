@@ -6,15 +6,15 @@
       <div>
             <h3> Thông tin tài xế </h3>
           <label for="lat"> Vĩ độ </label> 
-          <input class="form-control" id="latinput" name="lat" type="number" ng-value="customerDetail.value.lat" disabled>
+          <input class="form-control" id="latinput" name="lat" type="number" ng-value="driverDetail.value.lat" disabled>
           <label for="lng"> Kinh độ </label>
-          <input class="form-control" id="lnginput" name="lng" type="number" ng-value="customerDetail.value.lng" disabled>
+          <input class="form-control" id="lnginput" name="lng" type="number" ng-value="driverDetail.value.lng" disabled>
 
           <label for="status"> Trạng thái</label>
-          <input class="form-control" name="status" type="text" ng-value="customerDetail.value.status" disabled>     
+          <input class="form-control" name="status" type="text" ng-value="driverDetail.value.status" disabled>     
           
           <label for="carType"> Loại xe</label>
-          <input class="form-control" name="carType" type="text" ng-if="customerDetail.value.carType == 1" value="Normal" disabled>             
+          <input class="form-control" name="carType" type="text" ng-if="driverDetail.value.carType == 1" value="Normal" disabled>             
           <input class="form-control" name="carType" type="text" ng-if="customerDetail.value.carType == 2" value="Premium" disabled>     
           <br>
       </div>
