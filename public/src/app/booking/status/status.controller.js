@@ -26,11 +26,16 @@
         }
 
         var map;
+        var directionsService;
+        var directionsDisplay;
         function initMap() {
+            directionsService = new google.maps.DirectionsService;
+            directionsDisplay = new google.maps.DirectionsRenderer;
             map = new google.maps.Map(document.getElementById('map'), {
                 center: { lat: 10.7638442, lng: 106.6622009 },
                 zoom: 14
             });
+            directionsDisplay.setMap(map);
         }
 
         var position;
@@ -42,6 +47,7 @@
             })
             
         }
+
 
         $scope.showAllCustomer = function showAllCustomer() {
             var img1 = {
@@ -70,17 +76,37 @@
                         map: map,
                         icon: img1
                     });
-                    var driverID = $scope.customers[i].value.driver;
                     google.maps.event.addListener(marker1, 'click', function(e) {
                         map.setZoom(15);
                         map.setCenter(e.latLng);
-                        for (var j = 0; j < $scope.drivers.length; j++) {
-                            if ($scope.drivers[j].id == driverID) {
-                                $scope.driverDetail = $scope.drivers[j];
-                                $scope.$evalAsync();
-                                console.log('aaa');                                
-                            }                 
-                        }
+                            for (var i = 0; i< $scope.customers.length; i++) {
+                                if($scope.customers[i].value.lat == e.latLng.lat() && $scope.customers[i].value.lng == e.latLng.lng())
+                                {
+                                    for (var j = 0; j < $scope.drivers.length; j++) {
+                                        if ($scope.drivers[j].id == $scope.customers[i].value.driver) 
+                                        {
+                                            $scope.driverDetail = $scope.drivers[j];
+                                            $scope.$evalAsync();
+                                            var latLngDriver = new google.maps.LatLng($scope.drivers[j].value.lat, $scope.drivers[j].value.lng);
+                                            var request = {
+                                                origin: {lat: $scope.customers[i].value.lat, lng: $scope.customers[i].value.lng},
+                                                destination: latLngDriver,
+                                                travelMode: 'WALKING'
+                                            };
+                                            directionsService.route(request, function(result, status) {
+                                                if (status == 'OK') {
+                                                directionsDisplay.setDirections(result);
+                                                console.log(result);
+                                                }
+                                                else {
+                                                    window.alert('Directions request failed due to ' + status);
+                                                }
+                                            });
+                                            console.log('aaa');                                
+                                        }                 
+                                    }
+                                }
+                            }
                     });  
                 }
 
@@ -109,9 +135,6 @@
                 //     });
                 // }
             };
-            
         }
-
-
     }
 })();
