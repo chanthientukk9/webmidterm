@@ -22,6 +22,16 @@
                 initMap();
                 $scope.showAllCustomer();
                 $scope.showDriver();                
+            });
+            setInterval(function() {
+                loadingData();
+            }, 1000);
+        }
+
+        function loadingData() {
+            BookingService.GetAllCustomers().then(function (res) {
+                $scope.customers = res;
+                $scope.showAllCustomer();                
             })
         }
 

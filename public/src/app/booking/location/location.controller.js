@@ -21,7 +21,10 @@
                 $scope.customers = res;
                 initMap();
                 initAutocomplete();
-            })
+            });
+            setInterval(function() {
+                loadFirstData();
+            }, 1000)
         }
         var map;
         var marker;
