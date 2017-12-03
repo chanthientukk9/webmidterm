@@ -12,6 +12,7 @@
         $scope.customers = null;
         $scope.drivers = null;
         $scope.driverDetail = null;
+        var markers = [];
         activate();
 
         ////////////////
@@ -21,7 +22,7 @@
                 $scope.customers = res;
                 initMap();
                 $scope.showAllCustomer();
-                $scope.showDriver();                
+                $scope.showDriver();
             });
             setInterval(function() {
                 loadingData();
@@ -29,10 +30,17 @@
         }
 
         function loadingData() {
+            
             BookingService.GetAllCustomers().then(function (res) {
                 $scope.customers = res;
-                $scope.showAllCustomer();                
-            })
+                for(var i = 0; i < markers.length; i++) {
+                    if(res[i].value.status != markers[i].status) {
+                        markers[i].marker.setMap(null);                    
+                    }
+                }
+                $scope.showAllCustomer();
+                $scope.showDriver();            
+            });
         }
 
         var map;
@@ -55,11 +63,11 @@
                 $scope.drivers = res;
                 console.log('drivers', $scope.drivers);
             })
-            
         }
 
 
         $scope.showAllCustomer = function showAllCustomer() {
+            markers = [];
             var img1 = {
                 url: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
                 // This marker is 20 pixels wide by 32 pixels high.
@@ -85,6 +93,10 @@
                         position: latLng,
                         map: map,
                         icon: img1
+                    });
+                    markers.push({
+                        marker: marker1,
+                        status: $scope.customers[i].value.status
                     });
                     google.maps.event.addListener(marker1, 'click', function(e) {
                         map.setZoom(15);
@@ -127,6 +139,10 @@
                         map: map,
                         icon: img2
                     });
+                    markers.push({
+                        marker: marker2,
+                        status: $scope.customers[i].value.status
+                    });                  
                 }
 
                 else if ($scope.customers[i].value.status == 'moving') {
@@ -135,6 +151,10 @@
                         position: latLng,
                         map: map,
                     });
+                    markers.push({
+                        marker: marker3,
+                        status: $scope.customers[i].value.status
+                    });                  
                 }
                 // else if ($scope.customers[i].value.status == 'done') {
                 //     var latLng = new google.maps.LatLng($scope.customers[i].value.lat, $scope.customers[i].value.lng);
