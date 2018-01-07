@@ -30,6 +30,11 @@
                 templateUrl: './app/booking/status/status.html',
                 controller: 'StatusController'
             })
+            .state('booking.drivers', {
+                url: 'drivers',
+                templateUrl: './app/booking/drivers/drivers.html',
+                controller: 'DriverController'
+            })
 
         // .state('auth', {
         //     url: '/auth/',
