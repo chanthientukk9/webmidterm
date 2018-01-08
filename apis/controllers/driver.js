@@ -88,6 +88,30 @@ module.exports.getDrivers = function(req, res, next) {
     });
 }
 
+module.exports.getProfile = function(req, res, next) {
+    var driver = {};
+    if (!req.userData) {
+        return res.status(401).json({
+            message: 'Can not get profile'
+        });
+    }
+    driverRef.orderByKey().equalTo(req.userData._id).once('value', function(snapshot) {
+        snapshot.forEach(function(element) {
+            var data = {
+                id: element.key,
+                value: element.val()
+            }
+            data.value.password = null;
+            driver = data;
+        })
+    }).then(function(){
+        return res.status(200).json(driver);
+    }).catch(function(err) {
+        return res.status(500).json({
+            message: 'Cannot get driver'
+        });
+    });
+}
 
 module.exports.getDriverDetail = function(req, res, next) {
     var driver = {};
