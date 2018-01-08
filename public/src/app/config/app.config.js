@@ -17,7 +17,7 @@
                 }
             }
         } else {
-            if (!(window.location.pathname == "/") && !(window.location.pathname == "/product/detail") && !(window.location.pathname == "/product/list") && !(window.location.pathname == "/booking/phone") && !(window.location.pathname == "/booking/location") && !(window.location.pathname == "/booking/status")) {
+            if (!(window.location.pathname == "/") && !(window.location.pathname == "/product/detail") && !(window.location.pathname == "/product/list") && !(window.location.pathname == "/booking/phone") && !(window.location.pathname == "/booking/location") && !(window.location.pathname == "/booking/status") &&!(window.location.pathname == "/booking/drivers") ) {
                 window.location.pathname = "/";
             }
         }
