@@ -1,6 +1,53 @@
 var firebase = require('firebase-admin');
 var driverRef = firebase.database().ref().child('drivers');
 const RADIAN = 0.015; // 0.015
+var helpers = require('../modules/helpers.js');
+var md5 = require('js-md5');
+var jwt = require('../modules/jwt-helper.js');
+
+module.exports.login = function(req, res, next) {
+    var body = req.body;
+
+    if (!helpers.checkProperties(body, ['password', 'email'])) {
+        return res.status(500).json({
+            message: 'Information missed'
+        });
+    }
+
+    var drivers = [];
+    driverRef.once('value', function(snapshot) {
+        snapshot.forEach(function(element) {
+            var data = {
+                id: element.key,
+                value: element.val()
+            }
+            drivers.push(data);
+        });
+    }).then(function(){
+        let index = null;
+        for(var i = 0; i < drivers.length; i++) {
+            if(drivers[i].value.password == md5(req.body.password) && drivers[i].value.email == req.body.email) {
+                var token = jwt.getToken({
+                    email: drivers[i].value.email,
+                    _id: drivers[i].id
+                });
+                index = drivers[i].value.password;
+                return res.status(200).json({
+                    message: 'success',
+                    data: drivers[i],
+                    token: token
+                })
+            }
+        }
+        return res.status(500).json({
+            message: 'Wrong email or password',
+        });
+    }).catch(function(err) {
+        return res.status(500).json({
+            message: 'Error happened'
+        });
+    });
+}
 
 module.exports.getAllDrivers = function(req, res, next) {
     var drivers = [];
@@ -10,6 +57,7 @@ module.exports.getAllDrivers = function(req, res, next) {
                 id: element.key,
                 value: element.val()
             }
+            data.value.password = null;
             drivers.push(data);
         })
     }).then(function(){

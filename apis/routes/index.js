@@ -40,6 +40,8 @@ router.route('/driver/status')
 router.route('/driver/detail/:driverId')
     .get(routeDriver.getDriverDetail)
     .put(routeDriver.updateDriver)
+router.route('/driver/login')
+    .post(routeDriver.login)
 
 router.route('/product')
     .post(auth(specialRole), routeProduct.createProduct)
