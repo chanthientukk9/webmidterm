@@ -445,9 +445,9 @@ module.exports.nearDrivers = function(req, res, next) {
                 id: element.key,
                 value: element.val()
             }
-            data.password = null;
+            data.value.password = null;
             var distance = Math.sqrt(Math.pow(customer.lat - element.val().lat, 2) + Math.pow(customer.lng - element.val().lng, 2));
-            if(distance < RADIAN && element.val().status == 'waiting') {
+            if(distance < RADIAN && (element.val().status === 'waiting')) {
                 drivers.push(data);            
             }
         })
