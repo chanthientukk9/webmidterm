@@ -1,5 +1,7 @@
 var jwt = require('./jwt-helper');
 var mongoose = require('mongoose');
+var firebase = require('firebase-admin');
+var driverRef = firebase.database().ref().child('drivers');
 var memberModel = mongoose.model('Members');
 
 module.exports = function(right) {
@@ -21,50 +23,67 @@ module.exports = function(right) {
             });
         }
 
-        memberModel.findOne({
-                _id: data.data._id
-            })
-            .exec()
-            .then((member) => {
-                if (!member) {
-                    return res.status(401).json({
-                        message: 'Invalid token'
-                    });
-                } else {
-                    if (right == 100) {
-                        if (member.srole == 1 || member.srole == 1001) {
-                            return next();
-                        } else {
-                            return res.status(401).json({
-                                message: 'You do not have right'
-                            })
-                        }
-                    } else if (right == 765) {
-                        if (member.srole) {
-                            return res.status(500).json({
-                                message: 'You are in srole'
-                            });
-                        } else {
-                            return next();
-                        }
-                    } else if (right == 1001) {
-                        if (member.srole == right) {
-                            return next();
-                        } else {
-                            return res.status(401).json({
-                                message: 'You do not have right'
-                            });
-                        }
-                    } else {
-                        if (member.grole != right && right.srole != right) {
-                            return res.status(401).json({
-                                message: 'You do not have right'
-                            })
-                        } else {
-                            return next();
-                        }
-                    }
+        driverRef.orderByKey().equalTo(req.userData._id).once('value', function(snapshot) {
+            snapshot.forEach(function(element) {
+                var data = {
+                    id: element.key,
+                    value: element.val()
                 }
+                data.value.password = null;
+                driver = data;
             })
+        }).then(function(){
+            return next()
+        }).catch(function(err) {
+            return res.status(500).json({
+                message: 'Invalid token'
+            });
+        });
+
+        // memberModel.findOne({
+        //         _id: data.data._id
+        //     })
+        //     .exec()
+        //     .then((member) => {
+        //         if (!member) {
+        //             return res.status(401).json({
+        //                 message: 'Invalid token'
+        //             });
+        //         } else {
+        //             if (right == 100) {
+        //                 if (member.srole == 1 || member.srole == 1001) {
+        //                     return next();
+        //                 } else {
+        //                     return res.status(401).json({
+        //                         message: 'You do not have right'
+        //                     })
+        //                 }
+        //             } else if (right == 765) {
+        //                 if (member.srole) {
+        //                     return res.status(500).json({
+        //                         message: 'You are in srole'
+        //                     });
+        //                 } else {
+        //                     return next();
+        //                 }
+        //             } else if (right == 1001) {
+        //                 if (member.srole == right) {
+        //                     return next();
+        //                 } else {
+        //                     return res.status(401).json({
+        //                         message: 'You do not have right'
+        //                     });
+        //                 }
+        //             } else {
+        //                 if (member.grole != right && right.srole != right) {
+        //                     return res.status(401).json({
+        //                         message: 'You do not have right'
+        //                     })
+        //                 } else {
+        //                     return next();
+        //                 }
+        //             }
+        //         }
+        //     })
     }
 }
