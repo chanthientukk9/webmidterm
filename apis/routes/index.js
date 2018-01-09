@@ -44,6 +44,8 @@ router.route('/driver/login')
     .post(routeDriver.login)
 router.route('/driver/me/profile')
     .get(auth(generalRole), routeDriver.getProfile)
+router.route('/driver/me/reply-invitation')
+    .put(auth(generalRole), routeDriver.replyInvitation)
 
 router.route('/product')
     .post(auth(specialRole), routeProduct.createProduct)

@@ -128,7 +128,7 @@
                     timestamp: $scope.customerDetail.value.timestamp,
                 }
             }
-            $scope.choosenDriver.value.status = 'picking';
+            $scope.choosenDriver.value.status = 'pending';
             $scope.choosenDriver.value.customer = data.id;
             BookingService.UpdateCustomer(data).then( function (res) {
                 Dialog.Success('Thành Công', 'Đã thêm khách hàng');
