@@ -13,6 +13,7 @@ var driverSchema = new Schema({
     status: { type: String, default: 'waiting'},
     customer: { type: Schema.Types.ObjectId, ref: 'Customers'},
     timestamp: { type: Number, default: Date.now() },
+    
 });
 
 // Compile schema

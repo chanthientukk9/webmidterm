@@ -51,7 +51,6 @@
         function getProfile() {
             UsersService.GetProfile().then(function(res) {
                 $scope.profile = res;
-
             }, function(err) {
 
             })
