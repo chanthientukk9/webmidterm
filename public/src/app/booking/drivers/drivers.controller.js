@@ -12,7 +12,6 @@
         $scope.customers = null;
         $scope.drivers = null;
         $scope.driverDetail = null;
-        var markers = [];
         activate();
 
         ////////////////
@@ -21,24 +20,6 @@
             BookingService.GetAllCustomers().then(function (res) {
                 $scope.customers = res;
                 initMap();
-                $scope.showDriver();
-            });
-            setInterval(function() {
-                loadingData();
-            }, 5000);
-        }
-
-        function loadingData() {
-            
-            BookingService.GetAllCustomers().then(function (res) {
-                $scope.customers = res;
-                for(var i = 0; i < markers.length; i++) {
-                    if(res[i].value.status != markers[i].status) {
-                        markers[i].marker.setMap(null);                    
-                    }
-                }
-                $scope.showAllCustomer();
-                $scope.showDriver();            
             });
         }
 
@@ -57,12 +38,6 @@
 
         var position;
 
-        $scope.showDriver = function showDriver() {
-            BookingService.GetAllDrivers().then(function (res) {
-                $scope.drivers = res;
-                console.log('drivers', $scope.drivers);
-            })
-        }
         $scope.signIn = function signIn() {
             $uibModal.open({
                 templateUrl: 'app/booking/drivers/signIn.html',
@@ -77,6 +52,7 @@
         function getProfile() {
             BookingService.GetDriver().then(function(res) {
                 $scope.profile = res;
+                $scope.showDrivers();                
                 console.log($scope.profile);
             }, function(err) {
 
@@ -87,53 +63,34 @@
             var cookie = $cookies.getAll();
             angular.forEach(cookie, function(v, k) {
                 $cookies.remove(k, { path: '/' });
-            }); //cai logout m lay tu cai cu ha? uwffile um, lay tu file cu
+            });
             $scope.profile = null;
             $scope.$evalAsync();
         }
-//ok hieu save
 
-        $scope.showAllCustomer = function showAllCustomer() {
-            markers = [];
-            var img2 = {
-                url: 'https://maps.google.com/mapfiles/ms/icons/green.png',
-                size: new google.maps.Size(20, 32),
-                // The origin for this image is (0, 0).
-                origin: new google.maps.Point(0, 0),
-                // The anchor for this image is the base of the flagpole at (0, 32).
-                anchor: new google.maps.Point(0, 32)
-            };
+        $scope.showDrivers = function showDrivers() {
+            console.log($scope.profile);
             var iconNormalCar = {
                 url: "https://d30y9cdsu7xlg0.cloudfront.net/png/996-200.png", // url
                 scaledSize: new google.maps.Size(25, 25), // scaled size
-                origin: new google.maps.Point(0,0), // origin
-                anchor: new google.maps.Point(0, 0) // anchor
+                origin: new google.maps.Point(0,0), // origin   
+                anchor: new google.maps.Point(0, 32) // anchor
             };
-            var iconPremiumCar = {
-                url: 'https://cdn0.iconfinder.com/data/icons/classic-cars-by-cemagraphics/512/red_512.png',
-                scaledSize: new google.maps.Size(25, 25), // scaled size
-                origin: new google.maps.Point(0,0), // origin
-                anchor: new google.maps.Point(0, 0) // anchor
-            }
-            for (var i = 0; i < $scope.drivers.length; i++) {
-                if ($scope.drivers[i].id == $scope.profile.id) {
-                    var latLng = new google.maps.LatLng($scope.drivers[i].value.lat, $scope.drivers[i].value.lng);
-                    var marker2 = new google.maps.Marker({
-                        position: latLng,
-                        map: map,
-                        icon: iconNormalCar
-                    });
-                    markers.push({
-                        marker: marker2,
-                        status: $scope.drivers[i].value.status
-                    });
-                    // setInterval(function(){
-                    //     if($scope.profile.value.status == "picking"){
-                    //         alert("Hello!!")
-                    //     }
-                    // }, 1000)                 
-                }
-            };
+            var lat = $scope.profile.value.lat.split(',').join('.')
+            var lng = $scope.profile.value.lng.split(',').join('.')
+            var latLng = new google.maps.LatLng(parseFloat(lat), parseFloat(lng));
+
+            console.log(latLng);
+            var marker2 = new google.maps.Marker({
+                position: latLng,
+                map: map,   
+                icon: iconNormalCar
+            });
+            // setInterval(function(){
+            //     if($scope.profile.value.status == "picking"){
+            //         alert("Hello!!")
+            //     }
+            // }, 1000)                 
         }
 
     }
