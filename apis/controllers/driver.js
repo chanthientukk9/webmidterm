@@ -158,12 +158,8 @@ module.exports.createDriver = function(req, res, next) {
 
 module.exports.replyInvitation = function(req, res, next) {
     var driverData = {
-        lat: req.body.lat,
-        lng: req.body.lng,
-        carType: req.body.carType,
         status: req.body.status,
-        customer: req.body.customer,
-        timestamp: req.body.timestamp
+        customer: req.body.customer
     };
     if(driverData.status === 'deny') {
         let customer = {};
@@ -198,6 +194,10 @@ module.exports.replyInvitation = function(req, res, next) {
                         }
                         driverData.password = data.value.password;
                         driverData.email = data.value.email;
+                        driverData.lat = data.value.lat,
+                        driverData.lng = data.value.lng,
+                        driverData.carType = data.value.carType,
+                        driverData.timestamp = data.value.timestamp
                     })
                 }).then(function(){
                     updates['/' + req.userData._id] = driverData;
