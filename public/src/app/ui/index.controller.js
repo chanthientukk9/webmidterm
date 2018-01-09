@@ -199,7 +199,7 @@
             var cookie = $cookies.getAll();
             angular.forEach(cookie, function(v, k) {
                 $cookies.remove(k, { path: '/' });
-            });
+            });  // ddaay
             $scope.profile = null;
             $scope.$evalAsync();
         }
