@@ -99,6 +99,7 @@ module.exports.getProfile = function(req, res, next) {
             message: 'Can not get profile'
         });
     }
+    console.log('email: ', req.userData.email)
     driverRef.orderByKey().equalTo(req.userData._id).once('value', function(snapshot) {
         snapshot.forEach(function(element) {
             var data = {
@@ -444,6 +445,7 @@ module.exports.nearDrivers = function(req, res, next) {
                 id: element.key,
                 value: element.val()
             }
+            data.password = null;
             var distance = Math.sqrt(Math.pow(customer.lat - element.val().lat, 2) + Math.pow(customer.lng - element.val().lng, 2));
             if(distance < RADIAN && element.val().status == 'waiting') {
                 drivers.push(data);            
