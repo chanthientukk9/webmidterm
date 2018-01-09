@@ -30,7 +30,7 @@ module.exports.login = function(req, res, next) {
     }).then(function(){
         let index = null;
         for(var i = 0; i < drivers.length; i++) {
-            if(drivers[i].value.password == md5(req.body.password) && drivers[i].value.email == req.body.email) {
+            if((drivers[i].value.password == md5(req.body.password)) && (drivers[i].value.email == req.body.email)) {
                 var token = jwt.getToken({
                     email: drivers[i].value.email,
                     _id: drivers[i].id
