@@ -5,8 +5,8 @@
         .module('app.booking')
         .controller('DriverController', DriverController);
 
-    DriverController.$inject = ['$scope', 'BookingService', 'Dialog', '$uibModal'];
-    function DriverController($scope, BookingService, Dialog, $uibModal) {
+    DriverController.$inject = ['$scope', 'BookingService', 'Dialog', '$uibModal', '$cookies'];
+    function DriverController($scope, BookingService, Dialog, $uibModal, $cookies) {
         var vm = this;
         window.cc = $scope;
         $scope.customers = null;
@@ -83,6 +83,16 @@
             })
         }
 
+        $scope.logout = function logout() {
+            var cookie = $cookies.getAll();
+            angular.forEach(cookie, function(v, k) {
+                $cookies.remove(k, { path: '/' });
+            }); //cai logout m lay tu cai cu ha? uwffile um, lay tu file cu
+            $scope.profile = null;
+            $scope.$evalAsync();
+        }
+//ok hieu save
+
         $scope.showAllCustomer = function showAllCustomer() {
             markers = [];
             var img2 = {
@@ -106,7 +116,6 @@
                 anchor: new google.maps.Point(0, 0) // anchor
             }
             for (var i = 0; i < $scope.drivers.length; i++) {
-                
                 if ($scope.drivers[i].id == $scope.profile.id) {
                     var latLng = new google.maps.LatLng($scope.drivers[i].value.lat, $scope.drivers[i].value.lng);
                     var marker2 = new google.maps.Marker({
