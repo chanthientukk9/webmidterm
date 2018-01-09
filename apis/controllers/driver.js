@@ -256,6 +256,137 @@ module.exports.replyInvitation = function(req, res, next) {
     }
 }
 
+module.exports.updateLocation = function(req, res, next) {
+    var driverData = {
+        lat: req.body.lat,
+        lng: req.body.lng,
+    };
+    var driver = {};
+    if (!req.userData) {
+        return res.status(401).json({
+            message: 'Can not get profile'
+        });
+    }
+    driverRef.orderByKey().equalTo(req.userData._id).once('value', function(snapshot) {
+        snapshot.forEach(function(element) {
+            var data = {
+                id: element.key,
+                value: element.val()
+            }
+            driverData.password = data.value.password;
+            driverData.email = data.value.email;
+            driverData.carType = data.value.carType;
+            driverData.status = data.value.status;
+            driverData.customer = data.value.customer;
+            driverData.timestamp = data.value.timestamp;
+        })
+    }).then(function(){
+        var updates = {};
+        updates['/' + req.userData._id] = driverData;
+        driverRef.update(updates).then(function(driver) {
+            driverData.password = null;
+            return res.status(200).json({
+                id: req.params.driverId,
+                value: driverData
+            })
+        }).catch(function(err) {
+            return res.status(500).json({
+                message: 'Can not update driver'
+            });
+        });
+    }).catch(function(err) {
+        return res.status(500).json({
+            message: 'Cannot get driver'
+        });
+    });
+}
+
+module.exports.setBegin = function(req, res, next) {
+    var driverData = {};
+    var driver = {};
+    if (!req.userData) {
+        return res.status(401).json({
+            message: 'Can not get profile'
+        });
+    }
+    driverRef.orderByKey().equalTo(req.userData._id).once('value', function(snapshot) {
+        snapshot.forEach(function(element) {
+            var data = {
+                id: element.key,
+                value: element.val()
+            }
+            driverData.password = data.value.password;
+            driverData.email = data.value.email;
+            driverData.status = 'moving';
+            driverData.carType = data.value.carType;
+            driverData.customer = data.value.customer;
+            driverData.timestamp = data.value.timestamp;
+            driverData.lat = data.value.lat;
+            driverData.lng = data.value.lng;
+        })
+    }).then(function(){
+        var updates = {};
+        updates['/' + req.userData._id] = driverData;
+        driverRef.update(updates).then(function(driver) {
+            driverData.password = null;
+            return res.status(200).json({
+                message: 'Success'
+            })
+        }).catch(function(err) {
+            return res.status(500).json({
+                message: 'Can not update driver'
+            });
+        });
+    }).catch(function(err) {
+        return res.status(500).json({
+            message: 'Cannot get driver'
+        });
+    });
+}
+
+module.exports.setFinish = function(req, res, next) {
+    var driverData = {};
+    var driver = {};
+    if (!req.userData) {
+        return res.status(401).json({
+            message: 'Can not get profile'
+        });
+    }
+    driverRef.orderByKey().equalTo(req.userData._id).once('value', function(snapshot) {
+        snapshot.forEach(function(element) {
+            var data = {
+                id: element.key,
+                value: element.val()
+            }
+            driverData.password = data.value.password;
+            driverData.email = data.value.email;
+            driverData.status = 'waiting';
+            driverData.carType = data.value.carType;
+            driverData.customer = data.value.customer;
+            driverData.timestamp = data.value.timestamp;
+            driverData.lat = data.value.lat;
+            driverData.lng = data.value.lng;
+        })
+    }).then(function(){
+        var updates = {};
+        updates['/' + req.userData._id] = driverData;
+        driverRef.update(updates).then(function(driver) {
+            driverData.password = null;
+            return res.status(200).json({
+                message: 'Success'
+            })
+        }).catch(function(err) {
+            return res.status(500).json({
+                message: 'Can not update driver'
+            });
+        });
+    }).catch(function(err) {
+        return res.status(500).json({
+            message: 'Cannot get driver'
+        });
+    });
+}
+
 module.exports.updateDriver = function(req, res, next) {
     var driverData = {
         lat: req.body.lat,
@@ -278,6 +409,7 @@ module.exports.updateDriver = function(req, res, next) {
         var updates = {};
         updates['/' + req.userData._id] = driverData;
         driverRef.update(updates).then(function(driver) {
+            driverData.password = null;
             return res.status(200).json({
                 id: req.params.driverId,
                 value: driverData
