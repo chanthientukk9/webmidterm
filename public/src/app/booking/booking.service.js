@@ -54,6 +54,15 @@
                 params: {
                     driverId: '@driverId'
                 }
+            },
+            LoginDriver: {
+                method: 'POST',
+                url: 'api/driver/login',
+            },
+            // service get của em nè, mà nó éo chạy =)) nó có viết ko :))
+            GetDriver: {
+                method: 'GET',
+                url: 'api/driver/me/profile'
             }
         })
         var service = {
@@ -67,6 +76,8 @@
             GetDrivers: getDrivers,
             GetDriverDetail: getDriverDetail,
             UpdateDriver: updateDriver,
+            LoginDriver: loginDriver,
+            GetDriver: getDriver
         };
         
         return service;
@@ -106,6 +117,12 @@
         }
         function updateDriver(driver) {
             return DriverResource.UpdateDriver({driverId: driver.id}, driver.value).$promise;
+        }
+        function loginDriver(data) {
+            return DriverResource.LoginDriver(data).$promise;
+        }
+        function getDriver() {
+            return DriverResource.GetDriver().$promise;
         }
     }
 })();

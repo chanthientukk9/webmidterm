@@ -21,6 +21,8 @@ module.exports.login = function(req, res, next) {
                 id: element.key,
                 value: element.val()
             }
+            data.value.grole = 2;
+            data.value.srole = null;
             drivers.push(data);
         });
     }).then(function(){

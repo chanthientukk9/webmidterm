@@ -63,7 +63,25 @@
                 console.log('drivers', $scope.drivers);
             })
         }
+        $scope.signIn = function signIn() {
+            $uibModal.open({
+                templateUrl: 'app/booking/drivers/signIn.html',
+                controller: 'SignInController1',
+                size: 'lg',
+            }).result.then(function (data) {
+                $scope.driver = data;
+                getProfile();
+            })
+        } 
 
+        function getProfile() {
+            BookingService.GetDriver().then(function(res) {
+                $scope.profile = res;
+                console.log($scope.profile);
+            }, function(err) {
+
+            })
+        }
 
         $scope.showAllCustomer = function showAllCustomer() {
             markers = [];
@@ -87,10 +105,9 @@
                 origin: new google.maps.Point(0,0), // origin
                 anchor: new google.maps.Point(0, 0) // anchor
             }
-
             for (var i = 0; i < $scope.drivers.length; i++) {
                 
-                if ($scope.drivers[i].value.status == 'waiting') {
+                if ($scope.drivers[i].id == $scope.profile.id) {
                     var latLng = new google.maps.LatLng($scope.drivers[i].value.lat, $scope.drivers[i].value.lng);
                     var marker2 = new google.maps.Marker({
                         position: latLng,
@@ -100,18 +117,15 @@
                     markers.push({
                         marker: marker2,
                         status: $scope.drivers[i].value.status
-                    });                 
+                    });
+                    // setInterval(function(){
+                    //     if($scope.profile.value.status == "picking"){
+                    //         alert("Hello!!")
+                    //     }
+                    // }, 1000)                 
                 }
             };
         }
 
-
-        $scope.signIn = function signIn() {
-            $uibModal.open({
-                templateUrl: 'app/booking/drivers/signIn.html',
-                controller: 'SignInController',
-                size: 'lg',
-            })
-        }
     }
 })();
