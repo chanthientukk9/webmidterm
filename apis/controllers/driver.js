@@ -188,14 +188,29 @@ module.exports.replyInvitation = function(req, res, next) {
             return customerRef.update(updates).then(function(customer) {
                 var updates = {};
                 driverData.status = 'waiting';
-                updates['/' + req.userData._id] = driverData;
-                driverRef.update(updates).then(function(driver) {
+                driverRef.orderByKey().equalTo(req.userData._id).once('value', function(snapshot) {
+                    snapshot.forEach(function(element) {
+                        var data = {
+                            id: element.key,
+                            value: element.val()
+                        }
+                        driverData.password = data.value.password;
+                        driverData.email = data.value.email;
+                    })
+                }).then(function(){
+                    updates['/' + req.userData._id] = driverData;
+                    driverRef.update(updates).then(function(driver) {
                     return res.status(200).json({
                         message: 'Success'
                     })
+                    }).catch(function(err) {
+                        return res.status(500).json({
+                            message: 'Can not update driver'
+                        });
+                    });
                 }).catch(function(err) {
                     return res.status(500).json({
-                        message: 'Can not update driver'
+                        message: 'Cannot get driver'
                     });
                 });
             }).catch(function(err) {
@@ -210,12 +225,27 @@ module.exports.replyInvitation = function(req, res, next) {
         });
     } else {
         driverData.status = 'picking'
-        var updates = {};
-        updates['/' + req.userData._id] = driverData;
-        driverRef.update(updates).then(function(driver) {
-            return res.status(200).json({
-                message: 'Success'
+        driverRef.orderByKey().equalTo(req.userData._id).once('value', function(snapshot) {
+            snapshot.forEach(function(element) {
+                var data = {
+                    id: element.key,
+                    value: element.val()
+                }
+                driverData.password = data.value.password;
+                driverData.email = data.value.email;
             })
+        }).then(function(){
+            var updates = {};
+            updates['/' + req.userData._id] = driverData;
+            driverRef.update(updates).then(function(driver) {
+                return res.status(200).json({
+                    message: 'Success'
+                })
+            }).catch(function(err) {
+                return res.status(500).json({
+                    message: 'Can not update driver'
+                });
+            });
         }).catch(function(err) {
             return res.status(500).json({
                 message: 'Can not update driver'
@@ -233,13 +263,28 @@ module.exports.updateDriver = function(req, res, next) {
         customer: req.body.customer,
         timestamp: req.body.timestamp
     };
-    var updates = {};
-    updates['/' + req.params.driverId] = driverData;
-    driverRef.update(updates).then(function(driver) {
-        return res.status(200).json({
-            id: req.params.driverId,
-            value: driverData
+    driverRef.orderByKey().equalTo(req.userData._id).once('value', function(snapshot) {
+        snapshot.forEach(function(element) {
+            var data = {
+                id: element.key,
+                value: element.val()
+            }
+            driverData.password = data.value.password;
+            driverData.email = data.value.email;
         })
+    }).then(function(){
+        var updates = {};
+        updates['/' + req.userData._id] = driverData;
+        driverRef.update(updates).then(function(driver) {
+            return res.status(200).json({
+                id: req.params.driverId,
+                value: driverData
+            })
+        }).catch(function(err) {
+            return res.status(500).json({
+                message: 'Can not update driver'
+            });
+        });
     }).catch(function(err) {
         return res.status(500).json({
             message: 'Can not update driver'
