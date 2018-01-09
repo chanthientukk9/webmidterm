@@ -65,6 +65,7 @@
                 $cookies.remove(k, { path: '/' });
             });
             $scope.profile = null;
+            hideDrivers();
             $scope.$evalAsync();
         }
 
@@ -81,7 +82,7 @@
             var latLng = new google.maps.LatLng(parseFloat(lat), parseFloat(lng));
 
             console.log(latLng);
-            var marker2 = new google.maps.Marker({
+            $scope.marker2 = new google.maps.Marker({
                 position: latLng,
                 map: map,   
                 icon: iconNormalCar
@@ -91,6 +92,10 @@
             //         alert("Hello!!")
             //     }
             // }, 1000)                 
+        }
+
+        function hideDrivers () {
+            $scope.marker2.setMap(null);
         }
 
     }
