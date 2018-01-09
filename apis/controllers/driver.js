@@ -396,7 +396,7 @@ module.exports.updateDriver = function(req, res, next) {
         customer: req.body.customer,
         timestamp: req.body.timestamp
     };
-    driverRef.orderByKey().equalTo(req.userData._id).once('value', function(snapshot) {
+    driverRef.orderByKey().equalTo(req.params.driverId).once('value', function(snapshot) {
         snapshot.forEach(function(element) {
             var data = {
                 id: element.key,
@@ -407,7 +407,7 @@ module.exports.updateDriver = function(req, res, next) {
         })
     }).then(function(){
         var updates = {};
-        updates['/' + req.userData._id] = driverData;
+        updates['/' + req.params.driverId] = driverData;
         driverRef.update(updates).then(function(driver) {
             driverData.password = null;
             return res.status(200).json({
@@ -416,12 +416,14 @@ module.exports.updateDriver = function(req, res, next) {
             })
         }).catch(function(err) {
             return res.status(500).json({
-                message: 'Can not update driver'
+                message: 'Can not update driver',
+                err: err
             });
         });
     }).catch(function(err) {
         return res.status(500).json({
-            message: 'Can not update driver'
+            message: 'Can not update driver',
+            err: err
         });
     });
 }
