@@ -442,17 +442,22 @@ module.exports.nearDrivers = function(req, res, next) {
     var drivers = [];
     var customer = {
         lat: req.body.lat,
-        lng: req.body.lng
+        lng: req.body.lng,
+        carType: req.body.carType
     }
+    console.log('customer near driver', customer);
     driverRef.once('value', function(snapshot) {
         snapshot.forEach(function(element) {
             var data = {
                 id: element.key,
                 value: element.val()
             }
+            console.log('data test', element.val().carType, customer.carType);
+            console.log('data status', element.val().status);            
+                        
             data.value.password = null;
             var distance = Math.sqrt(Math.pow(customer.lat - element.val().lat, 2) + Math.pow(customer.lng - element.val().lng, 2));
-            if(distance < RADIAN && (element.val().status === 'waiting')) {
+            if(distance < RADIAN && (element.val().status === 'waiting') && (element.val().carType == customer.carType)) {
                 drivers.push(data);            
             }
         })
