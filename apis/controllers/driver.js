@@ -268,6 +268,7 @@ module.exports.updateLocation = function(req, res, next) {
             message: 'Can not get profile'
         });
     }
+    console.log(req.userData._id);
     driverRef.orderByKey().equalTo(req.userData._id).once('value', function(snapshot) {
         snapshot.forEach(function(element) {
             var data = {
@@ -280,24 +281,28 @@ module.exports.updateLocation = function(req, res, next) {
             driverData.status = data.value.status;
             driverData.customer = data.value.customer;
             driverData.timestamp = data.value.timestamp;
+            console.log(data);            
         })
-    }).then(function(){
+    }).then(function(data){
         var updates = {};
         updates['/' + req.userData._id] = driverData;
         driverRef.update(updates).then(function(driver) {
-            driverData.password = null;
             return res.status(200).json({
-                id: req.params.driverId,
-                value: driverData
+                message: "Success"
             })
         }).catch(function(err) {
             return res.status(500).json({
-                message: 'Can not update driver'
+                message: 'Can not update driver',
+                err: err
             });
         });
+        // return res.status(200).json({
+        //     message: 'success'
+        // })
     }).catch(function(err) {
         return res.status(500).json({
-            message: 'Cannot get driver'
+            message: 'Cannot get driver',
+            err: err
         });
     });
 }

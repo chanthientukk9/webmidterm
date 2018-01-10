@@ -57,12 +57,20 @@
             },
             LoginDriver: {
                 method: 'POST',
-                url: 'api/driver/login',
+                url: '/api/driver/login',
             },
             // service get của em nè, mà nó éo chạy =)) nó có viết ko :))
             GetDriver: {
                 method: 'GET',
-                url: 'api/driver/me/profile'
+                url: '/api/driver/me/profile'
+            },
+            ReplyInvitation: {
+                method: 'PUT',
+                url: '/api/driver/me/reply-invitation'
+            },
+            UpdateLocation: {
+                method: 'PUT',
+                url: '/api/driver/me/update-location'
             }
         })
         var service = {
@@ -77,7 +85,9 @@
             GetDriverDetail: getDriverDetail,
             UpdateDriver: updateDriver,
             LoginDriver: loginDriver,
-            GetDriver: getDriver
+            GetDriver: getDriver,
+            ReplyInvitation: replyInvitation,
+            UpdateLocation: updateLocation
         };
         
         return service;
@@ -123,6 +133,12 @@
         }
         function getDriver() {
             return DriverResource.GetDriver().$promise;
+        }
+        function replyInvitation(data) {
+            return DriverResource.ReplyInvitation(data).$promise;
+        }
+        function updateLocation(data) {
+            return DriverResource.UpdateLocation(data).$promise;
         }
     }
 })();
