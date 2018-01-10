@@ -158,7 +158,7 @@
                 origin: new google.maps.Point(0,0), // origin
                 anchor: new google.maps.Point(0, 0) // anchor
             }
-            BookingService.GetNearDriver({lat: $scope.customerDetail.value.lat, lng: $scope.customerDetail.value.lng}).then(function(res) {
+            BookingService.GetNearDriver({lat: $scope.customerDetail.value.lat, lng: $scope.customerDetail.value.lng, carType: $scope.customerDetail.value.carType}).then(function(res) {
                 $scope.nearDrivers = res;
                 $scope.isLocated = true;
                 for(var i = 0; i < res.length; i++) {
