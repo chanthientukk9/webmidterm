@@ -236,6 +236,10 @@ module.exports.replyInvitation = function(req, res, next) {
                 }
                 driverData.password = data.value.password;
                 driverData.email = data.value.email;
+                driverData.lat = data.value.lat,
+                driverData.lng = data.value.lng,
+                driverData.carType = data.value.carType,
+                driverData.timestamp = data.value.timestamp
             })
         }).then(function(){
             var updates = {};
@@ -259,8 +263,8 @@ module.exports.replyInvitation = function(req, res, next) {
 
 module.exports.updateLocation = function(req, res, next) {
     var driverData = {
-        lat: req.body.lat,
-        lng: req.body.lng,
+        lat: `${req.body.lat}`,
+        lng: `${req.body.lng}`,
     };
     var driver = {};
     if (!req.userData) {
@@ -279,7 +283,10 @@ module.exports.updateLocation = function(req, res, next) {
             driverData.email = data.value.email;
             driverData.carType = data.value.carType;
             driverData.status = data.value.status;
-            driverData.customer = data.value.customer;
+            if(data.value.customer)
+            {
+                driverData.customer = data.value.customer;                
+            }
             driverData.timestamp = data.value.timestamp;
             console.log(data);            
         })

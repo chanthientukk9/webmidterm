@@ -57,26 +57,48 @@
                 $scope.profile = res;
                 if($scope.profile && $scope.profile.value && $scope.profile.value.status == "pending"){
                     clearInterval($scope.interval);
+                    var check = 0;
                     setTimeout(function () {
                         var data = {
                             status: 'deny',
-                            customer: $scope.customer
+                            customer: $scope.customerDetail.id
                         }
-                        BookingService.ReplyInvitation(data).then(function (res) {
-                            setInterval($scope.interval);                               
-                            Dialog.Success("Thành công", "Đã từ chối khách hàng"); 
-                        }).catch(function(err){
-                            Dialog.Error("Lỗi", "Lỗi mất rùi");
-                        })
+                        if(check == 0)
+                        {
+                            BookingService.ReplyInvitation(data).then(function (res) {
+                                setInterval($scope.interval);                               
+                                Dialog.Success("Thành công", "Đã từ chối khách hàng"); 
+                            }).catch(function(err){
+                                Dialog.Error("Lỗi", "Lỗi mất rùi");
+                            })
+                        }
                     }, 5000)
                     Dialog.Confirm('Có khách kìa ông?', 'Xác nhận chuyến', 'OK', function (isConfirm) {
                         if (isConfirm) {
                             var data = {
                                 status: 'accept',
-                                customer: $scope.customer
+                                customer: $scope.customerDetail.id
                             }
+                            check = 1;
                             BookingService.ReplyInvitation(data).then(function (res) {
-
+                                $scope.$evalAsync();
+                                Dialog.Success("Thành Công", "Đã chấp nhận khách");                                
+                                var latLngDriver = new google.maps.LatLng($scope.profile.value.lat, $scope.profile.value.lng);
+                                var request = {
+                                    origin: {lat: $scope.customerDetail.value.lat, lng: $scope.customerDetail.value.lng},
+                                    destination: latLngDriver,
+                                    travelMode: 'WALKING'
+                                };
+                                directionsService.route(request, function(result, status) {
+                                    if (status == 'OK') {
+                                    directionsDisplay.setDirections(result);
+                                    console.log(result);
+                                    }
+                                    else {
+                                        window.alert('Directions request failed due to ' + status);
+                                    }
+                                });
+                                console.log('aaa');
                             })
                         } else {
                             var data = {
@@ -88,7 +110,6 @@
                             })                        
                         }
                     });
-
                     getCustomerDetail($scope.profile.value.customer);
                 }
             }, function(err) {
@@ -98,6 +119,7 @@
         $scope.logout = function logout() {
             var cookie = $cookies.getAll();
             hideDrivers();
+            initMap();
             clearInterval($scope.interval);
             angular.forEach(cookie, function(v, k) {
                 $cookies.remove(k, { path: '/' });
@@ -122,10 +144,10 @@
                 origin: new google.maps.Point(0,0), // origin   
                 anchor: new google.maps.Point(0, 32) // anchor
             };
-            var lat = parseFloat(data.value.lat.split(',').join('.'));
-            var lng = parseFloat(data.value.lng.split(',').join('.'));
-            $scope.lat = lat;
-            $scope.lng = lng;
+            var lat = data.value.lat
+            var lng = data.value.lng
+            $scope.lat = parseFloat(lat);
+            $scope.lng = parseFloat(lng);
             var latLng = new google.maps.LatLng(lat, lng);
 
             console.log(latLng);
@@ -138,6 +160,7 @@
             google.maps.event.addListener(map, 'click', function(event) {
                 var result = [event.latLng.lat(), event.latLng.lng()];
                 transition(result);
+                console.log("aaa");
             });
             //latLng = $scope.latlngNew;
         }
@@ -171,20 +194,32 @@
                 i++;
                 setTimeout(moveMarker, delay);
             }
-            //updateLocation();            
+            updateLocation();            
         }
 
-        // function updateLocation() {
-        //     var data = {
-        //         lat: Number($scope.lat),
-        //         lng: Number($scope.lng)
-        //     }
-        //     console.log(data);
-        //     BookingService.UpdateLocation(data).then(function (res) {
-        //          console.log("abc");
-        //     }).catch(function (err) {
-        //         console.log("Looix mej roi");
-        //     });
-        // }
+        function updateLocation() {
+            var data = {
+                lat: $scope.lat,
+                lng: $scope.lng
+            }
+            console.log(data);
+            BookingService.UpdateLocation(data).then(function (res) {
+                 console.log("abc");
+            }).catch(function (err) {
+                console.log("Looix mej roi");
+            });
+        }
+
+        function startDrive() {
+            BookingService.StartDrive().then(function (res) {
+                Dialog.Success("Thành công", "Bắt đầu di chuyển");
+            })
+        }
+
+        function stopDrive() {
+            BookingService.StopDrive().then(function (res) {
+                Dialog.Success("Thành công", "Kết thúc chuyến đi");
+            })
+        }
     }
 })();

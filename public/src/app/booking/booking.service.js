@@ -71,6 +71,14 @@
             UpdateLocation: {
                 method: 'PUT',
                 url: '/api/driver/me/update-location'
+            },
+            StartDrive: {
+                method: 'GET',
+                url: '/api/driver/me/begin'
+            },
+            StopDrive: {
+                method: 'GET',
+                url: '/api/driver/me/finish'
             }
         })
         var service = {
@@ -87,7 +95,9 @@
             LoginDriver: loginDriver,
             GetDriver: getDriver,
             ReplyInvitation: replyInvitation,
-            UpdateLocation: updateLocation
+            UpdateLocation: updateLocation,
+            StartDrive: startDrive,
+            StopDrive: stopDrive
         };
         
         return service;
@@ -139,6 +149,13 @@
         }
         function updateLocation(data) {
             return DriverResource.UpdateLocation(data).$promise;
+        }
+        function startDrive() {
+            return DriverResource.StartDrive().$promise;
+        }
+
+        function stopDrive() {
+            return DriverResource.StopDrive().$promise;
         }
     }
 })();
